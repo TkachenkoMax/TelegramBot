@@ -54,9 +54,34 @@ class Client
         return $this->on(self::getEvent($action), self::getChecker($name));
     }
 
+    public function editedMessage(Closure $action)
+    {
+        return $this->on(self::getEditedMessageEvent($action), self::getEditedMessageChecker());
+    }
+
+    public function callbackQuery(Closure $action)
+    {
+        return $this->on(self::getCallbackQueryEvent($action), self::getCallbackQueryChecker());
+    }
+
+    public function channelPost(Closure $action)
+    {
+        return $this->on(self::getChannelPostEvent($action), self::getChannelPostChecker());
+    }
+
+    public function editedChannelPost(Closure $action)
+    {
+        return $this->on(self::getEditedChannelPostEvent($action), self::getEditedChannelPostChecker());
+    }
+
     public function inlineQuery(Closure $action)
     {
         return $this->on(self::getInlineQueryEvent($action), self::getInlineQueryChecker());
+    }
+
+    public function chosenInlineResult(Closure $action)
+    {
+        return $this->on(self::getChosenInlineResultEvent($action), self::getChosenInlineResultChecker());
     }
 
     public function shippingQuery(Closure $action)
@@ -151,6 +176,58 @@ class Client
         };
     }
 
+    protected static function getEditedMessageEvent(Closure $action)
+    {
+        return function (Update $update) use ($action) {
+            if (!$update->getEditedMessage()) {
+                return true;
+            }
+
+            $reflectionAction = new ReflectionFunction($action);
+            $reflectionAction->invokeArgs([$update->getEditedMessage()]);
+            return false;
+        };
+    }
+
+    protected static function getChannelPostEvent(Closure $action)
+    {
+        return function (Update $update) use ($action) {
+            if (!$update->getChannelPost()) {
+                return true;
+            }
+
+            $reflectionAction = new ReflectionFunction($action);
+            $reflectionAction->invokeArgs([$update->getChannelPost()]);
+            return false;
+        };
+    }
+
+    protected static function getCallbackQueryEvent(Closure $action)
+    {
+        return function (Update $update) use ($action) {
+            if (!$update->getCallbackQuery()) {
+                return true;
+            }
+
+            $reflectionAction = new ReflectionFunction($action);
+            $reflectionAction->invokeArgs([$update->getCallbackQuery()]);
+            return false;
+        };
+    }
+
+    protected static function getEditedChannelPostEvent(Closure $action)
+    {
+        return function (Update $update) use ($action) {
+            if (!$update->getEditedChannelPost()) {
+                return true;
+            }
+
+            $reflectionAction = new ReflectionFunction($action);
+            $reflectionAction->invokeArgs([$update->getEditedChannelPost()]);
+            return false;
+        };
+    }
+
     protected static function getInlineQueryEvent(Closure $action)
     {
         return function (Update $update) use ($action) {
@@ -160,6 +237,19 @@ class Client
 
             $reflectionAction = new ReflectionFunction($action);
             $reflectionAction->invokeArgs([$update->getInlineQuery()]);
+            return false;
+        };
+    }
+
+    protected static function getChosenInlineResultEvent(Closure $action)
+    {
+        return function (Update $update) use ($action) {
+            if (!$update->getChosenInlineResult()) {
+                return true;
+            }
+
+            $reflectionAction = new ReflectionFunction($action);
+            $reflectionAction->invokeArgs([$update->getChosenInlineResult()]);
             return false;
         };
     }
@@ -208,6 +298,66 @@ class Client
             preg_match(self::REGEXP, $message->getText(), $matches);
 
             return !empty($matches) && $matches[1] == $name;
+        };
+    }
+
+    /**
+     * Returns check function to handling the edited message.
+     *
+     * @return Closure
+     */
+    protected static function getEditedMessageChecker()
+    {
+        return function (Update $update) {
+            return !is_null($update->getEditedMessage());
+        };
+    }
+
+    /**
+     * Returns check function to handling the channel post.
+     *
+     * @return Closure
+     */
+    protected static function getChannelPostChecker()
+    {
+        return function (Update $update) {
+            return !is_null($update->getChannelPost());
+        };
+    }
+
+    /**
+     * Returns check function to handling the callbackQuery.
+     *
+     * @return Closure
+     */
+    protected static function getCallbackQueryChecker()
+    {
+        return function (Update $update) {
+            return !is_null($update->getCallbackQuery());
+        };
+    }
+
+    /**
+     * Returns check function to handling the edited channel post.
+     *
+     * @return Closure
+     */
+    protected static function getEditedChannelPostChecker()
+    {
+        return function (Update $update) {
+            return !is_null($update->getEditedChannelPost());
+        };
+    }
+
+    /**
+     * Returns check function to handling the chosen inline result.
+     *
+     * @return Closure
+     */
+    protected static function getChosenInlineResultChecker()
+    {
+        return function (Update $update) {
+            return !is_null($update->getChosenInlineResult());
         };
     }
 

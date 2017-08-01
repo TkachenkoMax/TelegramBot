@@ -47,6 +47,10 @@ $bot->command('random', function ($message) use ($bot) {
 	$bot->sendMessage($message->getChat()->getId(), $answer);
 });
 
+$bot->command('map', function ($message) use ($bot) {
+    $bot->sendLocation($message->getChat()->getId(), 50, 36);
+});
+
 // запускаем обработку
 $bot->run();
 ?>
