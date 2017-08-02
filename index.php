@@ -51,6 +51,40 @@ $bot->command('map', function ($message) use ($bot) {
     $bot->sendLocation($message->getChat()->getId(), 50, 36);
 });
 
+$bot->command('register', function ($message) use ($bot) {
+	$host = 'dbbottest.s-host.net';
+	$db   = 'hbcwwqlm_telegrambot';
+	$user = 'hbcwwqlm_root';
+	$pass = 'maxtkachenko123';
+	$charset = 'utf8';
+
+	$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+	$opt = [
+		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+		PDO::ATTR_EMULATE_PREPARES   => false,
+	];
+
+	try {
+		$db = new PDO($dsn, $user, $pass, $opt);
+	} catch (PDOException $e) {
+		$bot->sendMessage($message->getChat()->getId(), "Fail connection");
+		die('Подключение не удалось: ' . $e->getMessage());
+	}
+
+	try {
+		$stmt = $db->prepare("INSERT INTO users (telegram_id, telegram_name) VALUES (?, ?)");
+		$stmt->bindParam(1, $message->getChat()->getId());
+		$stmt->bindParam(2, $message->getChat()->getId());
+		$result = $stmt->execute();
+	} catch (PDOException $e) {
+		$bot->sendMessage($message->getChat()->getId(), "Fail statement");
+		die('Выполнить запрос не удалось: ' . $e->getMessage());
+	}
+
+	$bot->sendMessage($message->getChat()->getId(), "Success");
+});
+
 // запускаем обработку
 $bot->run();
 ?>
