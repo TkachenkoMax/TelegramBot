@@ -1,5 +1,6 @@
 {
     "require": {
-        "telegram-bot/api": "^2.3"
+        "telegram-bot/api": "^2.3",
+	"ext-mysql": "*"
     }
 }
