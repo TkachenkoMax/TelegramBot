@@ -38,41 +38,39 @@ class Router {
     
     public function handle() 
     {
-        // TODO
-    }
-    
-    /*public function func(){
         // обязательное. Запуск бота
-        $this->bot->command('start', function ($message) use ($bot) {
+
+        $bot_in_func = $this->bot;
+        $this->bot->command('start', function ($message) use ($bot_in_func) {
             $answer = 'Добро пожаловать!';
-            $bot->sendMessage($message->getChat()->getId(), $answer);
+            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
 // помощь
-        $bot->command('help', function ($message) use ($bot) {
+        $this->bot->command('help', function ($message) use ($bot_in_func) {
             $answer = 'Команды:
 /help - помощь
 /random - сгенерировать случайное число от 0 до 100';
-            $bot->sendMessage($message->getChat()->getId(), $answer);
+            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-        $bot->command('random', function ($message) use ($bot) {
+        $this->bot->command('random', function ($message) use ($bot_in_func) {
             $num = rand(0,100);
             $answer = 'Случайное число: ' . $num;
-            $bot->sendMessage($message->getChat()->getId(), $answer);
+            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-        $bot->command('map', function ($message) use ($bot) {
-            $bot->sendLocation($message->getChat()->getId(), 50, 36);
+        $this->bot->command('map', function ($message) use ($bot_in_func) {
+            $bot_in_func->sendLocation($message->getChat()->getId(), 50, 36);
         });
 
-        $bot->command('register', function ($message) use ($bot) {
+        $this->bot->command('register', function ($message) use ($bot_in_func) {
             $db = new Database();
 
             try{
                 $connection = $db->connect();
             } catch (PDOException $e) {
-                $bot->sendMessage($message->getChat()->getId(), "Fail connection");
+                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail connection");
                 die('Подключение не удалось: ' . $e->getMessage());
             }
 
@@ -83,32 +81,32 @@ class Router {
                 $stmt->bindParam(3, $message->getChat()->getLastName());
                 $result = $stmt->execute();
             } catch (PDOException $e) {
-                $bot->sendMessage($message->getChat()->getId(), "Fail statement");
+                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail statement");
                 die('Выполнить запрос не удалось: ' . $e->getMessage());
             }
 
-            $bot->sendMessage($message->getChat()->getId(), "Вы успешно зарегистрированы, " . $message->getChat()->getFirstName() . " " . $message->getChat()->getLastName());
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Вы успешно зарегистрированы, " . $message->getChat()->getFirstName() . " " . $message->getChat()->getLastName());
         });
 
-        $bot->command('migrate_up', function ($message) use ($bot) {
+        $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
             Migrations::up();
 
-            $bot->sendMessage($message->getChat()->getId(), "Successfully create");
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Successfully create");
         });
 
-        $bot->command('migrate_down', function ($message) use ($bot) {
+        $this->bot->command('migrate_down', function ($message) use ($bot_in_func) {
             Migrations::down();
 
-            $bot->sendMessage($message->getChat()->getId(), "Successfully delete");
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Successfully delete");
         });
 
-        $bot->command('users', function ($message) use ($bot) {
+        $this->bot->command('users', function ($message) use ($bot_in_func) {
             $db = new Database();
 
             try{
                 $connection = $db->connect();
             } catch (PDOException $e) {
-                $bot->sendMessage($message->getChat()->getId(), "Fail connection");
+                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail connection");
                 die('Подключение не удалось: ' . $e->getMessage());
             }
 
@@ -121,10 +119,10 @@ class Router {
                 $users.=$user." | ";
             }
 
-            $bot->sendMessage($message->getChat()->getId(), $users);
+            $bot_in_func->sendMessage($message->getChat()->getId(), $users);
         });
 
 // запускаем обработку
-        $bot->run();
-    }*/
+        $this->bot->run();
+    }
 }
