@@ -38,6 +38,7 @@ class Router {
     
     public function handle() 
     {
+        $this->registerBot();
         // обязательное. Запуск бота
 
         $bot_in_func = $this->bot;
