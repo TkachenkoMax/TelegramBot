@@ -10,7 +10,7 @@ use TelegramBot\Api\Client as Bot;
 
 class BotTest
 {
-    public static function sendMessage(){
+    public static function sendMessage($message){
         $token = "390875011:AAEkDpRCBeIiRQ3clQ03PcEDty5QzEwtb60";
         $bot = new Bot($token);
 
@@ -28,8 +28,6 @@ class BotTest
                 file_put_contents("registered.trigger", time()); // создаем файл дабы прекратить повторные регистрации
             }
         }
-
-        $message = "File: " . __FILE__ . ", method: " . __METHOD__ . ", line:" . __LINE__;
 
         $bot->sendMessage(382994855, $message);
         // запускаем обработку

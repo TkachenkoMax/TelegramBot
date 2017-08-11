@@ -25,7 +25,8 @@ $loader = require_once __ROOT__ . '/Components/Autoload.php';
 
 require_once(__ROOT__ . "/vendor/autoload.php");
 
-BotTest::sendMessage();
+$message = "File: " . __FILE__ . ", method: " . __METHOD__ . ", line:" . __LINE__;
+BotTest::sendMessage($message);
 
 
 $file = "test.txt";
