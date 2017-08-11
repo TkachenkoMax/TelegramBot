@@ -39,15 +39,15 @@ class Router {
     public function handle() 
     {
         $this->registerBot();
-        // обязательное. Запуск бота
 
+        // обязательное. Запуск бота
         $bot_in_func = $this->bot;
         $this->bot->command('start', function ($message) use ($bot_in_func) {
             $answer = 'Добро пожаловать!';
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-// помощь
+        // помощь
         $this->bot->command('help', function ($message) use ($bot_in_func) {
             $answer = 'Команды:
 /help - помощь
@@ -61,19 +61,8 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-        $this->bot->command('map', function ($message) use ($bot_in_func) {
-            $bot_in_func->sendLocation($message->getChat()->getId(), 50, 36);
-        });
-
         $this->bot->command('register', function ($message) use ($bot_in_func) {
-            $db = new Database();
-
-            try{
-                $connection = $db->connect();
-            } catch (PDOException $e) {
-                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail connection");
-                die('Подключение не удалось: ' . $e->getMessage());
-            }
+            $connection = Database::connect();
 
             try {
                 $stmt = $connection->prepare("INSERT INTO users (telegram_id, first_name, last_name) VALUES (?, ?, ?)");
@@ -90,26 +79,23 @@ class Router {
         });
 
         $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
-            Migrations::up();
+            $connection = Database::connect();
+            
+            Migrations::up($connection);
 
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Successfully create");
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully create");
         });
 
         $this->bot->command('migrate_down', function ($message) use ($bot_in_func) {
-            Migrations::down();
+            $connection = Database::connect();
 
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Successfully delete");
+            Migrations::down($connection);
+
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully delete");
         });
 
         $this->bot->command('users', function ($message) use ($bot_in_func) {
-            $db = new Database();
-
-            try{
-                $connection = $db->connect();
-            } catch (PDOException $e) {
-                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail connection");
-                die('Подключение не удалось: ' . $e->getMessage());
-            }
+            $connection = Database::connect();
 
             $users = "Users: ";
 
@@ -123,7 +109,7 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), $users);
         });
 
-// запускаем обработку
+        // запускаем обработку
         $this->bot->run();
     }
 }

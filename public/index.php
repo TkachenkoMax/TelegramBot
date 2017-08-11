@@ -25,9 +25,8 @@ $loader = require_once __ROOT__ . '/Components/Autoload.php';
 
 require_once(__ROOT__ . "/vendor/autoload.php");
 
-$message = "File: " . __FILE__ . ", method: " . __METHOD__ . ", line:" . __LINE__;
+/*$message = "File: " . __FILE__ . ", method: " . __METHOD__ . ", line:" . __LINE__;
 BotTest::sendMessage($message);
-
 
 $file = "test.txt";
 //если файла нету... тогда
@@ -41,7 +40,7 @@ $current = file_get_contents($file);
 // Добавляем нового человека в файл
 $current .= "Launched application at " . time() . "\n";
 // Пишем содержимое обратно в файл
-file_put_contents($file, $current);
+file_put_contents($file, $current);*/
 
 /**
  * Start handle telegram's requests
