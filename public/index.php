@@ -25,8 +25,11 @@ $loader = require_once __ROOT__ . '/Components/Autoload.php';
 
 require_once(__ROOT__ . "/vendor/autoload.php");
 
+BotTest::sendMessage();
+
 /**
  * Start handle telegram's requests
  */
+
 $router = new Router();
 $router->handle();
