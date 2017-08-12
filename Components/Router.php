@@ -94,6 +94,15 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully delete");
         });
 
+        $this->bot->command('tables', function ($message) use ($bot_in_func) {
+            $connection = Database::connect();
+
+            $query = $connection->query("SHOW TABLES");
+            $query->fetchAll(PDO::FETCH_COLUMN);
+
+            $bot_in_func->sendMessage($message->getChat()->getId(), "$query");
+        });
+
         $this->bot->command('users', function ($message) use ($bot_in_func) {
             $connection = Database::connect();
 
