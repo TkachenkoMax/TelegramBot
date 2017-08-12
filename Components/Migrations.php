@@ -20,7 +20,7 @@ class Migrations{
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
         
-        /*$connection->query("CREATE TABLE IF NOT EXISTS users (
+        $connection->query("CREATE TABLE IF NOT EXISTS users (
                                             id INT(11) NOT NULL AUTO_INCREMENT,
                                             telegram_id VARCHAR(30) NOT NULL,
                                             first_name VARCHAR(100),
@@ -54,7 +54,7 @@ class Migrations{
                                             FOREIGN KEY (id_comand) REFERENCES commands (id)
                                             ON DELETE SET NULL
                                         ) ENGINE=INNODB
-                                        CHARACTER SET utf8 COLLATE uft8_general_ci");*/
+                                        CHARACTER SET utf8 COLLATE uft8_general_ci");
     }
 
     /**
@@ -66,13 +66,13 @@ class Migrations{
     {
         $connection->query("ALTER TABLE users
                                       DROP FOREIGN KEY fk_users_languages_telegram_language");
-        /*$connection->query("ALTER TABLE commands_users
+        $connection->query("ALTER TABLE commands_users
                                       DROP FOREIGN KEY fk_commands_users_users_id_user");
         $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY fk_commands_users_commands_id_command");*/
+                                      DROP FOREIGN KEY fk_commands_users_commands_id_command");
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
-/*        $connection->query("DROP TABLE IF EXISTS commands_users");
-        $connection->query("DROP TABLE IF EXISTS commands");*/
+        $connection->query("DROP TABLE IF EXISTS commands_users");
+        $connection->query("DROP TABLE IF EXISTS commands");
     }
 }
