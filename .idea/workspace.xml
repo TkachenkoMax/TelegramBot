@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fddeb7fa-f5c1-4651-9ede-02144ca8343e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Components/Migrations.php" afterPath="$PROJECT_DIR$/Components/Migrations.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Components/Router.php" afterPath="$PROJECT_DIR$/Components/Router.php" />
     </list>
     <ignored path="apihelper-bot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,10 +36,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Router.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Router.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Components/Router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
+            <state relative-caret-position="642">
               <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding>
                 <element signature="e#6#82#0#PHP" expanded="true" />
@@ -71,23 +70,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Migrations.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Migrations.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+            <state relative-caret-position="990">
+              <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
               <folding>
-                <marker date="1502521234048" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
-                <marker date="1502521234048" expanded="true" signature="707:1670" ph="CREATE TABLE... IF" />
-                <marker date="1502521234048" expanded="true" signature="1711:2097" ph="CREATE TABLE... IF" />
-                <marker date="1502521234048" expanded="true" signature="2138:3039" ph="CREATE TABLE... IF" />
-                <marker date="1502521234048" expanded="true" signature="3228:3245" ph="ALTER TABLE users... " />
-                <marker date="1502521234048" expanded="true" signature="3369:3395" ph="ALTER TABLE commands_users... " />
-                <marker date="1502521234048" expanded="true" signature="3514:3540" ph="ALTER TABLE commands_users... " />
-                <marker date="1502521234048" expanded="true" signature="3665:3691" ph="DROP TABLE I... " />
-                <marker date="1502521234048" expanded="true" signature="3723:3753" ph="DROP TABLE I... " />
-                <marker date="1502521234048" expanded="true" signature="3785:3820" ph="DROP TABLE I... " />
-                <marker date="1502521234048" expanded="true" signature="3852:3881" ph="DROP TABLE I... " />
+                <marker date="1502521378088" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
+                <marker date="1502521378088" expanded="true" signature="709:1672" ph="CREATE TABLE... IF" />
+                <marker date="1502521378088" expanded="true" signature="1713:2099" ph="CREATE TABLE... IF" />
+                <marker date="1502521378088" expanded="true" signature="2140:3041" ph="CREATE TABLE... IF" />
+                <marker date="1502521378088" expanded="true" signature="3234:3251" ph="ALTER TABLE users... " />
+                <marker date="1502521378088" expanded="true" signature="3375:3401" ph="ALTER TABLE commands_users... " />
+                <marker date="1502521378088" expanded="true" signature="3520:3546" ph="ALTER TABLE commands_users... " />
+                <marker date="1502521378088" expanded="true" signature="3671:3697" ph="DROP TABLE I... " />
+                <marker date="1502521378088" expanded="true" signature="3731:3761" ph="DROP TABLE I... " />
+                <marker date="1502521378088" expanded="true" signature="3795:3830" ph="DROP TABLE I... " />
+                <marker date="1502521378088" expanded="true" signature="3862:3891" ph="DROP TABLE I... " />
               </folding>
             </state>
           </provider>
@@ -141,8 +140,8 @@
         <option value="$PROJECT_DIR$/public/BotTest.php" />
         <option value="$PROJECT_DIR$/public/index.php" />
         <option value="$PROJECT_DIR$/Components/Database.php" />
-        <option value="$PROJECT_DIR$/Components/Migrations.php" />
         <option value="$PROJECT_DIR$/Components/Router.php" />
+        <option value="$PROJECT_DIR$/Components/Migrations.php" />
       </list>
     </option>
   </component>
@@ -399,12 +398,12 @@
       <workItem from="1502194195728" duration="1415000" />
       <workItem from="1502453565922" duration="1201000" />
       <workItem from="1502477193540" duration="3873000" />
-      <workItem from="1502520344632" duration="890000" />
+      <workItem from="1502520344632" duration="1034000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30193000" />
+    <option name="totallyTimeSpent" value="30337000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -828,30 +827,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Config/database.php">
+    <entry file="file://$PROJECT_DIR$/Components/Router.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+        <state relative-caret-position="642">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <marker date="1502521234048" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
-            <marker date="1502521234048" expanded="true" signature="707:1670" ph="CREATE TABLE... IF" />
-            <marker date="1502521234048" expanded="true" signature="1711:2097" ph="CREATE TABLE... IF" />
-            <marker date="1502521234048" expanded="true" signature="2138:3039" ph="CREATE TABLE... IF" />
-            <marker date="1502521234048" expanded="true" signature="3228:3245" ph="ALTER TABLE users... " />
-            <marker date="1502521234048" expanded="true" signature="3369:3395" ph="ALTER TABLE commands_users... " />
-            <marker date="1502521234048" expanded="true" signature="3514:3540" ph="ALTER TABLE commands_users... " />
-            <marker date="1502521234048" expanded="true" signature="3665:3691" ph="DROP TABLE I... " />
-            <marker date="1502521234048" expanded="true" signature="3723:3753" ph="DROP TABLE I... " />
-            <marker date="1502521234048" expanded="true" signature="3785:3820" ph="DROP TABLE I... " />
-            <marker date="1502521234048" expanded="true" signature="3852:3881" ph="DROP TABLE I... " />
+            <element signature="e#6#82#0#PHP" expanded="true" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -864,14 +847,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Components/Router.php">
+    <entry file="file://$PROJECT_DIR$/Config/database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="126">
+          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
           <folding>
-            <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
+            <marker date="1502521378088" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
+            <marker date="1502521378088" expanded="true" signature="709:1672" ph="CREATE TABLE... IF" />
+            <marker date="1502521378088" expanded="true" signature="1713:2099" ph="CREATE TABLE... IF" />
+            <marker date="1502521378088" expanded="true" signature="2140:3041" ph="CREATE TABLE... IF" />
+            <marker date="1502521378088" expanded="true" signature="3234:3251" ph="ALTER TABLE users... " />
+            <marker date="1502521378088" expanded="true" signature="3375:3401" ph="ALTER TABLE commands_users... " />
+            <marker date="1502521378088" expanded="true" signature="3520:3546" ph="ALTER TABLE commands_users... " />
+            <marker date="1502521378088" expanded="true" signature="3671:3697" ph="DROP TABLE I... " />
+            <marker date="1502521378088" expanded="true" signature="3731:3761" ph="DROP TABLE I... " />
+            <marker date="1502521378088" expanded="true" signature="3795:3830" ph="DROP TABLE I... " />
+            <marker date="1502521378088" expanded="true" signature="3862:3891" ph="DROP TABLE I... " />
           </folding>
         </state>
       </provider>
