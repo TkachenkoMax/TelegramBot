@@ -13,7 +13,7 @@ class Migrations{
      */
     public static function up(PDO $connection)
     {
-        $connection->query("CREATE TABLE IF NOT EXISTS languages (
+        /*$connection->query("CREATE TABLE IF NOT EXISTS languages (
                                             id INT(11) NOT NULL AUTO_INCREMENT,
                                             language_name VARCHAR (50),
                                             PRIMARY KEY (id)
@@ -54,7 +54,7 @@ class Migrations{
                                             FOREIGN KEY (id_comand) REFERENCES commands (id)
                                             ON DELETE SET NULL
                                         ) ENGINE=INNODB
-                                        CHARACTER SET utf8 COLLATE uft8_general_ci");
+                                        CHARACTER SET utf8 COLLATE uft8_general_ci");*/
     }
 
     /**
@@ -64,7 +64,7 @@ class Migrations{
      */
     public static function down(PDO $connection)
     {
-        $connection->query("ALTER TABLE users
+        /*$connection->query("ALTER TABLE users
                                       DROP FOREIGN KEY fk_users_languages_telegram_language");
         $connection->query("ALTER TABLE commands_users
                                       DROP FOREIGN KEY fk_commands_users_users_id_user");
@@ -73,6 +73,6 @@ class Migrations{
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS commands_users");
-        $connection->query("DROP TABLE IF EXISTS commands");
+        $connection->query("DROP TABLE IF EXISTS commands");*/
     }
 }
