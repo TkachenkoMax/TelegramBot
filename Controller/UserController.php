@@ -8,5 +8,11 @@
  */
 class UserController
 {
-
+    public function register($telegram_id, $first_name, $last_name){
+        try {
+            UserModel::register($telegram_id, $first_name, $last_name);
+        } catch (Exception $ex) {
+            throw new Exception($ex->getMessage(), $ex->getCode());
+        }
+    }
 }

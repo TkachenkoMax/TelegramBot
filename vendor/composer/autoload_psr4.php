@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'TelegramBot\\Api\\' => array($vendorDir . '/telegram-bot/api/src'),
+    'MenaraSolutions\\Geographer\\Helpers\\' => array($vendorDir . '/menarasolutions/geographer-data/helpers'),
+    'MenaraSolutions\\Geographer\\' => array($vendorDir . '/menarasolutions/geographer/src'),
 );

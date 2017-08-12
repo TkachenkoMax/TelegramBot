@@ -55,5 +55,106 @@
             "php",
             "telegram"
         ]
+    },
+    {
+        "name": "menarasolutions/geographer-data",
+        "version": "v0.1.6",
+        "version_normalized": "0.1.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MenaraSolutions/geographer-data.git",
+            "reference": "5898806b09be9a7549d3bd9f6b4d629f0f551100"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MenaraSolutions/geographer-data/zipball/5898806b09be9a7549d3bd9f6b4d629f0f551100",
+            "reference": "5898806b09be9a7549d3bd9f6b4d629f0f551100",
+            "shasum": ""
+        },
+        "time": "2017-06-08T08:47:08+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MenaraSolutions\\Geographer\\Helpers\\": "helpers/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Denis Mysenko",
+                "email": "denis@menara.com.au",
+                "homepage": "https://www.menara.com.au"
+            }
+        ],
+        "description": "Basic data package for Geographer - countries and their subdivisions",
+        "homepage": "https://github.com/MenaraSolutions/geographer-data",
+        "keywords": [
+            "geographer",
+            "geolocation",
+            "localization"
+        ]
+    },
+    {
+        "name": "menarasolutions/geographer",
+        "version": "v0.3.3",
+        "version_normalized": "0.3.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MenaraSolutions/geographer.git",
+            "reference": "ad1c3cd26b66b014bbff0293488a4a3a30cf91f1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MenaraSolutions/geographer/zipball/ad1c3cd26b66b014bbff0293488a4a3a30cf91f1",
+            "reference": "ad1c3cd26b66b014bbff0293488a4a3a30cf91f1",
+            "shasum": ""
+        },
+        "require": {
+            "menarasolutions/geographer-data": "^0.1.0",
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "illuminate/support": "5.*",
+            "menarasolutions/geographer-de": "0.*",
+            "menarasolutions/geographer-ru": "0.*",
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "time": "2017-02-11T14:01:07+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MenaraSolutions\\Geographer\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Denis Mysenko",
+                "email": "denis@menara.com.au",
+                "homepage": "https://www.menara.com.au"
+            }
+        ],
+        "description": "A PHP library that knows how any country, state or city is called in any language",
+        "homepage": "https://github.com/MenaraSolutions/geographer",
+        "keywords": [
+            "geo",
+            "geolocation",
+            "geonames",
+            "localization"
+        ]
     }
 ]

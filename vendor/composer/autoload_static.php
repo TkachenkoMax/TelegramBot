@@ -11,12 +11,25 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
         array (
             'TelegramBot\\Api\\' => 16,
         ),
+        'M' => 
+        array (
+            'MenaraSolutions\\Geographer\\Helpers\\' => 35,
+            'MenaraSolutions\\Geographer\\' => 27,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'TelegramBot\\Api\\' => 
         array (
             0 => __DIR__ . '/..' . '/telegram-bot/api/src',
+        ),
+        'MenaraSolutions\\Geographer\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/menarasolutions/geographer-data/helpers',
+        ),
+        'MenaraSolutions\\Geographer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/menarasolutions/geographer/src',
         ),
     );
 

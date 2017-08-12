@@ -43,11 +43,34 @@ class Router {
         // обязательное. Запуск бота
         $bot_in_func = $this->bot;
         $this->bot->command('start', function ($message) use ($bot_in_func) {
-            $answer = 'Добро пожаловать!';
+            $controller = new UserController();
+            
+            $telegram_id = $message->getChat()->getId();
+            $first_name = $message->getChat()->getFirstName();
+            $last_name = $message->getChat()->getLastName();
+            
+            try{
+                $controller->register($telegram_id, $first_name, $last_name);
+            } catch (Exception $ex) {
+                if ($ex->getMessage() == "Bad registration") {
+                    $bot_in_func->sendMessage($message->getChat()->getId(), "Bad registration");
+                }
+            }
+            
+            $answer = "Добро пожаловать, $first_name $last_name!
+Меня зовут Катарина, я ваш умный помощник в Телеграме.
+Чтобы увидеть список доступных команд и возможностей, напишите '/help.
+
+Но сперва лучше сообщите мне о себе немного информации:
+'/setDateOfBirth <дата рождения>' - указать Вашу дату рождения чтобы я никогда не забыла поздравить Вас
+'/setCity <город>' - указать Ваш город проживания, что поможет мне в некоторых запросах
+'/setAlias <псевдоним>' - указать Ваш псевдоним, именно так я к Вам и буду обращаться вместо $first_name $last_name
+'/setLanguage <язык>' - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
+
+У Вас все получится:)";
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-        // помощь
         $this->bot->command('help', function ($message) use ($bot_in_func) {
             $answer = 'Команды:
 /help - помощь
@@ -59,23 +82,6 @@ class Router {
             $num = rand(0,100);
             $answer = 'Случайное число: ' . $num;
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
-        });
-
-        $this->bot->command('register', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-
-            try {
-                $stmt = $connection->prepare("INSERT INTO users (telegram_id, first_name, last_name) VALUES (?, ?, ?)");
-                $stmt->bindParam(1, $message->getChat()->getId());
-                $stmt->bindParam(2, $message->getChat()->getFirstName());
-                $stmt->bindParam(3, $message->getChat()->getLastName());
-                $result = $stmt->execute();
-            } catch (PDOException $e) {
-                $bot_in_func->sendMessage($message->getChat()->getId(), "Fail statement");
-                die('Выполнить запрос не удалось: ' . $e->getMessage());
-            }
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Вы успешно зарегистрированы, " . $message->getChat()->getFirstName() . " " . $message->getChat()->getLastName());
         });
 
         $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {

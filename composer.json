@@ -1,6 +1,6 @@
 {
     "require": {
         "telegram-bot/api": "^2.3",
-	"ext-mysql": "*"
+	"menarasolutions/geographer": "~0.3"
     }
 }
