@@ -13,7 +13,7 @@ class Migrations{
      */
     public static function up(PDO $connection)
     {
-        /*$connection->query("CREATE TABLE IF NOT EXISTS languages (
+        $connection->query("CREATE TABLE IF NOT EXISTS languages (
                                             id INT(11) NOT NULL AUTO_INCREMENT,
                                             language_name VARCHAR (50),
                                             PRIMARY KEY (id)
@@ -36,25 +36,25 @@ class Migrations{
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
         
         $connection->query("CREATE TABLE IF NOT EXISTS commands (
-                                            id INT(11) NOT NULL AUTO_INCREMENT
+                                            id INT(11) NOT NULL AUTO_INCREMENT,
                                             command_name VARCHAR(50),
                                             PRIMARY KEY (id)
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
         
         $connection->query("CREATE TABLE IF NOT EXISTS commands_users (
-                                            id INT(11) NOT NULL AUTO_INCREMENT
+                                            id INT(11) NOT NULL AUTO_INCREMENT,
                                             id_user INT(11),
                                             id_command INT(11),
-                                            command_parameters JSON NULLABLE, 
+                                            command_parameters VARCHAR(200) NULL,
                                             created_at TIMESTAMP,
                                             PRIMARY KEY (id),
                                             FOREIGN KEY (id_user) REFERENCES users (id)
                                             ON DELETE SET NULL,
-                                            FOREIGN KEY (id_comand) REFERENCES commands (id)
+                                            FOREIGN KEY (id_command) REFERENCES commands (id)
                                             ON DELETE SET NULL
                                         ) ENGINE=INNODB
-                                        CHARACTER SET utf8 COLLATE uft8_general_ci");*/
+                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
     }
 
     /**
@@ -64,15 +64,15 @@ class Migrations{
      */
     public static function down(PDO $connection)
     {
-        /*$connection->query("ALTER TABLE users
-                                      DROP FOREIGN KEY fk_users_languages_telegram_language");
+        $connection->query("ALTER TABLE users
+                                      DROP FOREIGN KEY users_ibfk_1");
         $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY fk_commands_users_users_id_user");
+                                      DROP FOREIGN KEY commands_users_ibfk_1");
         $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY fk_commands_users_commands_id_command");
+                                      DROP FOREIGN KEY commands_users_ibfk_2");
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS commands_users");
-        $connection->query("DROP TABLE IF EXISTS commands");*/
+        $connection->query("DROP TABLE IF EXISTS commands");
     }
 }
