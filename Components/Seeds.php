@@ -13,7 +13,7 @@ class Seeds
      *
      * @param PDO $connection
      */
-    public function seeding(PDO $connection){
+    public static function seeding(PDO $connection){
         $connection->query("INSERT IGNORE INTO languges (language_name) VALUES 
                                         ('Russian'),
                                         ('English')
@@ -26,7 +26,8 @@ class Seeds
                                         ('migrate_up'),
                                         ('migrate_down'),
                                         ('seed'),
-                                        ('users')
+                                        ('users'),
+                                        ('tables')
                                        ");
     }
 }

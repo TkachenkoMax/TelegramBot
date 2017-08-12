@@ -94,6 +94,14 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully delete");
         });
 
+        $this->bot->command('seed', function ($message) use ($bot_in_func) {
+            $connection = Database::connect();
+
+            Seeds::seeding($connection);
+
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Successful seeding");
+        });
+
         $this->bot->command('tables', function ($message) use ($bot_in_func) {
             $connection = Database::connect();
 

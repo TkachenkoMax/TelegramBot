@@ -11,6 +11,20 @@ use TelegramBot\Api\Client as Bot;
 class BotTest
 {
     public static function sendMessage($message){
+        $file = "test.txt";
+        //если файла нет, тогда
+        if (!file_exists($file)) {
+            $fp = fopen($file, "rw");
+            fwrite($fp, "Created test file!\n");
+            fclose($fp);
+        }
+        // Открываем файл для получения существующего содержимого
+        $current = file_get_contents($file);
+        // Добавляем информацию в файл
+        $current .= "Launched application at " . time() . "\n";
+        // Пишем содержимое обратно в файл
+        file_put_contents($file, $current);
+        
         $token = "390875011:AAEkDpRCBeIiRQ3clQ03PcEDty5QzEwtb60";
         $bot = new Bot($token);
 
