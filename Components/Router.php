@@ -99,8 +99,12 @@ class Router {
 
             $query = $connection->query("SHOW TABLES");
             $tables = $query->fetchAll(PDO::FETCH_COLUMN);
+            $list = "Tables: ";
+            foreach ($tables as $table){
+                $list .="$table | ";
+            }
 
-            $bot_in_func->sendMessage($message->getChat()->getId(), "$tables");
+            $bot_in_func->sendMessage($message->getChat()->getId(), "$list");
         });
 
         $this->bot->command('users', function ($message) use ($bot_in_func) {
