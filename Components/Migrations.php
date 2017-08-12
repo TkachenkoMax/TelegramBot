@@ -39,7 +39,7 @@ class Migrations{
                                             PRIMARY KEY (id)
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
-        $connecton->query("CREATE TABLE IF NOT EXISTS commands_users (
+        $connection->query("CREATE TABLE IF NOT EXISTS commands_users (
                                             id INT(11) NOT NULL AUTO_INCREMENT
                                             id_user INT(11),
                                             id_command INT(11),
@@ -71,5 +71,10 @@ class Migrations{
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS commands_users");
         $connection->query("DROP TABLE IF EXISTS commands");
+    }
+
+    public static function downOldUsers(PDO $connection)
+    {
+        $connection->query("DROP TABLE IF EXISTS users");
     }
 }
