@@ -64,12 +64,12 @@ class Migrations{
      */
     public static function down(PDO $connection)
     {
-        $connection->query("ALTER TABLE users
+        /*$connection->query("ALTER TABLE users
                                       DROP FOREIGN KEY fk_users_languages_telegram_language");
         $connection->query("ALTER TABLE commands_users
                                       DROP FOREIGN KEY fk_commands_users_users_id_user");
         $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY fk_commands_users_commands_id_command");
+                                      DROP FOREIGN KEY fk_commands_users_commands_id_command");*/
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS commands_users");
