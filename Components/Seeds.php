@@ -14,7 +14,7 @@ class Seeds
      * @param PDO $connection
      */
     public static function seeding(PDO $connection){
-        $connection->query("INSERT IGNORE INTO languges (language_name) VALUES 
+        $connection->query("INSERT IGNORE INTO languages (language_name) VALUES 
                                         ('Russian'),
                                         ('English')
                                        ");
