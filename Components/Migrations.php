@@ -13,6 +13,13 @@ class Migrations{
      */
     public static function up(PDO $connection)
     {
+        $connection->query("CREATE TABLE IF NOT EXISTS languages (
+                                            id INT(11) NOT NULL AUTO_INCREMENT,
+                                            language_name VARCHAR (50),
+                                            PRIMARY KEY (id)
+                                        ) ENGINE=INNODB
+                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
+        
         $connection->query("CREATE TABLE IF NOT EXISTS users (
                                             id INT(11) NOT NULL AUTO_INCREMENT,
                                             telegram_id VARCHAR(30) NOT NULL,
@@ -27,18 +34,14 @@ class Migrations{
                                             ON DELETE SET NULL
                                         ) ENGINE=INNODB,
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
-        $connection->query("CREATE TABLE IF NOT EXISTS languages (
-                                            id INT(11) NOT NULL AUTO_INCREMENT,
-                                            language_name VARCHAR (50),
-                                            PRIMARY KEY (id)
-                                        ) ENGINE=INNODB
-                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
+        
         $connection->query("CREATE TABLE IF NOT EXISTS commands (
                                             id INT(11) NOT NULL AUTO_INCREMENT
                                             command_name VARCHAR(50),
                                             PRIMARY KEY (id)
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
+        
         $connection->query("CREATE TABLE IF NOT EXISTS commands_users (
                                             id INT(11) NOT NULL AUTO_INCREMENT
                                             id_user INT(11),
@@ -71,10 +74,5 @@ class Migrations{
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS commands_users");
         $connection->query("DROP TABLE IF EXISTS commands");
-    }
-
-    public static function downOldUsers(PDO $connection)
-    {
-        $connection->query("DROP TABLE IF EXISTS users");
     }
 }

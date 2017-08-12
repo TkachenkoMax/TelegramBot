@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fddeb7fa-f5c1-4651-9ede-02144ca8343e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Components/Migrations.php" afterPath="$PROJECT_DIR$/Components/Migrations.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Components/Router.php" afterPath="$PROJECT_DIR$/Components/Router.php" />
     </list>
@@ -41,12 +40,12 @@
       <file leaf-file-name="Router.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Components/Router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="99" column="50" selection-start-line="99" selection-start-column="50" selection-end-line="99" selection-end-column="50" />
+            <state relative-caret-position="264">
+              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding>
                 <element signature="e#6#82#0#PHP" expanded="true" />
-                <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-                <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+                <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+                <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
               </folding>
             </state>
           </provider>
@@ -75,21 +74,20 @@
       <file leaf-file-name="Migrations.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="710">
-              <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+            <state relative-caret-position="1368">
+              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
               <folding>
-                <marker date="1502521037820" expanded="true" signature="276:1239" ph="CREATE TABLE... IF" />
-                <marker date="1502521037820" expanded="true" signature="1271:1661" ph="CREATE TABLE... IF" />
-                <marker date="1502521037820" expanded="true" signature="1693:2079" ph="CREATE TABLE... IF" />
-                <marker date="1502521037820" expanded="true" signature="2111:3012" ph="CREATE TABLE... IF" />
-                <marker date="1502521037820" expanded="true" signature="3201:3218" ph="ALTER TABLE users... " />
-                <marker date="1502521037820" expanded="true" signature="3342:3368" ph="ALTER TABLE commands_users... " />
-                <marker date="1502521037820" expanded="true" signature="3487:3513" ph="ALTER TABLE commands_users... " />
-                <marker date="1502521037820" expanded="true" signature="3638:3664" ph="DROP TABLE I... " />
-                <marker date="1502521037820" expanded="true" signature="3696:3726" ph="DROP TABLE I... " />
-                <marker date="1502521037820" expanded="true" signature="3758:3793" ph="DROP TABLE I... " />
-                <marker date="1502521037820" expanded="true" signature="3825:3854" ph="DROP TABLE I... " />
-                <marker date="1502521037820" expanded="true" signature="3956:3982" ph="DROP TABLE I... " />
+                <marker date="1502521234048" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
+                <marker date="1502521234048" expanded="true" signature="707:1670" ph="CREATE TABLE... IF" />
+                <marker date="1502521234048" expanded="true" signature="1711:2097" ph="CREATE TABLE... IF" />
+                <marker date="1502521234048" expanded="true" signature="2138:3039" ph="CREATE TABLE... IF" />
+                <marker date="1502521234048" expanded="true" signature="3228:3245" ph="ALTER TABLE users... " />
+                <marker date="1502521234048" expanded="true" signature="3369:3395" ph="ALTER TABLE commands_users... " />
+                <marker date="1502521234048" expanded="true" signature="3514:3540" ph="ALTER TABLE commands_users... " />
+                <marker date="1502521234048" expanded="true" signature="3665:3691" ph="DROP TABLE I... " />
+                <marker date="1502521234048" expanded="true" signature="3723:3753" ph="DROP TABLE I... " />
+                <marker date="1502521234048" expanded="true" signature="3785:3820" ph="DROP TABLE I... " />
+                <marker date="1502521234048" expanded="true" signature="3852:3881" ph="DROP TABLE I... " />
               </folding>
             </state>
           </provider>
@@ -401,12 +399,12 @@
       <workItem from="1502194195728" duration="1415000" />
       <workItem from="1502453565922" duration="1201000" />
       <workItem from="1502477193540" duration="3873000" />
-      <workItem from="1502520344632" duration="693000" />
+      <workItem from="1502520344632" duration="890000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29996000" />
+    <option name="totallyTimeSpent" value="30193000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -463,8 +461,8 @@
           <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -485,8 +483,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -525,8 +523,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -555,8 +553,8 @@
           <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -626,8 +624,8 @@
           <caret line="122" column="20" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="20" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>
@@ -830,32 +828,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="710">
-          <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
-          <folding>
-            <marker date="1502521037820" expanded="true" signature="276:1239" ph="CREATE TABLE... IF" />
-            <marker date="1502521037820" expanded="true" signature="1271:1661" ph="CREATE TABLE... IF" />
-            <marker date="1502521037820" expanded="true" signature="1693:2079" ph="CREATE TABLE... IF" />
-            <marker date="1502521037820" expanded="true" signature="2111:3012" ph="CREATE TABLE... IF" />
-            <marker date="1502521037820" expanded="true" signature="3201:3218" ph="ALTER TABLE users... " />
-            <marker date="1502521037820" expanded="true" signature="3342:3368" ph="ALTER TABLE commands_users... " />
-            <marker date="1502521037820" expanded="true" signature="3487:3513" ph="ALTER TABLE commands_users... " />
-            <marker date="1502521037820" expanded="true" signature="3638:3664" ph="DROP TABLE I... " />
-            <marker date="1502521037820" expanded="true" signature="3696:3726" ph="DROP TABLE I... " />
-            <marker date="1502521037820" expanded="true" signature="3758:3793" ph="DROP TABLE I... " />
-            <marker date="1502521037820" expanded="true" signature="3825:3854" ph="DROP TABLE I... " />
-            <marker date="1502521037820" expanded="true" signature="3956:3982" ph="DROP TABLE I... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Config/database.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Components/Migrations.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1368">
+          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+          <folding>
+            <marker date="1502521234048" expanded="true" signature="276:666" ph="CREATE TABLE... IF" />
+            <marker date="1502521234048" expanded="true" signature="707:1670" ph="CREATE TABLE... IF" />
+            <marker date="1502521234048" expanded="true" signature="1711:2097" ph="CREATE TABLE... IF" />
+            <marker date="1502521234048" expanded="true" signature="2138:3039" ph="CREATE TABLE... IF" />
+            <marker date="1502521234048" expanded="true" signature="3228:3245" ph="ALTER TABLE users... " />
+            <marker date="1502521234048" expanded="true" signature="3369:3395" ph="ALTER TABLE commands_users... " />
+            <marker date="1502521234048" expanded="true" signature="3514:3540" ph="ALTER TABLE commands_users... " />
+            <marker date="1502521234048" expanded="true" signature="3665:3691" ph="DROP TABLE I... " />
+            <marker date="1502521234048" expanded="true" signature="3723:3753" ph="DROP TABLE I... " />
+            <marker date="1502521234048" expanded="true" signature="3785:3820" ph="DROP TABLE I... " />
+            <marker date="1502521234048" expanded="true" signature="3852:3881" ph="DROP TABLE I... " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -869,12 +866,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Components/Router.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="99" column="50" selection-start-line="99" selection-start-column="50" selection-end-line="99" selection-end-column="50" />
+        <state relative-caret-position="264">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
             <element signature="e#6#82#0#PHP" expanded="true" />
-            <marker date="1502521037884" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
-            <marker date="1502521037884" expanded="true" signature="3824:3843" ph="SELECT * FRO... users" />
+            <marker date="1502521234144" expanded="true" signature="1989:2060" ph="INSERT INTO users... " />
+            <marker date="1502521234144" expanded="true" signature="3522:3541" ph="SELECT * FRO... users" />
           </folding>
         </state>
       </provider>

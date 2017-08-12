@@ -94,14 +94,6 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully delete");
         });
 
-        $this->bot->command('migrate_down_users', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-
-            Migrations::downOldUsers($connection);
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Users successfully delete");
-        });
-
         $this->bot->command('users', function ($message) use ($bot_in_func) {
             $connection = Database::connect();
 
