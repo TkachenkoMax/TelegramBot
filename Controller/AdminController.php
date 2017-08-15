@@ -19,7 +19,7 @@ class AdminController extends MainController
     }
     
     public function migrateDown($bot) {
-        function ($message) use ($bot) {
+        return function ($message) use ($bot) {
             $connection = Database::connect();
 
             Migrations::down($connection);
@@ -29,7 +29,7 @@ class AdminController extends MainController
     }
     
     public function seed($bot) {
-        function ($message) use ($bot) {
+        return function ($message) use ($bot) {
             $connection = Database::connect();
 
             Seeds::seeding($connection);
