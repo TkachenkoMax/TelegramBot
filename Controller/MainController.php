@@ -62,7 +62,7 @@ class MainController
             if(mb_stripos($text,"/random") !== false){
                 $params = explode(trim(str_replace("/random", "", $text)), " ");
 
-                $bot->sendMessage($id, trim(str_replace("/random", "", $text));
+                $bot->sendMessage($id, trim(str_replace("/random", "", $text)));
 
                 $answer = "";
                 switch (count($params)){
