@@ -146,7 +146,7 @@ class UserModel extends Model
         $connection = Database::connect();
 
         try{
-            $stmt = $connection->prepare("SELECT language_name FROM users LEFT JOIN languges ON users.telegram_language = languages.id WHERE user.telegram_id = ?");
+            $stmt = $connection->prepare("SELECT language_name FROM users LEFT JOIN languages ON users.telegram_language = languages.id WHERE user.telegram_id = ?");
             $stmt->bindParam(1, $telegram_id);
             $result = $stmt->execute();
         } catch (PDOException $e) {
