@@ -86,8 +86,8 @@ class Router {
 
         $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
             $controller = new UserController();
-            $telegram_id = ($message->getChat()->getId();
-            
+            $telegram_id = $message->getChat()->getId();
+
             $language = $controller->checkLanguage($telegram_id);
             if (!is_null($language)) {
                 $bot_in_func->sendMessage($telegram_id, "У вас уже установлен язык - $language");
