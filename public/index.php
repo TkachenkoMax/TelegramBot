@@ -28,4 +28,5 @@ require_once(__ROOT__ . "/vendor/autoload.php");
  */
 
 $router = new Router();
+$router->registerBot();
 $router->handle();

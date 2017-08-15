@@ -7,7 +7,6 @@
  */
 
 class Router {
-
     private $bot;
     private $token;
 
@@ -38,93 +37,18 @@ class Router {
     
     public function handle() 
     {
-        $this->registerBot();
+        $controller = new MainController();
 
-        $bot_in_func = $this->bot;
+        $this->bot->command('start', $controller->register($this->bot));
 
-        $contr = new UserController();
+        $this->bot->command('help', $controller->showHelp($this->bot));
+        
+        $this->bot->command('random', $controller->random($this->bot));
 
-        $this->bot->command('start', function ($message) use ($bot_in_func) {
-            $controller = new UserController();
-            
-            $telegram_id = $message->getChat()->getId();
-            $first_name = $message->getChat()->getFirstName();
-            $last_name = $message->getChat()->getLastName();
-            
-            try{
-                $controller->register($telegram_id, $first_name, $last_name);
-            } catch (Exception $ex) {
-                if ($ex->getMessage() == "Bad registration") {
-                    $bot_in_func->sendMessage($message->getChat()->getId(), "Bad registration");
-                }
-            }
-            
-            $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
-Меня зовут Катарина, я ваш умный помощник в Телеграме.
-Чтобы увидеть список доступных команд и возможностей, напишите <i>/help</i>.
+        $this->bot->command('setLanguage', $controller->setLanguage($this->bot));
+        
 
-Но сперва лучше сообщите мне о себе немного информации:
-
-1) <i>/setDateOfBirth &ltдата рождения&gt</i> - указать Вашу дату рождения чтобы я никогда не забыла поздравить Вас
-
-2) <i>/setCity &ltгород&gt</i> - указать Ваш город проживания, что поможет мне в некоторых запросах
-
-3) <i>/setAlias &ltпсевдоним&gt</i> - указать Ваш псевдоним, именно так я к Вам и буду обращаться вместо $first_name $last_name
-
-4) <i>/setLanguage</i> - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
-
-<b>У Вас все получится:)</b>";
-            $bot_in_func->sendMessage($message->getChat()->getId(), $answer, "HTML");
-        });
-
-        $this->bot->command('help', function ($message) use ($bot_in_func) {
-            $answer = 'Команды:
-/help - помощь
-/random - сгенерировать случайное число от 0 до 100';
-            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
-        });
-
-        /*$this->bot->command('random', function ($message) use ($bot_in_func) {
-            $num = rand(0,100);
-            $answer = 'Случайное число: ' . $num;
-            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
-        });*/
-
-        $this->bot->command('random', $contr->test($bot_in_func));
-
-        $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
-            $controller = new UserController();
-            $telegram_id = $message->getChat()->getId();
-
-            $language = $controller->checkLanguage($telegram_id);
-            if (!is_null($language)) {
-                $bot_in_func->sendMessage($telegram_id, "У вас уже установлен язык - $language");
-            } else {
-                $bot_in_func->sendMessage($telegram_id, "Язык еще не был установлен");
-            }
-
-            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguageRussian", "text" => "Русский"], ["/setLanguageEnglish", "text" => "English"]]], true, true);
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
-        });
-
-        $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
-            $controller = new UserController();
-            $telegram_id = $message->getChat()->getId();
-
-            $language = $controller->checkLanguage($telegram_id);
-            if (!is_null($language)) {
-                $bot_in_func->sendMessage($telegram_id, "У вас уже установлен язык - $language");
-            } else {
-                $bot_in_func->sendMessage($telegram_id, "Язык еще не был установлен");
-            }
-
-            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguageRussian", "text" => "Русский"], ["/setLanguageEnglish", "text" => "English"]]], true, true);
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
-        });
-
-        $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
+        /*$this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
             $connection = Database::connect();
             
             Migrations::up($connection);
@@ -146,7 +70,7 @@ class Router {
             Seeds::seeding($connection);
 
             $bot_in_func->sendMessage($message->getChat()->getId(), "Successful seeding");
-        });
+        });*/
 
         // запускаем обработку
         $this->bot->run();

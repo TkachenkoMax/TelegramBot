@@ -128,6 +128,14 @@ class UserModel extends Model
         return null;
     }
 
+    /**
+     * Register new user
+     * 
+     * @param $telegram_id
+     * @param $first_name
+     * @param $last_name
+     * @throws Exception
+     */
     public static function register($telegram_id, $first_name, $last_name){
         $connection = Database::connect();
         
@@ -142,6 +150,13 @@ class UserModel extends Model
         }
     }
 
+    /**
+     * Get user language
+     * 
+     * @param $telegram_id
+     * @return null|mixed
+     * @throws Exception
+     */
     public static function getUserLanguage($telegram_id){
         $connection = Database::connect();
 
@@ -157,5 +172,7 @@ class UserModel extends Model
             $data = $stmt->fetch();
             return $data['language_name'];
         }
+        
+        return null
     }
 }
