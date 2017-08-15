@@ -75,7 +75,13 @@ class MainController
             $bot->sendMessage($message->getChat()->getId(), $answer);
         };
     }
-    
+
+    /**
+     * Set user language to interact with bot
+     *
+     * @param $bot
+     * @return Closure
+     */
     public function setLanguage($bot){
         return function ($message) use ($bot) {
             $telegram_id = $message->getChat()->getId();
@@ -87,7 +93,8 @@ class MainController
                 $bot->sendMessage($telegram_id, "Язык еще не был установлен");
             }
 
-            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguageRussian", "text" => "Русский"], ["/setLanguageEnglish", "text" => "English"]]], true, true);
+            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguage Russian", "text" => "Русский"],
+                                                                         ["/setLanguage English", "text" => "English"]]], true, true);
 
             $bot->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
         };

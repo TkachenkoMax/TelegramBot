@@ -35,6 +35,9 @@ class Router {
         }
     }
     
+    /**
+     * Registering all updates from user
+     */
     public function handle() 
     {
         $controller = new MainController();
@@ -46,33 +49,13 @@ class Router {
         $this->bot->command('random', $controller->random($this->bot));
 
         $this->bot->command('setLanguage', $controller->setLanguage($this->bot));
-        
 
-        /*$this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-            
-            Migrations::up($connection);
+        /*$this->bot->command('migrate_up', $controller->migrateUp($this->bot));
 
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully create");
-        });
+        $this->bot->command('migrate_down', $controller->migrateDown($this->bot);
 
-        $this->bot->command('migrate_down', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
+        $this->bot->command('seed', $controller->seed($this->bot);*/
 
-            Migrations::down($connection);
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Tables successfully delete");
-        });
-
-        $this->bot->command('seed', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-
-            Seeds::seeding($connection);
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "Successful seeding");
-        });*/
-
-        // запускаем обработку
         $this->bot->run();
     }
 }
