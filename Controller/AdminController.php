@@ -6,7 +6,7 @@
  * Date: 12.08.17
  * Time: 13:53
  */
-class AdminController
+class AdminController extends MainController
 {
     public function migrateUp($bot){
        return function ($message) use ($bot) {

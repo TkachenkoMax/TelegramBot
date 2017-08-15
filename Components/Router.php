@@ -40,21 +40,22 @@ class Router {
      */
     public function handle() 
     {
-        $controller = new MainController();
+        $controller = new AdminController();
 
         $this->bot->command('start', $controller->register($this->bot));
 
         $this->bot->command('help', $controller->showHelp($this->bot));
         
-        $this->bot->command('random', $controller->random($this->bot));
+        //$this->bot->command('random', $controller->random($this->bot));
+        $this->bot->on($controller->random($this->bot), null);
 
         $this->bot->command('setLanguage', $controller->setLanguage($this->bot));
 
-        /*$this->bot->command('migrate_up', $controller->migrateUp($this->bot));
+        $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
 
-        $this->bot->command('migrate_down', $controller->migrateDown($this->bot);
+        $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
 
-        $this->bot->command('seed', $controller->seed($this->bot);*/
+        $this->bot->command('seed', $controller->seed($this->bot));
 
         $this->bot->run();
     }
