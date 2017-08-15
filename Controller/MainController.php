@@ -80,7 +80,7 @@ class MainController
         return function ($message) use ($bot) {
             $telegram_id = $message->getChat()->getId();
 
-            $language = $this->checkLanguage($telegram_id);
+            $language = MainController::checkLanguage($telegram_id);
             if (!is_null($language)) {
                 $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
             } else {
@@ -100,7 +100,7 @@ class MainController
      * @return null|mixed
      * @throws Exception
      */
-    private function checkLanguage($telegram_id){
+    public static function checkLanguage($telegram_id){
         $language = UserModel::getUserLanguage($telegram_id);
         if (!empty($language)) {
             return $language;
