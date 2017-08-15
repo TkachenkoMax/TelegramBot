@@ -59,10 +59,10 @@ class MainController
             $text = $message->getText();
             $id = $message->getChat()->getId();
 
+            $bot->sendMessage($id, print_r($update));
+
             if(mb_stripos($text,"/random") !== false){
                 $params = explode(trim(str_replace("/random", "", $text)), " ");
-
-                $bot->sendMessage($id, print_r($update));
 
                 $answer = "";
                 switch (count($params)){
