@@ -173,6 +173,6 @@ class UserModel extends Model
             return $data['language_name'];
         }
         
-        return null
+        return null;
     }
 }
