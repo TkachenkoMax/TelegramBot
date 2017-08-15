@@ -40,4 +40,12 @@ class UserController
         
         return null;
     }
+    
+    public function test($bot){
+        return function ($message) use ($bot) {
+            $num = rand(0,100);
+            $answer = 'Случайное число: ' . $num;
+            $bot->sendMessage($message->getChat()->getId(), $answer);
+        };
+    }
 }

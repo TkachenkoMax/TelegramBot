@@ -40,8 +40,10 @@ class Router {
     {
         $this->registerBot();
 
-        // обязательное. Запуск бота
         $bot_in_func = $this->bot;
+
+        $contr = new UserController();
+
         $this->bot->command('start', function ($message) use ($bot_in_func) {
             $controller = new UserController();
             
@@ -82,10 +84,28 @@ class Router {
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
         });
 
-        $this->bot->command('random', function ($message) use ($bot_in_func) {
+        /*$this->bot->command('random', function ($message) use ($bot_in_func) {
             $num = rand(0,100);
             $answer = 'Случайное число: ' . $num;
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
+        });*/
+
+        $this->bot->command('random', $contr->test($bot_in_func));
+
+        $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
+            $controller = new UserController();
+            $telegram_id = $message->getChat()->getId();
+
+            $language = $controller->checkLanguage($telegram_id);
+            if (!is_null($language)) {
+                $bot_in_func->sendMessage($telegram_id, "У вас уже установлен язык - $language");
+            } else {
+                $bot_in_func->sendMessage($telegram_id, "Язык еще не был установлен");
+            }
+
+            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguageRussian", "text" => "Русский"], ["/setLanguageEnglish", "text" => "English"]]], true, true);
+
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
         });
 
         $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
@@ -101,7 +121,7 @@ class Router {
 
             $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[["/setLanguageRussian", "text" => "Русский"], ["/setLanguageEnglish", "text" => "English"]]], true, true);
 
-            $bot_in_func->sendMessage($message->getChat()->getId(), "тест", false, null,null, $keyboard);
+            $bot_in_func->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
         });
 
         $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
