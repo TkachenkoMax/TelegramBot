@@ -57,18 +57,18 @@ class Router {
                 }
             }
             
-            $answer = "Добро пожаловать, $first_name $last_name!
+            $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
 Меня зовут Катарина, я ваш умный помощник в Телеграме.
-Чтобы увидеть список доступных команд и возможностей, напишите '/help.
+Чтобы увидеть список доступных команд и возможностей, напишите <i>/help</i>.
 
 Но сперва лучше сообщите мне о себе немного информации:
-'/setDateOfBirth <дата рождения>' - указать Вашу дату рождения чтобы я никогда не забыла поздравить Вас
-'/setCity <город>' - указать Ваш город проживания, что поможет мне в некоторых запросах
-'/setAlias <псевдоним>' - указать Ваш псевдоним, именно так я к Вам и буду обращаться вместо $first_name $last_name
-'/setLanguage <язык>' - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
+<pre>   <i>'/setDateOfBirth &ltдата рождения&gt'</i> - указать Вашу дату рождения чтобы я никогда не забыла поздравить Вас
+    <i>/setCity &ltгород&gt</i> - указать Ваш город проживания, что поможет мне в некоторых запросах
+    <i>/setAlias &ltпсевдоним&gt</i> - указать Ваш псевдоним, именно так я к Вам и буду обращаться вместо $first_name $last_name
+    <i>/setLanguage</i> - указать язык, на котором я буду Вам писать. На данный момент доступен только русский</pre>
 
-У Вас все получится:)";
-            $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
+<b>У Вас все получится:)</b>";
+            $bot_in_func->sendMessage($message->getChat()->getId(), $answer, "HTML");
         });
 
         $this->bot->command('help', function ($message) use ($bot_in_func) {
@@ -82,6 +82,18 @@ class Router {
             $num = rand(0,100);
             $answer = 'Случайное число: ' . $num;
             $bot_in_func->sendMessage($message->getChat()->getId(), $answer);
+        });
+
+        $this->bot->command('setLanguage', function ($message) use ($bot_in_func) {
+            $controller = new UserController();
+            $telegram_id = ($message->getChat()->getId();
+            
+            $language = $controller->checkLanguage($telegram_id);
+            if (!is_null($language)) {
+                $bot_in_func->sendMessage($telegram_id, "У вас уже установлен язык - $language");
+            } else {
+                $bot_in_func->sendMessage($telegram_id, "Язык еще не был установлен");
+            }
         });
 
         $this->bot->command('migrate_up', function ($message) use ($bot_in_func) {
@@ -106,34 +118,6 @@ class Router {
             Seeds::seeding($connection);
 
             $bot_in_func->sendMessage($message->getChat()->getId(), "Successful seeding");
-        });
-
-        $this->bot->command('tables', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-
-            $query = $connection->query("SHOW TABLES");
-            $tables = $query->fetchAll(PDO::FETCH_COLUMN);
-            $list = "Tables: ";
-            foreach ($tables as $table){
-                $list .="$table | ";
-            }
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), "$list");
-        });
-
-        $this->bot->command('users', function ($message) use ($bot_in_func) {
-            $connection = Database::connect();
-
-            $users = "Users: ";
-
-            $stmt = $connection->query('SELECT * FROM users');
-            while ($row = $stmt->fetch())
-            {
-                $user = $row['first_name'] . " " . $row['last_name'] . "(" . $row['telegram_id'] . ")";
-                $users.=$user." | ";
-            }
-
-            $bot_in_func->sendMessage($message->getChat()->getId(), $users);
         });
 
         // запускаем обработку

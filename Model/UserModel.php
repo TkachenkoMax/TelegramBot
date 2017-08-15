@@ -127,7 +127,7 @@ class UserModel extends Model
         
         return null;
     }
-    
+
     public static function register($telegram_id, $first_name, $last_name){
         $connection = Database::connect();
         
@@ -139,6 +139,23 @@ class UserModel extends Model
             $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception("Bad registration", $e->getCode());
+        }
+    }
+
+    public static function getUserLanguage($telegram_id){
+        $connection = Database::connect();
+
+        try{
+            $stmt = $connection->prepare("SELECT language_name FROM users LEFT JOIN languges ON users.telegram_language = languages.id WHERE user.telegram_id = ?");
+            $stmt->bindParam(1, $telegram_id);
+            $result = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        if ($result) {
+            $data = $stmt->fetch();
+            return $data['language_name'];
         }
     }
 }
