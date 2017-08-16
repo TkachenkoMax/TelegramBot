@@ -61,7 +61,7 @@ class MainController
 
             $bot->sendMessage($id, print_r($text));
 
-            if(mb_strpos($text,"/random") !== false){
+            if(strpos($text,"/random") !== false){
                 $params = explode(trim(str_replace("/random", "", $text)), " ");
 
                 $answer = "";
