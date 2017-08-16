@@ -65,8 +65,6 @@ class MainController
                     $params_array = explode(" ", $params);
                 }
 
-                $bot->sendMessage($id, "Length - " . strlen($params));
-
                 switch (count($params_array)){
                     case 0:
                         $num = rand(0, 100);

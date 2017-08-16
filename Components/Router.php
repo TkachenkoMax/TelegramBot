@@ -47,9 +47,7 @@ class Router {
         $this->bot->command('help', $controller->showHelp($this->bot));
         
         //$this->bot->command('random', $controller->random($this->bot));
-        $this->bot->on($controller->random($this->bot), function($message){
-            return true; // когда тут true - команда проходит
-        });
+        $this->bot->on($controller->random($this->bot), null);
 
         $this->bot->command('setLanguage', $controller->setLanguage($this->bot));
 
