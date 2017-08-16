@@ -59,14 +59,14 @@ class MainController
             $text = $message->getText();
             $id = $message->getChat()->getId();
 
-            $bot->sendMessage($id, $text);
+            //$bot->sendMessage($id, $text);
 
             if(strpos($text,"/random") !== false){
-                $params = explode(trim(str_replace("/random", "", $text)), " ");
+                $params = explode(" ", trim(str_replace("/random", "", $text)));
 
-                foreach ($params as $p){
+               /* foreach ($params as $p){
                     $bot->sendMessage($id, "Element = " . $p);
-                }
+                }*/
 
                 $answer = "";
                 switch (count($params)){
