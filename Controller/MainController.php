@@ -150,4 +150,10 @@ class MainController
 
         return null;
     }
+    
+    public function returnTrue(){
+        return function(){
+            return true;
+        };
+    }
 }
