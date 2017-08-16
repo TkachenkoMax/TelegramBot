@@ -59,36 +59,35 @@ class MainController
             $text = $message->getText();
             $id = $message->getChat()->getId();
 
-            //$bot->sendMessage($id, $text);
-
             if(strpos($text,"/random") !== false){
-                $params = explode(" ", trim(str_replace("/random", "", $text)));
-
-                foreach ($params as $p){
-                    $bot->sendMessage($id, "Element = " . $p);
+                $params = trim(str_replace("/random", "", $text));
+                if (strlen($params) > 0) {
+                    $params_array = explode(" ", $params);
                 }
 
-                $answer = "";
-                switch (count($params)){
+                $bot->sendMessage($id, "Length - " . strlen($params));
+
+                switch (count($params_array)){
                     case 0:
                         $num = rand(0, 100);
                         $answer = 'Случайное число: ' . $num;
                         break;
                     case 1:
-                        $num = rand (0, $params[0]);
+                        $num = rand (0, $params_array[0]);
                         $answer = 'Случайное число: ' . $num;
                         break;
                     case 2:
-                        $num = rand ($params[0], $params[1]);
+                        $num = rand ($params_array[0], $params_array[1]);
                         $answer = 'Случайное число: ' . $num;
                         break;
                     case 3:
                         $answer = "Случайные числа: ";
-                        for ($i = 0; $i < $params[2]; $i++) {
-                            $answer .= rand ($params[0], $params[1]) . " ";
+                        for ($i = 0; $i < $params_array[2]; $i++) {
+                            $answer .= rand ($params_array[0], $params_array[1]) . " ";
                         }
                         break;
                     default:
+                        $answer = "Слишком много параметров!";
                         break;
                 }
 
