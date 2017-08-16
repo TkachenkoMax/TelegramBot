@@ -64,9 +64,9 @@ class MainController
             if(strpos($text,"/random") !== false){
                 $params = explode(" ", trim(str_replace("/random", "", $text)));
 
-               /* foreach ($params as $p){
+                foreach ($params as $p){
                     $bot->sendMessage($id, "Element = " . $p);
-                }*/
+                }
 
                 $answer = "";
                 switch (count($params)){
