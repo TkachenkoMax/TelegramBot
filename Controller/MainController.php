@@ -59,6 +59,8 @@ class MainController
             $text = $message->getText();
             $id = $message->getChat()->getId();
 
+            test();
+
             if(strpos($text,"/random") !== false){
                 $params = trim(str_replace("/random", "", $text));
                 if (strlen($params) > 0) {
