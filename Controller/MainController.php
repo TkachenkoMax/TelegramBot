@@ -63,6 +63,12 @@ class MainController
                 $params = trim(str_replace("/random", "", $text));
                 if (strlen($params) > 0) {
                     $params_array = explode(" ", $params);
+                    foreach ($params_array as $value) {
+                        if (!is_numeric($value)) {
+                            $bot->sendMessage($id, "Надо передавать числа!");
+                            return;
+                        }
+                    }
                 }
 
                 switch (count($params_array)){
