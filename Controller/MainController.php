@@ -62,12 +62,12 @@ class MainController
             $is_command = strpos($text,"/random");
 
             if($is_command !== false && $is_command === 0){
-                $params = str_replace("/random", "", $text);
+                $params = trim(str_replace("/random", "", $text));
                 if (strlen($params) > 0) {
                     $params_array = explode(" ", $params);
                     foreach ($params_array as $value) {
                         if (!is_numeric($value)) {
-                            $bot->sendMessage($id, "Надо передавать числа!");
+                            $bot->sendMessage($id, "Ошибка в распознавании команды");
                             return;
                         }
                     }
@@ -145,8 +145,8 @@ class MainController
             }
 
             $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                                                                            ["text" => "Русский"],
-                                                                            ["text" => "English"]
+                                                                            ["text" => "Русский", "request_location" => true],
+                                                                            ["text" => "English", "request_location" => true]
                                                                         ]], true, true);
 
             $bot->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);

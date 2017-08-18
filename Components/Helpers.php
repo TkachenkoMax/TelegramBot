@@ -6,6 +6,8 @@
  * Time: 10:39
  */
 
+use \TelegramBot\api\Types\Update;
+
 function test(){
     $file = "test.txt";
     //если файла нет, тогда
@@ -22,14 +24,14 @@ function test(){
     file_put_contents($file, $current);
 }
 
-function incoming_command($command_text) {
+function incoming_command(Update $update) {
     $file = "commands.txt";
     if (!file_exists($file)) {
         $fp = fopen($file, "rw");
         fwrite($fp, "Created commands file!\n\n");
         fclose($fp);
     }
-    file_put_contents('commands.txt', print_r($command_text, 1), FILE_APPEND);
+    file_put_contents('commands.txt', print_r($update, 1));
 }
 
 function text_analyse($incoming_text, $correct_text) {
