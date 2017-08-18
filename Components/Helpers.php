@@ -30,7 +30,10 @@ function incoming_command($command_text) {
         fclose($fp);
     }
     $current = file_get_contents($file);
-    $current .= "Incoming_command text: " . $command_text . "\n";
+
+    foreach ($command_text as $item) {
+        $current .= "Incoming_command text: " . $item . "\n";
+    }
 
     file_put_contents($file, $current);
 }
