@@ -24,6 +24,6 @@ function test(){
 
 function text_analyse($incoming_text, $correct_text) {
     $similar = levenshtein($incoming_text, $correct_text);
-    if ($similar <= 5) return true;
+    if ($similar <= 10) return true;
     return false;
 }

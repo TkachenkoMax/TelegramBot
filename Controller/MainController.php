@@ -61,8 +61,6 @@ class MainController
 
             $is_command = strpos($text,"/random");
 
-            $answer = "";
-
             if($is_command !== false && $is_command === 0){
                 $params = str_replace("/random", "", $text);
                 if (strlen($params) > 0) {
@@ -98,15 +96,19 @@ class MainController
                         $answer = "Слишком много параметров!";
                         break;
                 }
+
+                $bot->sendMessage($id, $answer);
             } elseif (text_analyse($text, "Подкинь монетку")) {
                 $result = rand(0,1);
                 if ($result) $answer = "Орел!";
                 else $answer = "Решка!";
+
+                $bot->sendMessage($id, $answer);
             } elseif (text_analyse($text, "Брось кубики")) {
                 $answer = "Выпали кубики с числами " . rand(1,6) . " и " . rand(1,6);
-            }
 
-            $bot->sendMessage($id, $answer);
+                $bot->sendMessage($id, $answer);
+            }
         };
     }
 
