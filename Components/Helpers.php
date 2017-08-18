@@ -24,7 +24,7 @@ function test(){
     file_put_contents($file, $current);
 }
 
-function incoming_command(Update $update) {
+function incoming_command($update) {
     $file = "commands.txt";
     if (!file_exists($file)) {
         $fp = fopen($file, "rw");
