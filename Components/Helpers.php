@@ -31,8 +31,12 @@ function incoming_command($command_text) {
     }
     $current = file_get_contents($file);
 
-    foreach ($command_text as $item) {
-        $current .= "Incoming_command text: " . $item . "\n";
+    $data = json_decode($command_text);
+
+    $current .= "Incoming_command text:";
+
+    foreach ($data as $item) {
+        $current .= "\n\t" . $item;
     }
 
     file_put_contents($file, $current);
