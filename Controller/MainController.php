@@ -56,13 +56,15 @@ class MainController
     public function random($bot){
         return function($update) use ($bot){
             $message = $update->getMessage();
-            $text = $message->getText();
+            $text = trim($message->getText());
             $id = $message->getChat()->getId();
 
-            test();
+            $is_command = strpos($text,"/random");
 
-            if(strpos($text,"/random") !== false){
-                $params = trim(str_replace("/random", "", $text));
+            $answer = "";
+
+            if($is_command !== false && $is_command === 0){
+                $params = str_replace("/random", "", $text);
                 if (strlen($params) > 0) {
                     $params_array = explode(" ", $params);
                     foreach ($params_array as $value) {
@@ -96,9 +98,15 @@ class MainController
                         $answer = "Слишком много параметров!";
                         break;
                 }
-
-                $bot->sendMessage($id, $answer);
+            } elseif (text_analyse($text, "Подкинь монетку")) {
+                $result = rand(0,1);
+                if ($result) $answer = "Орел!";
+                else $answer = "Решка!";
+            } elseif (text_analyse($text, "Брось кубики")) {
+                $answer = "Выпали кубики с числами " . rand(1,6) . " и " . rand(1,6);
             }
+
+            $bot->sendMessage($id, $answer);
         };
     }
 

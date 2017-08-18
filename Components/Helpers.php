@@ -21,3 +21,9 @@ function test(){
     // Пишем содержимое обратно в файл
     file_put_contents($file, $current);
 }
+
+function text_analyse($incoming_text, $correct_text) {
+    $similar = levenshtein($incoming_text, $correct_text);
+    if ($similar <= 5) return true;
+    return false;
+}
