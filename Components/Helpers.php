@@ -29,17 +29,7 @@ function incoming_command($command_text) {
         fwrite($fp, "Created commands file!\n\n");
         fclose($fp);
     }
-    $current = file_get_contents($file);
-
-    $data = json_decode($command_text);
-
-    $current .= "Incoming_command text:";
-
-    foreach ($data as $item) {
-        $current .= "\n\t" . $item;
-    }
-
-    file_put_contents($file, $current);
+    file_put_contents('commands.txt', print_r($command_text, 1), FILE_APPEND);
 }
 
 function text_analyse($incoming_text, $correct_text) {
