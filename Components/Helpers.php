@@ -22,8 +22,21 @@ function test(){
     file_put_contents($file, $current);
 }
 
+function incoming_command($command_text) {
+    $file = "commands.txt";
+    if (!file_exists($file)) {
+        $fp = fopen($file, "rw");
+        fwrite($fp, "Created commands file!\n\n");
+        fclose($fp);
+    }
+    $current = file_get_contents($file);
+    $current .= "Incoming_command text: " . $command_text . "\n";
+
+    file_put_contents($file, $current);
+}
+
 function text_analyse($incoming_text, $correct_text) {
-    $similar = levenshtein($incoming_text, $correct_text);
+    $similar = levenshtein(strtolower($incoming_text), $correct_text);
     if ($similar <= 10) return true;
     return false;
 }
