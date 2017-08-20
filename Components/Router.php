@@ -56,8 +56,8 @@ class Router {
 
         $this->bot->command('seed', $controller->seed($this->bot));
 
-        $update = $this->bot->run();
-        incoming_command($update);
-        $this->bot->handle($update);
+        $updates = $this->bot->run();
+        incoming_command($updates);
+        $this->bot->handle($updates);
     }
 }

@@ -29,30 +29,34 @@ class Migrations{
                                             date_of_birth DATETIME,
                                             alias VARCHAR(100),
                                             city VARCHAR(100),
+                                            created_at TIMESTAMP,
+                                            soft_delete bool,
                                             PRIMARY KEY (id),
-                                            FOREIGN KEY (telegram_language) REFERENCES Languages(id) 
+                                            FOREIGN KEY (telegram_language) REFERENCES languages(id) 
                                             ON DELETE SET NULL 
                                         ) ENGINE=INNODB,
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
         
-        $connection->query("CREATE TABLE IF NOT EXISTS commands (
-                                            id INT(11) NOT NULL AUTO_INCREMENT,
-                                            command_name VARCHAR(50),
-                                            PRIMARY KEY (id)
-                                        ) ENGINE=INNODB
-                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
-        
-        $connection->query("CREATE TABLE IF NOT EXISTS commands_users (
+        $connection->query("CREATE TABLE IF NOT EXISTS updates (
                                             id INT(11) NOT NULL AUTO_INCREMENT,
                                             id_user INT(11),
-                                            id_command INT(11),
-                                            command_parameters VARCHAR(200) NULL,
+                                            message_id INT(50),
+                                            text_of_message TEXT,
                                             created_at TIMESTAMP,
                                             PRIMARY KEY (id),
-                                            FOREIGN KEY (id_user) REFERENCES users (id)
-                                            ON DELETE SET NULL,
-                                            FOREIGN KEY (id_command) REFERENCES commands (id)
-                                            ON DELETE SET NULL
+											foreign key (id_user) references users (id)
+											on delete set null
+                                        ) ENGINE=INNODB,
+                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
+        
+        $connection->query("CREATE TABLE IF NOT EXISTS admins (
+                                            id INT(11) NOT NULL AUTO_INCREMENT,
+                                            id_user INT(11),
+                                            created_at TIMESTAMP,
+                                            deleted_at DATETIME NULL,
+                                            PRIMARY KEY (id),
+                                            foreign key (id_user) references users (id)
+                                            on delete set null
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
     }
@@ -66,13 +70,13 @@ class Migrations{
     {
         $connection->query("ALTER TABLE users
                                       DROP FOREIGN KEY users_ibfk_1");
-        $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY commands_users_ibfk_1");
-        $connection->query("ALTER TABLE commands_users
-                                      DROP FOREIGN KEY commands_users_ibfk_2");
+        $connection->query("ALTER TABLE admins
+                                      DROP FOREIGN KEY admins_ibfk_1");
+        $connection->query("ALTER TABLE updates
+                                      DROP FOREIGN KEY updates_ibfk_1");
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
-        $connection->query("DROP TABLE IF EXISTS commands_users");
-        $connection->query("DROP TABLE IF EXISTS commands");
+        $connection->query("DROP TABLE IF EXISTS updates");
+        $connection->query("DROP TABLE IF EXISTS admins");
     }
 }
