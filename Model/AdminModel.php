@@ -51,6 +51,36 @@ class AdminModel extends Model
     }
 
     /**
+     * Find admin by user id
+     *
+     * @param $id
+     * @return mixed|null
+     * @throws Exception
+     */
+    public static function getByUserId($id)
+    {
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT * FROM admins WHERE id_user = ?");
+            $stmt->bindParam(1, $id);
+
+            $result = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        if ($result) {
+            $data = $stmt->fetch();
+            $admin = self::init($data);
+
+            return $admin;
+        }
+
+        return null;
+    }
+
+    /**
      * Get all admins' ids from database
      * 
      * @return array|null

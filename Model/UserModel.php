@@ -21,7 +21,7 @@ class UserModel extends Model
         
         $is_admin = false;
         
-        if(!is_null(AdminModel::getById($data['id']))) {
+        if(!is_null(AdminModel::getByUserId($data['id']))) {
             $is_admin = true;
         }
         
