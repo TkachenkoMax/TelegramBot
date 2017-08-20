@@ -154,9 +154,10 @@ class MainController
             if($is_command !== false && $is_command === 0){
                 $params = trim(str_replace("/setLanguage", "", $text));
                 if (strlen($params) > 0) {
-                    $params_array = explode(" ", $params, 2);
-                    if(in_array($params_array[0], $app_languages)){
-                        $bot->sendMessage($telegram_id, "Язык установлен");
+                    $parameter = strtolower(explode(" ", $params, 2)[0]);
+                    if(in_array($parameter, array_flip($app_languages))){
+                        UserModel::setUserLanguage($telegram_id, $app_languages[$parameter]);
+                        $bot->sendMessage($telegram_id, "Язык $parameter установлен");
                     } else {
                         $bot->sendMessage($telegram_id, "Нельзя выбрать этот язык");
                     }

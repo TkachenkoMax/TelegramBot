@@ -163,25 +163,18 @@ class UserModel extends Model
      * Get user language
      * 
      * @param $telegram_id
-     * @return null|mixed
      * @throws Exception
      */
-    public static function getUserLanguage($telegram_id){
+    public static function setUserLanguage($telegram_id, $language_id){
         $connection = Database::connect();
 
         try{
-            $stmt = $connection->prepare("SELECT language_name FROM users LEFT JOIN languages ON users.telegram_language = languages.id WHERE users.telegram_id = ?");
-            $stmt->bindParam(1, $telegram_id);
-            $result = $stmt->execute();
+            $stmt = $connection->prepare("UPDATE users SET telegram_language = ? WHERE telegram_id = ?");
+            $stmt->bindParam(1, $language_id);
+            $stmt->bindParam(2, $telegram_id);
+            $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
-
-        if ($result) {
-            $data = $stmt->fetch();
-            return $data['language_name'];
-        }
-        
-        return null;
     }
 }
