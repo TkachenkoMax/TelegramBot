@@ -157,8 +157,6 @@ class MainController
                     $param_arr = explode(" ", $params);
                     $parameter = strtolower($param_arr[0]);
 
-                    $bot->sendMessage($telegram_id, $parameter);
-
                     if(in_array($parameter, array_flip($app_languages))){
                         UserModel::setUserLanguage($telegram_id, $app_languages[$parameter]);
                         $bot->sendMessage($telegram_id, "Язык $parameter установлен");
@@ -167,7 +165,7 @@ class MainController
                     }
                 }
                 else {
-                    if (!is_null($language)) {
+                    if (!is_object($language)) {
                         $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
                     } else {
                         $bot->sendMessage($telegram_id, "Язык еще не был установлен");
