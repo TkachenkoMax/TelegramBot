@@ -149,15 +149,12 @@ class MainController
             $telegram_id = $user->getTelegramId();
             $language = $user->getTelegramLanguage();
 
-            test_file($language);
-
             $is_command = strpos($text,"/setLanguage");
 
             if($is_command !== false && $is_command === 0){
                 $params = trim(str_replace("/setLanguage", "", $text));
                 if (strlen($params) > 0) {
-                    $param_arr = explode(" ", $params);
-                    $parameter = strtolower($param_arr[0]);
+                    $parameter = strtolower(explode(" ", $params, 2)[0]);
 
                     if(in_array($parameter, array_flip($app_languages))){
                         UserModel::setUserLanguage($telegram_id, $app_languages[$parameter]);
@@ -180,6 +177,34 @@ class MainController
                     ]], true, true);
 
                     $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
+                }
+            }
+        };
+    }
+
+    /**
+     * Set user alias
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
+    public function setAlias($bot, User $user){
+        return function ($update) use ($bot, $user) {
+            $message = $update->getMessage();
+            $text = trim($message->getText());
+            $telegram_id = $user->getTelegramId();
+
+            $is_command = strpos($text,"/setAlias");
+
+            if($is_command !== false && $is_command === 0){
+                $params = trim(str_replace("/setAlias", "", $text));
+                if (strlen($params) > 0) {
+                    $parameter = explode(" ", $params, 2)[0];
+
+                    $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
+                } else {
+                    $bot->sendMessage($telegram_id, "Напиши какой надо установить псевдомним (/setAlias <псевдоним>)");
                 }
             }
         };
