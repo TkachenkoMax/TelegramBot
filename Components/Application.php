@@ -14,7 +14,7 @@ class Application {
     private $app_languages;
 
     /**
-     * Router constructor. Creating bot instance
+     * Application constructor. Creating bot instance
      */
     public function __construct()
     {

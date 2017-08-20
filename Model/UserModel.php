@@ -183,7 +183,7 @@ class UserModel extends Model
      * Set user alias
      *
      * @param $telegram_id
-     * @param $language_id
+     * @param $alias
      * @throws Exception
      */
     public static function setUserAlias($telegram_id, $alias){

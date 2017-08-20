@@ -232,11 +232,13 @@ class MainController
                 if (strlen($parameter) > 0) {
                     $date = new DateTime($parameter);
 
-                    test_file($date);
+                    test_file($date->getLastErrors());
 
                     //UserModel::setUserDateOfBirth($telegram_id, $date['date']);
 
-                    $bot->sendMessage($telegram_id, "Дара рождения '$parameter' установлена!");
+                    $test = $date['date'];
+
+                    $bot->sendMessage($telegram_id, "Дара рождения $test установлена!");
                 } else {
                     $bot->sendMessage($telegram_id, "Не могу угадать твой день рождения, напиши его (/setDateOfBirth <дата>)");
                 }
