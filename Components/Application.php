@@ -68,7 +68,7 @@ class Application {
     public function saveUpdateToDatabase(){
         $data = array("id_user" => $this->updates[0]->getMessage()->getFrom()->getId(),
                       "message_id" => $this->updates[0]->getMessage()->getMessageId(),
-                      "text" => $this->updates[0]->getMessage()->getText()
+                      "text_of_message" => $this->updates[0]->getMessage()->getText()
                       );
         UpdateModel::saveUpdate($data);
     }

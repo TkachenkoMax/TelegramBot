@@ -93,10 +93,10 @@ class UpdateModel extends Model
         $connection = Database::connect();
 
         try {
-            $stmt = $connection->prepare("INSERT INTO updates (id_user, message_id, text) VALUES (?, ?, ?)");
+            $stmt = $connection->prepare("INSERT INTO updates (id_user, message_id, text_of_message) VALUES (?, ?, ?)");
             $stmt->bindParam(1, $data['id_user']);
             $stmt->bindParam(2, $data['message_id']);
-            $stmt->bindParam(3, $data['text']);
+            $stmt->bindParam(3, $data['text_of_message']);
 
             $result = $stmt->execute();
         } catch (PDOException $e) {
