@@ -9,7 +9,7 @@
 class Update
 {
     private $id;
-    private $user_id;
+    private $id_user;
     private $message_id;
     private $text_of_message;
     private $created_at;
@@ -17,15 +17,15 @@ class Update
     /**
      * Update constructor.
      * @param $id
-     * @param $user_id
+     * @param $id_user
      * @param $message_id
      * @param $text_of_message
      * @param $created_at
      */
-    public function __construct($id, $user_id, $message_id, $text_of_message, $created_at)
+    public function __construct($id, $id_user, $message_id, $text_of_message, $created_at)
     {
         $this->id = $id;
-        $this->user_id = $user_id;
+        $this->id_user = $id_user;
         $this->message_id = $message_id;
         $this->text_of_message = $text_of_message;
         $this->created_at = $created_at;
@@ -50,17 +50,17 @@ class Update
     /**
      * @return mixed
      */
-    public function getUserId()
+    public function getIdUser()
     {
-        return $this->user_id;
+        return $this->id_user;
     }
 
     /**
-     * @param mixed $user_id
+     * @param mixed $id_user
      */
-    public function setUserId($user_id)
+    public function setIdUser($id_user)
     {
-        $this->user_id = $user_id;
+        $this->id_user = $id_user;
     }
 
     /**

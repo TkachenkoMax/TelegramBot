@@ -19,7 +19,7 @@ class UpdateModel extends Model
     {
         $update = new Update(
             $data['id'],
-            $data['user_id'],
+            $data['$id_user'],
             $data['message_id'],
             $data['text_of_message'],
             $data['created_at']
