@@ -56,4 +56,4 @@ function isDateValid($date) {
         return true;
     }
     return false;
-} 
+}

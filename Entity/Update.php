@@ -110,6 +110,4 @@ class Update
     {
         $this->created_at = $created_at;
     }
-
-    
 }

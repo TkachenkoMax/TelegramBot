@@ -48,6 +48,4 @@ class Language
     {
         $this->language_name = $language_name;
     }
-    
-    
 }
