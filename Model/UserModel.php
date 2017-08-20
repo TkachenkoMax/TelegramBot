@@ -20,8 +20,10 @@ class UserModel extends Model
         $language = LanguageModel::getById($data['telegram_language']);
         
         $is_admin = false;
-        
-        if(!is_null(AdminModel::getByUserId($data['id']))['user_id']) {
+
+        test_file(AdminModel::getByUserId($data['id']));
+
+        if(!is_null(AdminModel::getByUserId($data['id']))) {
             $is_admin = true;
         }
         

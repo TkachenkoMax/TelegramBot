@@ -47,7 +47,7 @@ class Application {
 
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
 
-        test_file($this->user);
+        //test_file($this->user);
 
         if (!is_null($this->user) && $this->user->getIsAdmin()) {
             $controller = new AdminController();
