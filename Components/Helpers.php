@@ -6,8 +6,6 @@
  * Time: 10:39
  */
 
-use \TelegramBot\api\Types\Update;
-
 function test(){
     $file = "test.txt";
     //если файла нет, тогда

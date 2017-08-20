@@ -174,8 +174,8 @@ class MainController
                     }
 
                     $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                        ["text" => "/setLanguage Русский"],
-                        ["text" => "/setLanguage English"]
+                        ["text" => "/setLanguage русский"],
+                        ["text" => "/setLanguage english"]
                     ]], true, true);
 
                     $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
