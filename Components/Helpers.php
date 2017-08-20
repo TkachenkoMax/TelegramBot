@@ -6,30 +6,19 @@
  * Time: 10:39
  */
 
-function test(){
-    $file = "test.txt";
-    //если файла нет, тогда
-    if (!file_exists($file)) {
-        $fp = fopen($file, "rw");
-        fwrite($fp, "Created test file!\n");
-        fclose($fp);
-    }
-    // Открываем файл для получения существующего содержимого
-    $current = file_get_contents($file);
-    // Добавляем информацию в файл
-    $current .= "Helper-function works " . time() . "\n";
-    // Пишем содержимое обратно в файл
-    file_put_contents($file, $current);
-}
-
+/**
+ * Print parameter to text file on the server
+ * 
+ * @param $update
+ */
 function test_file($update) {
     $file = "commands.txt";
     if (!file_exists($file)) {
         $fp = fopen($file, "rw");
-        fwrite($fp, "Created commands file!\n\n");
+        fwrite($fp, "Created file!\n\n");
         fclose($fp);
     }
-    file_put_contents('commands.txt', print_r($update, 1));
+    file_put_contents('commands.txt', print_r($update, 1), FILE_APPEND);
 }
 
 function text_analyse($incoming_text, $correct_text) {

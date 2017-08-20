@@ -53,7 +53,7 @@ class MainController
     }
 
     /**
-     * Calculate random number
+     * Calculate random number and other random functions
      * 
      * @param $bot
      * @param User $user
@@ -135,7 +135,7 @@ class MainController
     }
 
     /**
-     * Set user language to interact with bot
+     * Set user's language to interact with bot
      *
      * @param $bot
      * @param User $user
@@ -183,7 +183,7 @@ class MainController
     }
 
     /**
-     * Set user alias
+     * Set user's alias
      *
      * @param $bot
      * @param User $user
@@ -207,6 +207,38 @@ class MainController
                     $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
                 } else {
                     $bot->sendMessage($telegram_id, "Напиши какой надо установить псевдомним (/setAlias <псевдоним>)");
+                }
+            }
+        };
+    }
+
+    /**
+     * Set user's date of birth
+     * 
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
+    public function setDateOfBirth($bot, User $user){
+        return function ($update) use ($bot, $user) {
+            $message = $update->getMessage();
+            $text = trim($message->getText());
+            $telegram_id = $user->getTelegramId();
+
+            $is_command = strpos($text,"/setDateOfBirth");
+
+            if($is_command !== false && $is_command === 0){
+                $parameter = trim(str_replace("/setDateOfBirth", "", $text));
+                if (strlen($parameter) > 0) {
+                    $date = new DateTime($parameter);
+
+                    test_file($date);
+
+                    //UserModel::setUserDateOfBirth($telegram_id, $date['date']);
+
+                    $bot->sendMessage($telegram_id, "Дара рождения '$parameter' установлена!");
+                } else {
+                    $bot->sendMessage($telegram_id, "Не могу угадать твой день рождения, напиши его (/setDateOfBirth <дата>)");
                 }
             }
         };
