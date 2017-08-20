@@ -149,6 +149,8 @@ class MainController
             $telegram_id = $user->getTelegramId();
             $language = $user->getTelegramLanguage();
 
+            test_file($language);
+
             $is_command = strpos($text,"/setLanguage");
 
             if($is_command !== false && $is_command === 0){
