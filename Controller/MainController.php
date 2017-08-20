@@ -17,7 +17,7 @@ class MainController
      */
     public function register($bot, User $user){
         return function () use ($bot, $user) {
-            if(!is_null($user)) {
+            if(!is_object($user)) {
                 $telegram_id = $user->getTelegramId();
                 $first_name = $user->getFirstName();
                 $last_name = $user->getLastName();
