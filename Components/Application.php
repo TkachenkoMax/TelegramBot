@@ -43,26 +43,23 @@ class Application {
     public function handle() 
     {
         $this->updates = $this->bot->run();
-        
 
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
-
-        //test_file($this->user);
 
         if (!is_null($this->user) && $this->user->getIsAdmin()) {
             $controller = new AdminController();
 
-/*          $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
-            $this->bot->command('migrate_down', $controller->migrateDown($this->bot));*/
+            $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
+            $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
             $this->bot->command('seed', $controller->seed($this->bot));
         }
         else 
             $controller = new MainController();
 
-        $this->bot->command('start', $controller->register($this->bot));
-        $this->bot->command('help', $controller->showHelp($this->bot));
-        $this->bot->on($controller->random($this->bot), $controller->returnTrue());
-        //$this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
+        $this->bot->command('start', $controller->register($this->bot, $this->user));
+        $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
+        $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());
+        $this->bot->on($controller->setLanguage($this->bot, $this->user), $controller->returnTrue());
 
         $this->bot->handle($this->updates);
     }

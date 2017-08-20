@@ -12,23 +12,25 @@ class MainController
      * Register new user
      * 
      * @param $bot
+     * @param User $user
      * @return Closure
      */
-    public function register($bot){
-        return function ($message) use ($bot) {
-            $telegram_id = $message->getChat()->getId();
-            $first_name = $message->getChat()->getFirstName();
-            $last_name = $message->getChat()->getLastName();
+    public function register($bot, User $user){
+        return function () use ($bot, $user) {
+            if(!is_null($user)) {
+                $telegram_id = $user->getTelegramId();
+                $first_name = $user->getFirstName();
+                $last_name = $user->getLastName();
 
-            try{
-                UserModel::register($telegram_id, $first_name, $last_name);
-            } catch (Exception $ex) {
-                if ($ex->getMessage() == "Bad registration") {
-                    $bot->sendMessage($message->getChat()->getId(), "Bad registration");
+                try {
+                    UserModel::register($telegram_id, $first_name, $last_name);
+                } catch (Exception $ex) {
+                    if ($ex->getMessage() == "Bad registration") {
+                        $bot->sendMessage($user->getTelegramId(), "Bad registration");
+                    }
                 }
-            }
 
-            $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
+                $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
 Меня зовут Катарина, я ваш умный помощник в Телеграме.
 Чтобы увидеть список доступных команд и возможностей, напишите <i>/help</i>.
 
@@ -43,7 +45,10 @@ class MainController
 4) <i>/setLanguage</i> - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
 
 <b>У Вас все получится:)</b>";
-            $bot->sendMessage($message->getChat()->getId(), $answer, "HTML");
+                $bot->sendMessage($user->getTelegramId(), $answer, "HTML");
+            } else {
+                $bot->sendMessage($user->getTelegramId(), "Вы уже зарегистрированы!");
+            }
         };
     }
 
@@ -51,13 +56,14 @@ class MainController
      * Calculate random number
      * 
      * @param $bot
+     * @param User $user
      * @return Closure
      */
-    public function random($bot){
-        return function($update) use ($bot){
+    public function random($bot, User $user){
+        return function($update) use ($bot, $user){
             $message = $update->getMessage();
             $text = trim($message->getText());
-            $id = $message->getChat()->getId();
+            $id = $user->getTelegramId();
 
             $is_command = strpos($text,"/random");
 
@@ -116,14 +122,15 @@ class MainController
      * Show to user message with help
      * 
      * @param $bot
+     * @param User $user
      * @return Closure
      */
-    public function showHelp($bot){
-        return function ($message) use ($bot) {
+    public function showHelp($bot, User $user){
+        return function () use ($bot, $user) {
             $answer = 'Команды:
 /help - помощь
 /random - сгенерировать случайное число от 0 до 100';
-            $bot->sendMessage($message->getChat()->getId(), $answer);
+            $bot->sendMessage($user->getTelegramId(), $answer);
         };
     }
 
@@ -131,13 +138,15 @@ class MainController
      * Set user language to interact with bot
      *
      * @param $bot
+     * @param User $user
      * @return Closure
      */
-   /* public function setLanguage($bot){
-        return function ($message) use ($bot) {
-            $telegram_id = $message->getChat()->getId();
+    public function setLanguage($bot, User $user){
+        return function ($update) use ($bot, $user) {
+            $telegram_id = $user->getTelegramId();
 
-            $language = MainController::checkLanguage($telegram_id);
+            $language = $user->getTelegramLanguage();
+            
             if (!is_null($language)) {
                 $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
             } else {
@@ -149,24 +158,8 @@ class MainController
                                                                             ["text" => "/setLanguage English"]
                                                                         ]], true, true);
 
-            $bot->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
+            $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
         };
-    }*/
-
-    /**
-     * Check if user set his language setting
-     *
-     * @param $telegram_id
-     * @return null|mixed
-     * @throws Exception
-     */
-    public static function checkLanguage($telegram_id){
-        $language = UserModel::getUserLanguage($telegram_id);
-        if (!empty($language)) {
-            return $language;
-        }
-
-        return null;
     }
 
     /**

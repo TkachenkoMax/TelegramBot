@@ -21,8 +21,6 @@ class UserModel extends Model
         
         $is_admin = false;
 
-        test_file(AdminModel::getByUserId($data['id']));
-
         if(is_array(AdminModel::getByUserId($data['id']))) {
             $is_admin = true;
         }
