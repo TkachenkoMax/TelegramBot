@@ -202,6 +202,8 @@ class MainController
                 if (strlen($params) > 0) {
                     $parameter = explode(" ", $params, 2)[0];
 
+                    UserModel::setUserAlias($telegram_id, $parameter);
+
                     $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
                 } else {
                     $bot->sendMessage($telegram_id, "Напиши какой надо установить псевдомним (/setAlias <псевдоним>)");

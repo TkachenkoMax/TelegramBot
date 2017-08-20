@@ -160,7 +160,7 @@ class UserModel extends Model
     }
 
     /**
-     * Get user language
+     * Set user language
      * 
      * @param $telegram_id
      * @param $language_id
@@ -172,6 +172,26 @@ class UserModel extends Model
         try{
             $stmt = $connection->prepare("UPDATE users SET telegram_language = ? WHERE telegram_id = ?");
             $stmt->bindParam(1, $language_id);
+            $stmt->bindParam(2, $telegram_id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    /**
+     * Set user alias
+     *
+     * @param $telegram_id
+     * @param $language_id
+     * @throws Exception
+     */
+    public static function setUserAlias($telegram_id, $alias){
+        $connection = Database::connect();
+
+        try{
+            $stmt = $connection->prepare("UPDATE users SET alias = ? WHERE telegram_id = ?");
+            $stmt->bindParam(1, $alias);
             $stmt->bindParam(2, $telegram_id);
             $stmt->execute();
         } catch (PDOException $e) {
