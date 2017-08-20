@@ -93,8 +93,8 @@ class UpdateModel extends Model
         $connection = Database::connect();
 
         try {
-            $stmt = $connection->prepare("INSERT INTO updates (user_id, message_id, text) VALUES (?, ?, ?)");
-            $stmt->bindParam(1, $data['user_id']);
+            $stmt = $connection->prepare("INSERT INTO updates (id_user, message_id, text) VALUES (?, ?, ?)");
+            $stmt->bindParam(1, $data['id_user']);
             $stmt->bindParam(2, $data['message_id']);
             $stmt->bindParam(3, $data['text']);
 
