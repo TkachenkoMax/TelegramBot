@@ -139,26 +139,43 @@ class MainController
      *
      * @param $bot
      * @param User $user
+     * @param array $app_languages
      * @return Closure
      */
-    public function setLanguage($bot, User $user){
-        return function ($update) use ($bot, $user) {
+    public function setLanguage($bot, User $user, array $app_languages){
+        return function ($update) use ($bot, $user, $app_languages) {
+            $message = $update->getMessage();
+            $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
-
             $language = $user->getTelegramLanguage();
-            
-            if (!is_null($language)) {
-                $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
-            } else {
-                $bot->sendMessage($telegram_id, "Язык еще не был установлен");
+
+            $is_command = strpos($text,"/setLanguage");
+
+            if($is_command !== false && $is_command === 0){
+                $params = trim(str_replace("/setLanguage", "", $text));
+                if (strlen($params) > 0) {
+                    $params_array = explode(" ", $params, 2);
+                    if(in_array($params_array[0], $app_languages)){
+                        $bot->sendMessage($telegram_id, "Язык установлен");
+                    } else {
+                        $bot->sendMessage($telegram_id, "Нельзя выбрать этот язык");
+                    }
+                }
+                else {
+                    if (!is_null($language)) {
+                        $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
+                    } else {
+                        $bot->sendMessage($telegram_id, "Язык еще не был установлен");
+                    }
+
+                    $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
+                        ["text" => "/setLanguage Русский"],
+                        ["text" => "/setLanguage English"]
+                    ]], true, true);
+
+                    $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
+                }
             }
-
-            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                                                                            ["text" => "/setLanguage Русский"],
-                                                                            ["text" => "/setLanguage English"]
-                                                                        ]], true, true);
-
-            $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
         };
     }
 

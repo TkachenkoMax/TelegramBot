@@ -11,6 +11,7 @@ class Application {
     private $token;
     private $updates;
     private $user;
+    private $app_languages;
 
     /**
      * Router constructor. Creating bot instance
@@ -18,6 +19,7 @@ class Application {
     public function __construct()
     {
         $bot_config = include(__ROOT__ . "/Config/bot.php");
+        $this->app_languages = $bot_config['available_languages'];
         $this->token = $bot_config["token"];
         $this->bot = new \TelegramBot\Api\Client($this->token);
     }
@@ -59,7 +61,7 @@ class Application {
         $this->bot->command('start', $controller->register($this->bot, $this->user));
         $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
         $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());
-        $this->bot->on($controller->setLanguage($this->bot, $this->user), $controller->returnTrue());
+        $this->bot->on($controller->setLanguage($this->bot, $this->user, $this->app_languages), $controller->returnTrue());
 
         $this->bot->handle($this->updates);
     }
