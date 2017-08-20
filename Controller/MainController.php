@@ -165,8 +165,9 @@ class MainController
                     }
                 }
                 else {
-                    if (!is_object($language)) {
-                        $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language");
+                    if (is_object($language)) {
+                        $language_name = $language->getLanguageName();
+                        $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language_name");
                     } else {
                         $bot->sendMessage($telegram_id, "Язык еще не был установлен");
                     }
