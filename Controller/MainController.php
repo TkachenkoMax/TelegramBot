@@ -230,10 +230,12 @@ class MainController
             if($is_command !== false && $is_command === 0){
                 $parameter = trim(str_replace("/setDateOfBirth", "", $text));
                 if (strlen($parameter) > 0) {
-                    $date = new DateTime($parameter);
-
-                    test_file($date->getLastErrors());
-
+                    try{
+                        $date = new DateTime($parameter);
+                    } catch (Error $e) {
+                        $bot->sendMessage($telegram_id, "Слишком сложно понять эту дату - $parameter");
+                    }
+                    
                     UserModel::setUserDateOfBirth($telegram_id, $date->format("Y-m-d H:i:s"));
 
                     $bot->sendMessage($telegram_id, "Дата рождения $parameter установлена!");
