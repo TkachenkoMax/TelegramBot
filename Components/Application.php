@@ -6,9 +6,10 @@
  * Time: 9:26
  */
 
-class Router {
+class Application {
     private $bot;
     private $token;
+    private $updates;
     private $user;
 
     /**
@@ -41,29 +42,34 @@ class Router {
      */
     public function handle() 
     {
-        $updates = $this->bot->run();
-        incoming_command($updates);
+        $this->updates = $this->bot->run();
+        incoming_command($this->updates);
 
-        $this->user = UserModel::getBy("telegram_id", $updates[0]->getMessage()->getFrom()->getId());
+        $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId());
 
-        incoming_command($updates[0]->getMessage()->getFrom()->getId());
+        if ($this->user->getIsAdmin()) {
+            $controller = new AdminController();
 
-        $controller = new AdminController();
+            $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
+            $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
+            $this->bot->command('seed', $controller->seed($this->bot));
+        }
+        else 
+            $controller = new MainController();
 
         $this->bot->command('start', $controller->register($this->bot));
-
         $this->bot->command('help', $controller->showHelp($this->bot));
-
         $this->bot->on($controller->random($this->bot), $controller->returnTrue());
-
         $this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
 
-        $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
-
-        $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
-
-        $this->bot->command('seed', $controller->seed($this->bot));
-
-        $this->bot->handle($updates);
+        $this->bot->handle($this->updates);
+    }
+    
+    public function saveUpdateToDatabase(){
+        $data = array("user_id" => $this->updates[0]->getMessage()->getFrom()->getId(),
+                      "message_id" => $this->updates[0]->getMessage()->getId(),
+                      "text" => $this->updates[0]->getMessage()->getText()
+                      );
+        UpdateModel::saveUpdate($data);
     }
 }

@@ -16,6 +16,8 @@ class User
     private $telegram_language;
     private $alias;
     private $city;
+    private $created_at;
+    private $is_admin;
 
     /**
      * User constructor.
@@ -24,11 +26,13 @@ class User
      * @param $first_name
      * @param $last_name
      * @param $telegram_language
+     * @param $is_admin
+     * @param $created_at
      * @param null $date_of_birth
      * @param null $alias
      * @param null $city
      */
-    public function __construct($id, $telegram_id, $first_name, $last_name, $telegram_language, $date_of_birth = null, $alias = null, $city = null)
+    public function __construct($id, $telegram_id, $first_name, $last_name, $telegram_language, $is_admin, $created_at, $date_of_birth = null, $alias = null, $city = null)
     {
         $this->id = $id;
         $this->telegram_id = $telegram_id;
@@ -38,6 +42,40 @@ class User
         $this->date_of_birth = $date_of_birth;
         $this->alias = $alias;
         $this->city = $city;
+        $this->created_at = $created_at;
+        $this->is_admin = $is_admin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->is_admin;
+    }
+
+    /**
+     * @param mixed $is_admin
+     */
+    public function setIsAdmin($is_admin)
+    {
+        $this->is_admin = $is_admin;
     }
 
     /**

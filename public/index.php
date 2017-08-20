@@ -27,6 +27,7 @@ require_once(__ROOT__ . "/vendor/autoload.php");
  * Start handle telegram's requests
  */
 
-$router = new Router();
+$router = new Application();
 $router->registerBot();
 $router->handle();
+$router->saveUpdateToDatabase();

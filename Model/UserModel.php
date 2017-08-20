@@ -19,12 +19,20 @@ class UserModel extends Model
     {
         $language = LanguageModel::getById($data['telegram_language']);
         
+        $is_admin = false;
+        
+        if(!is_null(AdminModel::getById($data['id']))) {
+            $is_admin = true;
+        }
+        
         $user = new User(
             $data['id'],
             $data['telegram_id'],
             $data['first_name'],
             $data['last_name'],
             $language,
+            $is_admin,
+            $data['created_at'],
             $data['date_of_birth'],
             $data['alias'],
             $data['city']
