@@ -66,10 +66,12 @@ class Application {
     }
     
     public function saveUpdateToDatabase(){
-        $data = array("id_user" => $this->user->getId(),
-                      "message_id" => $this->updates[0]->getMessage()->getMessageId(),
-                      "text_of_message" => $this->updates[0]->getMessage()->getText()
-                      );
-        UpdateModel::saveUpdate($data);
+        if (!is_null($this->user->getId())){
+            $data = array("id_user" => $this->user->getId(),
+                "message_id" => $this->updates[0]->getMessage()->getMessageId(),
+                "text_of_message" => $this->updates[0]->getMessage()->getText()
+            );
+            UpdateModel::saveUpdate($data);
+        }
     }
 }
