@@ -12,13 +12,13 @@
  * @param $update
  */
 function testFile($update) {
-    $file = "commands.txt";
+    $file = "test.txt";
     if (!file_exists($file)) {
         $fp = fopen($file, "rw");
         fwrite($fp, "Created file!\n\n");
         fclose($fp);
     }
-    file_put_contents('commands.txt', print_r($update, 1), FILE_APPEND);
+    file_put_contents('test.txt', print_r($update, 1), FILE_APPEND);
 }
 
 /**
@@ -37,7 +37,7 @@ function text_analyse($incoming_text, $correct_text) {
 /**
  * Check if date in string is valid
  * 
- * @param $str
+ * @param $date
  * @return bool
  */
 function isDateValid($date) {
