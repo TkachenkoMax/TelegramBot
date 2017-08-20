@@ -163,6 +163,7 @@ class UserModel extends Model
      * Get user language
      * 
      * @param $telegram_id
+     * @param $language_id
      * @throws Exception
      */
     public static function setUserLanguage($telegram_id, $language_id){
