@@ -133,7 +133,7 @@ class MainController
      * @param $bot
      * @return Closure
      */
-    public function setLanguage($bot){
+   /* public function setLanguage($bot){
         return function ($message) use ($bot) {
             $telegram_id = $message->getChat()->getId();
 
@@ -151,7 +151,7 @@ class MainController
 
             $bot->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
         };
-    }
+    }*/
 
     /**
      * Check if user set his language setting

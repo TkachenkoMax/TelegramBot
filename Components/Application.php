@@ -60,7 +60,7 @@ class Application {
         $this->bot->command('start', $controller->register($this->bot));
         $this->bot->command('help', $controller->showHelp($this->bot));
         $this->bot->on($controller->random($this->bot), $controller->returnTrue());
-        $this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
+        //$this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
 
         $this->bot->handle($this->updates);
     }
