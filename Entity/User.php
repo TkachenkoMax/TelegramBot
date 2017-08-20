@@ -38,7 +38,7 @@ class User
         $this->telegram_id = $telegram_id;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
-        $this->language = $telegram_language;
+        $this->telegram_language = $telegram_language;
         $this->date_of_birth = $date_of_birth;
         $this->alias = $alias;
         $this->city = $city;
@@ -169,7 +169,7 @@ class User
     /**
      * @param mixed $telegram_language
      */
-    public function setLanguage($telegram_language)
+    public function setTelegramLanguage($telegram_language)
     {
         $this->telegram_language = $telegram_language;
     }
