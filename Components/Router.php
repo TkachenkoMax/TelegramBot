@@ -46,7 +46,7 @@ class Router {
 
         $this->user = UserModel::getBy("telegram_id", $updates[0]->getMessage()->getFrom()->getId());
 
-        incoming_command($this->user);
+        incoming_command($updates[0]->getMessage()->getFrom()->getId());
 
         $controller = new AdminController();
 
