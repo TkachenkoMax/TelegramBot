@@ -33,7 +33,7 @@ class UserModel extends Model
             $language,
             $is_admin,
             $data['created_at'],
-            $data['date_of_birth'],
+            new DateTime($data['date_of_birth']),
             $data['alias'],
             $data['city']
         );
@@ -192,6 +192,19 @@ class UserModel extends Model
         try{
             $stmt = $connection->prepare("UPDATE users SET alias = ? WHERE telegram_id = ?");
             $stmt->bindParam(1, $alias);
+            $stmt->bindParam(2, $telegram_id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public static function setUserDateOfBirth($telegram_id, $date){
+        $connection = Database::connect();
+
+        try{
+            $stmt = $connection->prepare("UPDATE users SET date_of_birth = ? WHERE telegram_id = ?");
+            $stmt->bindParam(1, $date);
             $stmt->bindParam(2, $telegram_id);
             $stmt->execute();
         } catch (PDOException $e) {
