@@ -48,7 +48,7 @@ class Router {
 
         $this->bot->on($controller->random($this->bot), $controller->returnTrue());
 
-        //$this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
+        $this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
 
         $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
 
