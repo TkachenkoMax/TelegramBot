@@ -63,6 +63,7 @@ class Application {
         $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());
         $this->bot->on($controller->setLanguage($this->bot, $this->user, $this->app_languages), $controller->returnTrue());
         $this->bot->on($controller->setAlias($this->bot, $this->user), $controller->returnTrue());
+        $this->bot->on($controller->setDateOfBirth($this->bot, $this->user), $controller->returnTrue());
 
         $this->bot->handle($this->updates);
     }
