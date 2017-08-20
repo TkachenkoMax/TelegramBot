@@ -47,7 +47,7 @@ class Application {
 
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
 
-        if ($this->user->getIsAdmin()) {
+        if ($this->user->getIsAdmin() && !is_null($this->user)) {
             $controller = new AdminController();
 
             $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
@@ -60,7 +60,7 @@ class Application {
         $this->bot->command('start', $controller->register($this->bot));
         $this->bot->command('help', $controller->showHelp($this->bot));
         $this->bot->on($controller->random($this->bot), $controller->returnTrue());
-        //$this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
+        $this->bot->on($controller->setLanguage($this->bot), $controller->returnTrue());
 
         $this->bot->handle($this->updates);
     }
