@@ -237,7 +237,7 @@ class MainController
                     //UserModel::setUserDateOfBirth($telegram_id, $date['date']);
 
 
-                    $test = $date->format("YYYY-MM-DD HH:MM:SS");
+                    $test = $date->format("Y-m-d H:i:s");
                     $bot->sendMessage($telegram_id, "Дара рождения $test установлена!");
                 } else {
                     $bot->sendMessage($telegram_id, "Не могу угадать твой день рождения, напиши его (/setDateOfBirth <дата>)");
