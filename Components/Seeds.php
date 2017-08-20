@@ -18,16 +18,5 @@ class Seeds
                                         ('Russian'),
                                         ('English')
                                        ");
-        $connection->query("INSERT IGNORE INTO commands (command_name) VALUES 
-                                        ('Undefined'),
-                                        ('start'), 
-                                        ('help'),
-                                        ('random'),
-                                        ('migrate_up'),
-                                        ('migrate_down'),
-                                        ('seed'),
-                                        ('users'),
-                                        ('tables')
-                                       ");
     }
 }

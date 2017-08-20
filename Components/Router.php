@@ -9,6 +9,7 @@
 class Router {
     private $bot;
     private $token;
+    private $user;
 
     /**
      * Router constructor. Creating bot instance
@@ -40,6 +41,13 @@ class Router {
      */
     public function handle() 
     {
+        $updates = $this->bot->run();
+        incoming_command($updates);
+
+        $this->user = UserModel::getBy("telegram_id", $updates[0]->getMessage()->getFrom()->getId());
+
+        incoming_command($this->user);
+
         $controller = new AdminController();
 
         $this->bot->command('start', $controller->register($this->bot));
@@ -56,8 +64,6 @@ class Router {
 
         $this->bot->command('seed', $controller->seed($this->bot));
 
-        $updates = $this->bot->run();
-        incoming_command($updates);
         $this->bot->handle($updates);
     }
 }
