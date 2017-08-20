@@ -83,9 +83,8 @@ class UserModel extends Model
         $connection = Database::connect();
 
         try {
-            $stmt = $connection->prepare("SELECT * FROM users WHERE ? = ?");
-            $stmt->bindParam(1, $parameter);
-            $stmt->bindParam(2, $value);
+            $stmt = $connection->prepare("SELECT * FROM users WHERE $parameter = ?");
+            $stmt->bindParam(1, $value);
 
             $result = $stmt->execute();
         } catch (PDOException $e) {
