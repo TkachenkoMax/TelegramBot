@@ -23,7 +23,7 @@ class User
      * @param $telegram_id
      * @param $first_name
      * @param $last_name
-     * @param $language
+     * @param $telegram_language
      * @param null $date_of_birth
      * @param null $alias
      * @param null $city

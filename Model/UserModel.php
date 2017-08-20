@@ -17,12 +17,14 @@ class UserModel extends Model
      */
     public static function init($data = array())
     {
+        $language = LanguageModel::getById($data['telegram_language']);
+        
         $user = new User(
             $data['id'],
             $data['telegram_id'],
             $data['first_name'],
             $data['last_name'],
-            $data['telegram_language'],
+            $language,
             $data['date_of_birth'],
             $data['alias'],
             $data['city']

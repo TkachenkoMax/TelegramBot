@@ -145,8 +145,8 @@ class MainController
             }
 
             $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                                                                            ["text" => "Русский", "request_location" => true],
-                                                                            ["text" => "English", "request_location" => true]
+                                                                            ["text" => "/setLanguage Русский"],
+                                                                            ["text" => "/setLanguage English"]
                                                                         ]], true, true);
 
             $bot->sendMessage($message->getChat()->getId(), "Выберите язык:", false, null,null, $keyboard);
@@ -168,7 +168,12 @@ class MainController
 
         return null;
     }
-    
+
+    /**
+     * Function that we need to use "on" function of the library
+     *
+     * @return Closure
+     */
     public function returnTrue(){
         return function(){
             return true;
