@@ -7,5 +7,5 @@
  */
 
 return array(
-  "token" => "390875011:AAEkDpRCBeIiRQ3clQ03PcEDty5QzEwtb60",  
+  "token" => "401945532:AAFVmRlt47auHWM4modh_sFOGS4tEyslG-E",
 );
