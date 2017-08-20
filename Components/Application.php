@@ -43,9 +43,11 @@ class Application {
     public function handle() 
     {
         $this->updates = $this->bot->run();
-        //incoming_command($this->updates);
+        
 
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
+
+        test_file($this->user->getIsAdmin());
 
         if (!is_null($this->user) && $this->user->getIsAdmin()) {
             $controller = new AdminController();
