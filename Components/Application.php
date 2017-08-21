@@ -6,6 +6,8 @@
  * Time: 9:26
  */
 
+use \TelegramBot\Api\Client;
+
 class Application {
     private $bot;
     private $token;
@@ -21,7 +23,7 @@ class Application {
         $bot_config = include(__ROOT__ . "/Config/bot.php");
         $this->app_languages = $bot_config['available_languages'];
         $this->token = $bot_config["token"];
-        $this->bot = new \TelegramBot\Api\Client($this->token);
+        $this->bot = new Client($this->token);
     }
 
 

@@ -6,6 +6,9 @@
  * Date: 05.08.17
  * Time: 10:34
  */
+
+use \Yandex\Geo\Api;
+
 class MainController
 {
     /**
@@ -252,8 +255,29 @@ class MainController
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
+            $location = $message->getLocation();
             $telegram_id = $user->getTelegramId();
-            $city = $user->getCity();
+            $current_city = $user->getCity();
+
+            if (is_object($location)) {
+                $long = $location->getLongitude();
+                $lat = $location->getLatitude();
+
+                $api = new Api();
+                $api->setPoint($long, $lat);
+
+                $api
+                    ->setLimit(1)
+                    ->setLang(Api::LANG_RU)
+                    ->load();
+
+                $response = $api->getResponse();
+
+                $collection = $response->getList();
+                foreach ($collection as $item) {
+                    $bot->sendMessage($telegram_id, "Город установлен: " . $item);;
+                }
+            }
 
             $is_command = strpos($text,"/setCity");
 
@@ -263,8 +287,8 @@ class MainController
                     //TODO
                 }
                 else {
-                    if (is_object($city)) {
-                        $city_name = $city->getCity();
+                    if (is_object($current_city)) {
+                        $city_name = $current_city->getCity();
                         $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
                     } else {
                         $bot->sendMessage($telegram_id, "Город еще не был установлен");
