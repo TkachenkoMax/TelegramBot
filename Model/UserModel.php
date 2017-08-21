@@ -25,7 +25,7 @@ class UserModel extends Model
             $is_admin = true;
         }
 
-        $city = new City();
+        $city = new City("", "", "", "");
         $city = unserialize($data['city']);
 
         $user = new User(
