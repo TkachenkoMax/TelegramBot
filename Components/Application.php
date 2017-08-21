@@ -60,8 +60,6 @@ class Application {
         else 
             $controller = new MainController();
 
-        testFile($this->updates);
-
         $this->bot->command('start', $controller->register($this->bot, $this->user));
         $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
         $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());
@@ -72,7 +70,12 @@ class Application {
 
         $this->bot->handle($this->updates);
     }
-    
+
+    /**
+     * Function, where application saves every incoming update to database
+     *
+     * @throws Exception
+     */
     public function saveUpdateToDatabase(){
         if (!is_null($this->user)){
             $data = array("id_user" => $this->user->getId(),

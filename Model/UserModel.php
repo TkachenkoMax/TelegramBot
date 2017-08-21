@@ -27,6 +27,9 @@ class UserModel extends Model
 
         $city = unserialize($data['city']);
 
+        testFile($city);
+        testFile($data['city']);
+
         $user = new User(
             $data['id'],
             $data['telegram_id'],
