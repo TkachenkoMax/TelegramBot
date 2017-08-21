@@ -24,7 +24,7 @@ class UserModel extends Model
         if(is_array(AdminModel::getByUserId($data['id']))) {
             $is_admin = true;
         }
-        
+
         $city = new City;
         $city = unserialize($data['city']);
 

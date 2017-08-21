@@ -58,6 +58,8 @@ class Application {
         else 
             $controller = new MainController();
 
+        testFile($this->updates);
+
         $this->bot->command('start', $controller->register($this->bot, $this->user));
         $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
         $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());

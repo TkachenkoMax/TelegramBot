@@ -271,10 +271,10 @@ class MainController
                     }
 
                     $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                        ["text" => "Нажмите на кнопку для определения города и разрешите отправку местоположения", "request_location" => true],
+                        ["text" => "Отправить местоположение", "request_location" => true],
                     ]], true, true);
 
-                    $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
+                    $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
                 }
             }
         };
