@@ -251,6 +251,13 @@ class MainController
         };
     }
 
+    /**
+     * Set user's city
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function setCity($bot, User $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
@@ -274,9 +281,12 @@ class MainController
                 $response = $api->getResponse();
 
                 $collection = $response->getList();
-                foreach ($collection as $item) {
-                    $bot->sendMessage($telegram_id, "Город установлен: " . $item->getLocalityName());
-                }
+                
+                $new_city = new City($collection[0]->getLocalityName(), $collection[0]->getCountry(), $collection[0]->getLongitude(), $collection[0]->getLatitude());
+                
+                UserModel::setCity($telegram_id, $new_city);
+                
+                $bot->sendMessage($telegram_id, "Город установлен: " . $collection[0]->getLocalityName());
             }
 
             $is_command = strpos($text,"/setCity");

@@ -25,7 +25,6 @@ class UserModel extends Model
             $is_admin = true;
         }
 
-        $city = new City;
         $city = unserialize($data['city']);
 
         $user = new User(
@@ -163,7 +162,7 @@ class UserModel extends Model
     }
 
     /**
-     * Set user language
+     * Set user's language
      * 
      * @param $telegram_id
      * @param $language_id
@@ -183,7 +182,7 @@ class UserModel extends Model
     }
 
     /**
-     * Set user alias
+     * Set user's alias
      *
      * @param $telegram_id
      * @param $alias
@@ -202,12 +201,21 @@ class UserModel extends Model
         }
     }
 
-    public static function setUserDateOfBirth($telegram_id, $date){
+    /**
+     * Set user's city
+     *
+     * @param $telegram_id
+     * @param City $city
+     * @throws Exception
+     */
+    public static function setCity($telegram_id, City $city){
+        $city_ser = serialize($city);
+
         $connection = Database::connect();
 
         try{
-            $stmt = $connection->prepare("UPDATE users SET date_of_birth = ? WHERE telegram_id = ?");
-            $stmt->bindParam(1, $date);
+            $stmt = $connection->prepare("UPDATE users SET city = ? WHERE telegram_id = ?");
+            $stmt->bindParam(1, $city_ser);
             $stmt->bindParam(2, $telegram_id);
             $stmt->execute();
         } catch (PDOException $e) {

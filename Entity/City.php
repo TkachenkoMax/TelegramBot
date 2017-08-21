@@ -20,13 +20,13 @@ class City
      * @param $longitude
      * @param $latitude
      */
-    /*public function __construct($city, $country, $longitude, $latitude)
+    public function __construct($city, $country, $longitude, $latitude)
     {
         $this->city = $city;
         $this->country = $country;
         $this->longitude = $longitude;
         $this->latitude = $latitude;
-    }*/
+    }
 
     /**
      * @return mixed
