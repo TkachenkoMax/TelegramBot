@@ -275,7 +275,7 @@ class MainController
 
                 $collection = $response->getList();
                 foreach ($collection as $item) {
-                    $bot->sendMessage($telegram_id, "Город установлен: " . $item);;
+                    $bot->sendMessage($telegram_id, "Город установлен: " . $item->getAddress());;
                 }
             }
 
