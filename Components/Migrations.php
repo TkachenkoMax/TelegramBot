@@ -28,7 +28,7 @@ class Migrations{
                                             telegram_language INT(11),
                                             date_of_birth DATETIME,
                                             alias VARCHAR(100),
-                                            city VARCHAR(100),
+                                            city BLOB,
                                             created_at TIMESTAMP,
                                             soft_delete bool,
                                             PRIMARY KEY (id),
