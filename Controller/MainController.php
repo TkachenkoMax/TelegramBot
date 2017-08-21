@@ -275,7 +275,7 @@ class MainController
 
                 $collection = $response->getList();
                 foreach ($collection as $item) {
-                    $bot->sendMessage($telegram_id, "Город установлен: " . $item->getAddress());;
+                    $bot->sendMessage($telegram_id, "Город установлен: " . $item->getLocalityName());
                 }
             }
 
@@ -284,7 +284,19 @@ class MainController
             if($is_command !== false && $is_command === 0){
                 $params = trim(str_replace("/setCity", "", $text));
                 if (strlen($params) > 0) {
-                    //TODO
+                    $api = new Api();
+                    $api->setQuery($params[0]);
+
+                    $api
+                        ->setLang(\Yandex\Geo\Api::LANG_RU)
+                        ->load();
+
+                    $response = $api->getResponse();
+
+                    $collection = $response->getList();
+                    foreach ($collection as $item) {
+                        $bot->sendMessage($telegram_id, "Найден город: " . $item->getAddress());
+                    }
                 }
                 else {
                     if (is_object($current_city)) {
