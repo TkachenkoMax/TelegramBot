@@ -248,6 +248,38 @@ class MainController
         };
     }
 
+    public function setCity($bot, User $user){
+        return function ($update) use ($bot, $user) {
+            $message = $update->getMessage();
+            $text = trim($message->getText());
+            $telegram_id = $user->getTelegramId();
+            $city = $user->getCity();
+
+            $is_command = strpos($text,"/setCity");
+
+            if($is_command !== false && $is_command === 0){
+                $params = trim(str_replace("/setCity", "", $text));
+                if (strlen($params) > 0) {
+                    //TODO
+                }
+                else {
+                    if (is_object($city)) {
+                        $city_name = $city->getCity();
+                        $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
+                    } else {
+                        $bot->sendMessage($telegram_id, "Город еще не был установлен");
+                    }
+
+                    $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
+                        ["text" => "Нажмите на кнопку для определения города и разрешите отправку местоположения", "request_location" => true],
+                    ]], true, true);
+
+                    $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
+                }
+            }
+        };
+    }
+
     /**
      * Function that we need to use "on" function of the library
      *

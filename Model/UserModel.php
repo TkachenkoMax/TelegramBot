@@ -25,6 +25,9 @@ class UserModel extends Model
             $is_admin = true;
         }
         
+        $city = new City;
+        $city = unserialize($data['city']);
+
         $user = new User(
             $data['id'],
             $data['telegram_id'],
@@ -35,7 +38,7 @@ class UserModel extends Model
             $data['created_at'],
             new DateTime($data['date_of_birth']),
             $data['alias'],
-            $data['city']
+            $city
         );
 
         return $user;
