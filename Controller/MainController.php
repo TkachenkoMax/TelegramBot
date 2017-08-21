@@ -62,7 +62,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function random($bot, User $user){
+    public function random($bot, $user){
         return function($update) use ($bot, $user){
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -128,7 +128,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function showHelp($bot, User $user){
+    public function showHelp($bot, $user){
         return function () use ($bot, $user) {
             $answer = 'Команды:
 /help - помощь
@@ -145,7 +145,7 @@ class MainController
      * @param array $app_languages
      * @return Closure
      */
-    public function setLanguage($bot, User $user, array $app_languages){
+    public function setLanguage($bot, $user, array $app_languages){
         return function ($update) use ($bot, $user, $app_languages) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -192,7 +192,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setAlias($bot, User $user){
+    public function setAlias($bot, $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -222,7 +222,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setDateOfBirth($bot, User $user){
+    public function setDateOfBirth($bot, $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -258,7 +258,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setCity($bot, User $user){
+    public function setCity($bot, $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
