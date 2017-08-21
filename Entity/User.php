@@ -32,7 +32,7 @@ class User
      * @param null $alias
      * @param null $city
      */
-    public function __construct($id, $telegram_id, $first_name, $last_name, $telegram_language, $is_admin, $created_at, $date_of_birth = null, $alias = null, $city = null)
+    public function __construct($id, $telegram_id, $first_name, $last_name, $telegram_language, $is_admin, $created_at, $date_of_birth, $alias, $city)
     {
         $this->id = $id;
         $this->telegram_id = $telegram_id;
