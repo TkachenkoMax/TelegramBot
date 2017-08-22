@@ -261,7 +261,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setCity($bot, User $user){
+    /*public function setCity($bot, User $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -315,7 +315,7 @@ class MainController
                 }
             }
         };
-    }
+    }*/
 
     public function weather($bot, User $user){
         return function ($message) use ($bot, $user){
