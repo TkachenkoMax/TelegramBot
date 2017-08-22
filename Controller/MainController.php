@@ -19,17 +19,17 @@ class MainController
      * @return Closure
      */
     public function register($bot, $user){
-        return function ($update) use ($bot, $user) {
+        return function ($message) use ($bot, $user) {
             if($user === null) {
-                $telegram_id = $update->getMessage()->getFrom()->getId();
-                $first_name = $update->getMessage()->getFrom()->getFirstName();
-                $last_name = $update->getMessage()->getFrom()->getLastName();
+                $telegram_id = $message->getFrom()->getId();
+                $first_name = $message->getFrom()->getFirstName();
+                $last_name = $message->getFrom()->getLastName();
 
                 try {
                     UserModel::register($telegram_id, $first_name, $last_name);
                 } catch (Exception $ex) {
                     if ($ex->getMessage() == "Bad registration") {
-                        $bot->sendMessage($user->getTelegramId(), "Bad registration");
+                        $bot->sendMessage($telegram_id, "Bad registration");
                     }
                 }
 
