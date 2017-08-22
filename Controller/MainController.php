@@ -8,6 +8,8 @@
  */
 
 use \Yandex\Geo\Api;
+use Cmfcmf\OpenWeatherMap;
+use Cmfcmf\OpenWeatherMap\Exception as OWMException;
 
 class MainController
 {
@@ -311,6 +313,29 @@ class MainController
 
                     $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
                 }
+            }
+        };
+    }
+
+    public function weather($bot, User $user){
+        return function ($message) use ($bot, $user){
+            if (trim($message->getText()) === "/weather") {
+                $city = $user->getCity();
+                $lang = 'ru';
+
+                $units = 'metric';
+
+                $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
+
+                try {
+                    $weather = $owm->getWeather('Kharkiv', $units, $lang);
+                } catch(OWMException $e) {
+                    echo 'OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
+                } catch(\Exception $e) {
+                    echo 'General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
+                }
+
+                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature);
             }
         };
     }

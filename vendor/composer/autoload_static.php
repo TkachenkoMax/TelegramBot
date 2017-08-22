@@ -20,6 +20,10 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
             'MenaraSolutions\\Geographer\\Helpers\\' => 35,
             'MenaraSolutions\\Geographer\\' => 27,
         ),
+        'C' => 
+        array (
+            'Cmfcmf\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -34,6 +38,10 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
         'MenaraSolutions\\Geographer\\' => 
         array (
             0 => __DIR__ . '/..' . '/menarasolutions/geographer/src',
+        ),
+        'Cmfcmf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cmfcmf/openweathermap-php-api/Cmfcmf',
         ),
     );
 
