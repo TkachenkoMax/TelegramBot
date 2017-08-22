@@ -18,7 +18,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function register($bot, User $user){
+    public function register($bot, $user){
         return function ($update) use ($bot, $user) {
             if($user === null) {
                 $telegram_id = $update->getMessage()->getFrom()->getId();
