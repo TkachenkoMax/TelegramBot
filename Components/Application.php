@@ -60,8 +60,6 @@ class Application {
         else 
             $controller = new MainController();
 
-        testFile($this->user);
-
         $this->bot->command('start', $controller->register($this->bot, $this->user));
         if ($this->user !== null) {
             $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
@@ -71,7 +69,7 @@ class Application {
             $this->bot->on($controller->setDateOfBirth($this->bot, $this->user), $controller->returnTrue());
             $this->bot->on($controller->setCity($this->bot, $this->user), $controller->returnTrue());
         }
-        
+
         $this->bot->handle($this->updates);
     }
 

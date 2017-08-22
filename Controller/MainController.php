@@ -18,12 +18,12 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function register($bot, $user){
-        return function () use ($bot, $user) {
-            if($user !== null) {
-                $telegram_id = $user->getTelegramId();
-                $first_name = $user->getFirstName();
-                $last_name = $user->getLastName();
+    public function register($bot, User $user){
+        return function ($update) use ($bot, $user) {
+            if($user === null) {
+                $telegram_id = $update->getMessage()->getFrom()->getId();
+                $first_name = $update->getMessage()->getFrom()->getFirstName();
+                $last_name = $update->getMessage()->getFrom()->getLastName();
 
                 try {
                     UserModel::register($telegram_id, $first_name, $last_name);
@@ -48,7 +48,7 @@ class MainController
 4) <i>/setLanguage</i> - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
 
 <b>У Вас все получится:)</b>";
-                $bot->sendMessage($user->getTelegramId(), $answer, "HTML");
+                $bot->sendMessage($telegram_id, $answer, "HTML");
             } else {
                 $bot->sendMessage($user->getTelegramId(), "Вы уже зарегистрированы!");
             }
@@ -62,7 +62,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function random($bot, $user){
+    public function random($bot, User $user){
         return function($update) use ($bot, $user){
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -128,7 +128,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function showHelp($bot, $user){
+    public function showHelp($bot, User $user){
         return function () use ($bot, $user) {
             $answer = 'Команды:
 /help - помощь
@@ -145,7 +145,7 @@ class MainController
      * @param array $app_languages
      * @return Closure
      */
-    public function setLanguage($bot, $user, array $app_languages){
+    public function setLanguage($bot, User $user, array $app_languages){
         return function ($update) use ($bot, $user, $app_languages) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -192,7 +192,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setAlias($bot, $user){
+    public function setAlias($bot, User $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -222,7 +222,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setDateOfBirth($bot, $user){
+    public function setDateOfBirth($bot, User $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
@@ -258,7 +258,7 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function setCity($bot, $user){
+    public function setCity($bot, User $user){
         return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
