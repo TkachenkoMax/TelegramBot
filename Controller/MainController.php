@@ -322,13 +322,12 @@ class MainController
             if (trim($message->getText()) === "/weather") {
                 $city = $user->getCity();
                 $lang = 'en';
-
                 $units = 'metric';
 
                 $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
 
                 try {
-                    $weather = $owm->getWeather('Berlin', $units, $lang);
+                    $weather = $owm->getWeather(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang);
                 } catch(OWMException $e) {
                     echo 'OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
                 } catch(\Exception $e) {
