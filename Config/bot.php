@@ -12,13 +12,13 @@ return array(
   "available_languages" => array([
                                     "database_name" => "русский",
                                     "database_id" => 2,
-                                    "yandex_geocoding" => "Api::LANG_RU",
+                                    "yandex_geocoding" => "ru-RU",
                                     "forecast" => "ru"
                                  ], 
                                  [
                                     "database_name" => "english",
                                     "database_id" => 12,
-                                    "yandex_geocoding" => "Api::LANG_US",
+                                    "yandex_geocoding" => "en-US",
                                     "forecast" => "en"
                                  ]
   ),
