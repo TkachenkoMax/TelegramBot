@@ -353,6 +353,18 @@ class MainController
                                                           "\nОсадки: " . $weather->precipitation->getFormatted() .
                                                           "\nЕще одно описание: " . $weather->weather->description .
                                                           "\nИконка: " . $weather->weather->icon, "HTML");
+            } else {
+                $api = new Api();
+
+                $api->setQuery('Павловка');
+
+                $api
+                    ->setLimit(10) // кол-во результатов
+                    ->setLang(Api::LANG_RU) // локаль ответа
+                    ->load();
+
+                $response = $api->getResponse();
+                testFile($response->getList());
             }
         };
     }
