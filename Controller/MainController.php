@@ -283,7 +283,7 @@ class MainController
 
                 $api
                     ->setLimit(1)
-                    ->setLang(Api::$$lang)
+                    ->setLang(Api::$lang)
                     ->load();
 
                 $response = $api->getResponse();
