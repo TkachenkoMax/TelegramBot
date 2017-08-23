@@ -72,7 +72,7 @@ class Application {
     }
 
     /**
-     * Function, where application saves every incoming update to database
+     * Function, where application saves every incoming update to database (except first '/start' command)
      *
      * @throws Exception
      */

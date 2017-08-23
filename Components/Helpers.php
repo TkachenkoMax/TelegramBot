@@ -22,6 +22,21 @@ function testFile($update) {
 }
 
 /**
+ * Print parameter to text file with errors on the server
+ *
+ * @param $message
+ */
+function printError($message) {
+    $file = "errors.txt";
+    if (!file_exists($file)) {
+        $fp = fopen($file, "rw");
+        fwrite($fp, "Created file!\n\n");
+        fclose($fp);
+    }
+    file_put_contents('test.txt', print_r($message, 1));
+}
+
+/**
  * Analise is incoming text similar to correct text
  * 
  * @param $incoming_text
