@@ -12,13 +12,13 @@
  * @param $update
  */
 function testFile($update) {
-    $file = "test.txt";
+    $file = "test.php";
     if (!file_exists($file)) {
         $fp = fopen($file, "rw");
         fwrite($fp, "Created file!\n\n");
         fclose($fp);
     }
-    file_put_contents('test.txt', print_r($update, 1), FILE_APPEND);
+    file_put_contents('test.php', print_r($update, 1), FILE_APPEND);
 }
 
 /**
