@@ -321,7 +321,7 @@ class MainController
         return function ($message) use ($bot, $user){
             if (trim($message->getText()) === "/weather") {
                 $city = $user->getCity();
-                $lang = 'en';
+                $lang = 'ru';
                 $units = 'metric';
 
                 $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
@@ -334,13 +334,14 @@ class MainController
                     echo 'General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
                 }
 
-                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now . 
-                                                          "Описание: " . $weather->temperature->getDescription() . 
-                                                          "Min: " . $weather->temperature->min . 
-                                                          "Max: " . $weather->temperature->max .
-                                                          "Осадки: " . $weather->precipitation .
-                                                          "Еще одно описание: " . $weather->weather->description .
-                                                          "Иконка: " . $weather->weather->icon, "HTML");
+                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
+                                                          "\nMin: " . $weather->temperature->min .
+                                                          "\nMax: " . $weather->temperature->max .
+                                                          "\nОсадки: " . $weather->precipitation->getDescription() .
+                                                          "\nОсадки: " . $weather->precipitation->getUnit() .
+                                                          "\nОсадки: " . $weather->precipitation->getFormatted() .
+                                                          "\nЕще одно описание: " . $weather->weather->description .
+                                                          "\nИконка: " . $weather->weather->icon, "HTML");
             }
         };
     }
