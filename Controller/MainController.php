@@ -346,6 +346,8 @@ class MainController
                 }
 
                 testFile($weather);
+                testFile($owm->getWeatherForecast(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang));
+                testFile($owm->getDailyWeatherForecast(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang));
 
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
                                                           "\nMin: " . $weather->temperature->min .
