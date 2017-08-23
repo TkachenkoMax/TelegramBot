@@ -278,13 +278,11 @@ class MainController
                 $api->setPoint($long, $lat);
 
                 $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "yandex_geocoding");
-                testFile($user->getTelegramLanguage()->getId() . " | " . $lang . " | ");
                 $lang = ($lang==null) ? $lang = "en-US" : $lang;
-                testFile($lang);
                 
                 $api
                     ->setLimit(1)
-                    ->setLang("ru-RU")
+                    ->setLang($lang)
                     ->load();
 
                 $response = $api->getResponse();
