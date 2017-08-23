@@ -334,7 +334,13 @@ class MainController
                     echo 'General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
                 }
 
-                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature);
+                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now . 
+                                                          "Описание: " . $weather->temperature->getDescription() . 
+                                                          "Min: " . $weather->temperature->min . 
+                                                          "Max: " . $weather->temperature->max .
+                                                          "Осадки: " . $weather->precipitation .
+                                                          "Еще одно описание: " . $weather->weather->description .
+                                                          "Иконка: " . $weather->weather->icon, "HTML");
             }
         };
     }
