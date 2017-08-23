@@ -6,21 +6,26 @@
  * Time: 16:50
  */
 
-use Cmfcmf\OpenWeatherMap;
-use Cmfcmf\OpenWeatherMap\Exception as OWMException;
+use \Yandex\Geo\Api;
 
-$lang = 'en';
+$api = new Api();
 
-$units = 'metric';
+// Или можно икать по адресу
+$api->setQuery('Павловка');
 
-$owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
+// Настройка фильтров
+$api
+    ->setLimit(10) // кол-во результатов
+    ->setLang(Api::LANG_RU) // локаль ответа
+    ->load();
 
-try {
-    $weather = $owm->getWeather('Berlin', $units, $lang);
-} catch(OWMException $e) {
-    echo 'OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
-} catch(\Exception $e) {
-    echo 'General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').';
+$response = $api->getResponse();
+
+// Список найденных точек
+$collection = $response->getList();
+foreach ($collection as $item) {
+    $item->getAddress(); // вернет адрес
+    $item->getLatitude(); // широта
+    $item->getLongitude(); // долгота
+    $item->getData(); // необработанные данные
 }
-
-echo "Погода на сейчас: " . $weather->temperature;
