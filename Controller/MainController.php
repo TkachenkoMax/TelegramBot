@@ -338,14 +338,12 @@ class MainController
                 $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
 
                 try {
-                    $weather = $owm->getWeather("Zalupetovka", $units, $lang);
+                    $weather = $owm->getWeather(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang);
                 } catch(OWMException $e) {
                     printError('OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
                 } catch(\Exception $e) {
                     printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
                 }
-
-                testFile($weather);
 
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
                                                           "\nMin: " . $weather->temperature->min .
