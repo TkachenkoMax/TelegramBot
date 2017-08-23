@@ -321,11 +321,18 @@ class MainController
         };
     }
 
+    /**
+     * Get weather forecast
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function weather($bot, User $user){
         return function ($message) use ($bot, $user){
             if (trim($message->getText()) === "/weather") {
                 $city = $user->getCity();
-                $lang = 'ru';
+                $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
                 $units = 'metric';
 
                 $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
