@@ -349,6 +349,10 @@ class MainController
                 testFile($owm->getWeatherForecast(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang));
                 testFile($owm->getDailyWeatherForecast(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang));
 
+                testFile($owm->getWeather("Kharkiv", $units, $lang));
+                testFile($owm->getWeatherForecast("Kharkiv", $units, $lang));
+                testFile($owm->getDailyWeatherForecast("Kharkiv", $units, $lang));
+
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
                                                           "\nMin: " . $weather->temperature->min .
                                                           "\nMax: " . $weather->temperature->max .
