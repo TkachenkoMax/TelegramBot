@@ -145,11 +145,10 @@ class MainController
      *
      * @param $bot
      * @param User $user
-     * @param array $app_languages
      * @return Closure
      */
-    public function setLanguage($bot, User $user/*, array $app_languages*/){
-        return function ($update) use ($bot, $user/*, $app_languages*/) {
+    public function setLanguage($bot, User $user){
+        return function ($update) use ($bot, $user) {
             $message = $update->getMessage();
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
@@ -279,7 +278,8 @@ class MainController
                 $api->setPoint($long, $lat);
 
                 $lang = getLanguageInfo($user->getTelegramLanguage(), "database_id", "yandex_geocoding");
-                $lang = ($lang===null) ? $lang = "Api::LANG_US" : $lang;
+                testFile($lang);
+                $lang = ($lang==null) ? $lang = "Api::LANG_US" : $lang;
 
                 $api
                     ->setLimit(1)

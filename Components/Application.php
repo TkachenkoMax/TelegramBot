@@ -13,7 +13,6 @@ class Application {
     private $token;
     private $updates;
     private $user;
-    //private $app_languages;
 
     /**
      * Application constructor. Creating bot instance
@@ -21,12 +20,10 @@ class Application {
     public function __construct()
     {
         $bot_config = include(__ROOT__ . "/Config/bot.php");
-        //$this->app_languages = $bot_config['available_languages'];
         $this->token = $bot_config["token"];
         $this->bot = new Client($this->token);
     }
-
-
+    
     /**
      * If we register a bot, a file 'registered.trigger' appears
      */
@@ -64,7 +61,7 @@ class Application {
         if ($this->user !== null) {
             $this->bot->command('help', $controller->showHelp($this->bot, $this->user));
             $this->bot->on($controller->random($this->bot, $this->user), $controller->returnTrue());
-            $this->bot->on($controller->setLanguage($this->bot, $this->user/*, $this->app_languages*/), $controller->returnTrue());
+            $this->bot->on($controller->setLanguage($this->bot, $this->user), $controller->returnTrue());
             $this->bot->on($controller->setAlias($this->bot, $this->user), $controller->returnTrue());
             $this->bot->on($controller->setDateOfBirth($this->bot, $this->user), $controller->returnTrue());
             $this->bot->on($controller->setCity($this->bot, $this->user), $controller->returnTrue());
