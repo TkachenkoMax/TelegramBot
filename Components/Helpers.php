@@ -28,7 +28,7 @@ function testFile($update) {
  * @param $correct_text
  * @return bool
  */
-function text_analyse($incoming_text, $correct_text) {
+function textAnalyse($incoming_text, $correct_text) {
     $similar = levenshtein(strtolower($incoming_text), $correct_text);
     if ($similar <= 10) return true;
     return false;

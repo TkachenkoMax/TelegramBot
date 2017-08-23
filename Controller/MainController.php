@@ -110,13 +110,13 @@ class MainController
                 }
 
                 $bot->sendMessage($id, $answer);
-            } elseif (text_analyse($text, "Подкинь монетку")) {
+            } elseif (textAnalyse($text, "Подкинь монетку")) {
                 $result = rand(0,1);
                 if ($result) $answer = "Орел!";
                 else $answer = "Решка!";
 
                 $bot->sendMessage($id, $answer);
-            } elseif (text_analyse($text, "Брось кубики")) {
+            } elseif (textAnalyse($text, "Брось кубики")) {
                 $answer = "Выпали кубики с числами " . rand(1,6) . " и " . rand(1,6);
 
                 $bot->sendMessage($id, $answer);
@@ -278,9 +278,10 @@ class MainController
                 $api->setPoint($long, $lat);
 
                 $lang = getLanguageInfo($user->getTelegramLanguage(), "database_id", "yandex_geocoding");
-                testFile($lang);
+                testFile($user->getTelegramLanguage() . " | " . $lang . " | ");
                 $lang = ($lang==null) ? $lang = "Api::LANG_US" : $lang;
-
+                testFile($lang);
+                
                 $api
                     ->setLimit(1)
                     ->setLang($$lang)
