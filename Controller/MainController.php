@@ -356,7 +356,7 @@ class MainController
             } else {
                 $api = new Api();
 
-                $api->setQuery('Павловка');
+                $api->setQuery(trim(str_replace("/weather", "", $message->getText())));
 
                 $api
                     ->setLimit(10) // кол-во результатов
