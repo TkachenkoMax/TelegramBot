@@ -18,9 +18,9 @@ function testFile($update) {
         fwrite($fp, "Created file!\n\n");
         fclose($fp);
     }
-    file_put_contents('test.php', "<?php echo '<pre>'");
+    file_put_contents('test.php', "<?php echo '<pre>;'");
     file_put_contents('test.php', print_r($update, 1), FILE_APPEND);
-    file_put_contents('test.php', "echo '</pre>'", FILE_APPEND);
+    file_put_contents('test.php', "echo '</pre>';", FILE_APPEND);
 }
 
 /**
