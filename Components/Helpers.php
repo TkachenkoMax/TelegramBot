@@ -57,3 +57,15 @@ function isDateValid($date) {
     }
     return false;
 }
+
+function getLanguageInfo($parameter, $info_type, $need_to_find = null){
+    if ($parameter !== null) {
+        $bot_config = include(__ROOT__ . "/Config/bot.php");
+        $app_languages = $bot_config['available_languages'];
+
+        foreach ($app_languages as $app_language) {
+            if ($app_language[$info_type] == $parameter) return $app_language[$need_to_find];
+        }
+    }
+    return null;
+}

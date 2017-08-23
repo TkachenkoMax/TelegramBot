@@ -148,8 +148,8 @@ class MainController
      * @param array $app_languages
      * @return Closure
      */
-    public function setLanguage($bot, User $user, array $app_languages){
-        return function ($update) use ($bot, $user, $app_languages) {
+    public function setLanguage($bot, User $user/*, array $app_languages*/){
+        return function ($update) use ($bot, $user/*, $app_languages*/) {
             $message = $update->getMessage();
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
@@ -162,8 +162,10 @@ class MainController
                 if (strlen($params) > 0) {
                     $parameter = strtolower(explode(" ", $params, 2)[0]);
 
-                    if(in_array($parameter, array_flip($app_languages))){
-                        UserModel::setUserLanguage($telegram_id, $app_languages[$parameter]);
+                    $lang_id = getLanguageInfo($parameter, "database_name", "database_id");
+                    
+                    if($lang_id !== null){
+                        UserModel::setUserLanguage($telegram_id, $lang_id);
                         $bot->sendMessage($telegram_id, "Язык $parameter установлен");
                     } else {
                         $bot->sendMessage($telegram_id, "Нельзя выбрать этот язык");
@@ -276,9 +278,12 @@ class MainController
                 $api = new Api();
                 $api->setPoint($long, $lat);
 
+                $lang = getLanguageInfo($user->getTelegramLanguage(), "database_id", "yandex_geocoding");
+                $lang = ($lang===null) ? $lang = "LANG_US" : $lang;
+
                 $api
                     ->setLimit(1)
-                    ->setLang(Api::LANG_RU)
+                    ->setLang(Api::$$lang)
                     ->load();
 
                 $response = $api->getResponse();
