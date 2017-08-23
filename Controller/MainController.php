@@ -345,6 +345,8 @@ class MainController
                     printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
                 }
 
+                testFile($weather);
+
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
                                                           "\nMin: " . $weather->temperature->min .
                                                           "\nMax: " . $weather->temperature->max .
