@@ -345,19 +345,14 @@ class MainController
 
                 if (strpos($element, "город - ") === 0) {
                     $city = str_replace("город - ", "", $element);
-                    $bot->sendMessage($user->getTelegramId(), $city);
                 } elseif (strpos($element, "дни - ") === 0) {
                     $days = str_replace("дни - ", "", $element);
                     if ($days > 16 && $days < 1) {
                         $bot->sendMessage($user->getTelegramId(), "Укажите дни в диапазоне от 1 до 16");
                         return;
                     }
-
-                    $bot->sendMessage($user->getTelegramId(), $days);
                 } elseif (strpos($element, "подробно") === 0) {
                     $details = true;
-
-                    $bot->sendMessage($user->getTelegramId(), $details);
                 }
             }
 
@@ -373,7 +368,7 @@ class MainController
 
             try {
                 if ($days > 1) {
-                    $weather = $owm->getWeatherForecast($city, $units, $lang, "", $days);
+                    $weather = $owm->getDailyWeatherForecast($city, $units, $lang, "", $days);
                 } else {
                     $weather = $owm->getWeather($city, $units, $lang);
                 }
@@ -383,20 +378,30 @@ class MainController
                 printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
             }
 
-            $bot->sendMessage($user->getTelegramId(), $city);
-
-            if ($details) {
-                $bot->sendMessage($user->getTelegramId(), "Подробный прогноз погоды");
-            } else{
-                $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
-                    "\nГород: " . $weather->city->name.
-                    "\nMin: " . $weather->temperature->min .
-                    "\nMax: " . $weather->temperature->max .
-                    "\nОсадки: " . $weather->precipitation->getDescription() .
-                    "\nОсадки: " . $weather->precipitation->getUnit() .
-                    "\nОсадки: " . $weather->precipitation->getFormatted() .
-                    "\nЕще одно описание: " . $weather->weather->description .
-                    "\nИконка: " . $weather->weather->icon, "HTML");
+            if ($days === 1) {
+                $params = array(
+                                    "date" => $weather->lastUpdate->format('d.m.Y'),
+                                    "city" => $weather->city->name,
+                                    "country" => $weather->city->country,
+                                    "description" => $weather->weather->description,
+                                    "temperature_now" => $weather->temperature->now,
+                                    "precipitation" => $weather->precipitation->getDescription(),
+                                );
+                $bot->sendMessage($user->getTelegramId(), createWeatherText($params, $details), "HTML");
+            } else {
+                $globalText = "";
+                foreach ($weather as $day_weather) {
+                    $params = array(
+                        "date" => $day_weather->time->day->format('d.m.Y'),
+                        "city" => $day_weather->city->name,
+                        "country" => $day_weather->city->country,
+                        "description" => $day_weather->weather->description,
+                        "temperature_now" => $day_weather->temperature->now,
+                        "precipitation" => $day_weather->precipitation->getDescription(),
+                    );
+                    $globalText .= createWeatherText($params, $details);
+                }
+                $bot->sendMessage($user->getTelegramId(), $globalText, "HTML");
             }
         };
     }

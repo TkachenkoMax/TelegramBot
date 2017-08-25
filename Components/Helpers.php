@@ -84,3 +84,12 @@ function getLanguageInfo($parameter, $info_type, $need_to_find = null){
     }
     return null;
 }
+
+function createWeatherText(array $params, $isDetailed){
+    $text = "Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] .
+    "\nСейчас: " . $params["description"] .
+    "\nТемпература: " . $params["temperature_now"] .
+    "\nОсадки: " . $params["precipitation"];
+    
+    return $text;
+}
