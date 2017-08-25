@@ -341,15 +341,15 @@ class MainController
             foreach ($arr as $element) {
                 $element = trim($element);
 
-                if (strpos($element, "город - " == 0)) {
+                if (strpos($element, "город - ") == 0) {
                     $city = str_replace("город - ", "", $element);
-                } elseif (strpos($element, "дни - " == 0)) {
+                } elseif (strpos($element, "дни - ") == 0) {
                     $days = str_replace("дни - ", "", $element);
                     if ($days > 16 && $days < 1) {
                         $bot->sendMessage($user->getTelegramId(), "Укажите дни в диапазоне от 1 до 16");
                         return;
                     }
-                } elseif (strpos($element, "подробно" == 0)) {
+                } elseif (strpos($element, "подробно") == 0) {
                     $details = true;
                 }
             }
