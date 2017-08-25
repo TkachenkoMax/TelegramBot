@@ -330,41 +330,61 @@ class MainController
      */
     public function weather($bot, User $user){
         return function ($message) use ($bot, $user){
-            if (trim($message->getText()) === "/weather") {
-                $city = $user->getCity();
-                $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
-                $units = 'metric';
 
-                $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
+            $city = $user->getCity()->getCity();;
+            $days = 1;
+            $details = false;
 
-                try {
-                    $weather = $owm->getWeather(array('lat' => $city->getLatitude(), 'lon' => $city->getLongitude()), $units, $lang);
-                } catch(OWMException $e) {
-                    printError('OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
-                } catch(\Exception $e) {
-                    printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
+            $params = str_replace("/weather", "", $message->getText());
+            $arr = explode(",", trim($params));
+
+            foreach ($arr as $element) {
+                if (strpos($element, "город - " === 0)) {
+                    $city = str_replace("город - ", "", $element);
+                } elseif (strpos($element, "дни - " === 0)) {
+                    $days = str_replace("дни - ", "", $element);
+                    if ($days > 16 && $days < 1) {
+                        $bot->sendMessage($user->getTelegramId(), "Укажите дни в диапазоне от 1 до 16");
+                        return;
+                    }
+                } elseif (strpos($element, "подробно" === 0)) {
+                    $details = true;
                 }
+            }
 
+            if ($city === null) {
+                $bot->sendMessage($user->getTelegramId(), "Не указан город поиска");
+                return;
+            }
+
+            $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
+            $units = 'metric';
+
+            $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
+
+            try {
+                if ($days > 1) {
+                    $weather = $owm->getWeatherForecast($city, $units, $lang, "", $days);
+                } else {
+                    $weather = $owm->getWeather($city, $units, $lang);
+                }
+            } catch(OWMException $e) {
+                printError('OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
+            } catch(\Exception $e) {
+                printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
+            }
+
+            if ($details) {
+                $bot->sendMessage($user->getTelegramId(), "Подробный прогноз погоды");
+            } else{
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
-                                                          "\nMin: " . $weather->temperature->min .
-                                                          "\nMax: " . $weather->temperature->max .
-                                                          "\nОсадки: " . $weather->precipitation->getDescription() .
-                                                          "\nОсадки: " . $weather->precipitation->getUnit() .
-                                                          "\nОсадки: " . $weather->precipitation->getFormatted() .
-                                                          "\nЕще одно описание: " . $weather->weather->description .
-                                                          "\nИконка: " . $weather->weather->icon, "HTML");
-            } else {
-                $api = new Api();
-
-                $api->setQuery(trim(str_replace("/weather", "", $message->getText())));
-
-                $api
-                    ->setLimit(10) // кол-во результатов
-                    ->setLang(Api::LANG_RU) // локаль ответа
-                    ->load();
-
-                $response = $api->getResponse();
-                testFile($response->getList());
+                    "\nMin: " . $weather->temperature->min .
+                    "\nMax: " . $weather->temperature->max .
+                    "\nОсадки: " . $weather->precipitation->getDescription() .
+                    "\nОсадки: " . $weather->precipitation->getUnit() .
+                    "\nОсадки: " . $weather->precipitation->getFormatted() .
+                    "\nЕще одно описание: " . $weather->weather->description .
+                    "\nИконка: " . $weather->weather->icon, "HTML");
             }
         };
     }

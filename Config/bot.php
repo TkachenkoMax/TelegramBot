@@ -22,4 +22,5 @@ return array(
                                     "forecast" => "en"
                                  ]
   ),
+  "weather_token" => "89f361866c196cada5b38c69e5d96a9e",  
 );
