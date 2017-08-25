@@ -345,7 +345,7 @@ class MainController
 
                 if (strpos($element, "город - ") == 0) {
                     $city = str_replace("город - ", "", $element);
-                    testFile($city);
+                    $bot->sendMessage($user->getTelegramId(), $city);
                 } elseif (strpos($element, "дни - ") == 0) {
                     $days = str_replace("дни - ", "", $element);
                     if ($days > 16 && $days < 1) {
@@ -353,11 +353,11 @@ class MainController
                         return;
                     }
 
-                    testFile($days);
+                    $bot->sendMessage($user->getTelegramId(), $days);
                 } elseif (strpos($element, "подробно") == 0) {
                     $details = true;
 
-                    testFile($details);
+                    $bot->sendMessage($user->getTelegramId(), $details);
                 }
             }
 
