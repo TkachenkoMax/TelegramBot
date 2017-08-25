@@ -73,6 +73,14 @@ function isDateValid($date) {
     return false;
 }
 
+/**
+ * Get information about languages from config file
+ *
+ * @param $parameter
+ * @param $info_type
+ * @param null $need_to_find
+ * @return null
+ */
 function getLanguageInfo($parameter, $info_type, $need_to_find = null){
     if ($parameter !== null) {
         $bot_config = include(__ROOT__ . "/Config/bot.php");
@@ -85,10 +93,17 @@ function getLanguageInfo($parameter, $info_type, $need_to_find = null){
     return null;
 }
 
+/**
+ * Create text about weather
+ *
+ * @param array $params
+ * @param $isDetailed
+ * @return string
+ */
 function createWeatherText(array $params, $isDetailed){
     $text = "Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] .
     "\nОписание: " . $params["description"] .
-    "\nТемпература: " . $params["temperature_now"] . " C" .
+    "\nТемпература: " . (int)$params["temperature_now"] . " C" .
     "\nОсадки: " . $params["precipitation"];
     
     return $text;
