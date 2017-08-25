@@ -341,6 +341,8 @@ class MainController
             foreach ($arr as $element) {
                 $element = trim($element);
 
+                testFile($element);
+
                 if (strpos($element, "город - ") == 0) {
                     $city = str_replace("город - ", "", $element);
                 } elseif (strpos($element, "дни - ") == 0) {
