@@ -396,7 +396,7 @@ class MainController
                         "city" => $day_weather->city->name,
                         "country" => $day_weather->city->country,
                         "description" => $day_weather->weather->description,
-                        "temperature_now" => $day_weather->temperature->now,
+                        "temperature_now" => $day_weather->temperature->now->getValue(),
                         "precipitation" => $day_weather->precipitation->getDescription(),
                     );
                     $globalText .= createWeatherText($params, $details);
