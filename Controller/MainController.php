@@ -393,7 +393,7 @@ class MainController
                 $globalText .= createWeatherText($params, $details);
 
                 if(next($weather)) {
-                    $globalText .= "\n";
+                    $globalText .= "\n\n";
                 }
             }
             $bot->sendMessage($user->getTelegramId(), $globalText, "HTML");
