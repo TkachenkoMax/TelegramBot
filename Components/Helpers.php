@@ -106,7 +106,7 @@ function createWeatherText(array $params, $isDetailed){
     "\nТемпература: " . (1 * $params["temperature_now"]) . " C" .
     "\nОсадки: " . $params["precipitation"];
 
-    if ($isDetailed)
+    //if ($isDetailed)
         //$text .= ""
 
     return $text;
