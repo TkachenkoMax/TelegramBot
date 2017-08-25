@@ -338,6 +338,8 @@ class MainController
             $params = str_replace("/weather", "", $message->getText());
             $arr = explode(",", trim($params));
 
+            testFile($arr);
+
             foreach ($arr as $element) {
                 if (strpos($element, "город - " === 0)) {
                     $city = str_replace("город - ", "", $element);
