@@ -103,11 +103,16 @@ function getLanguageInfo($parameter, $info_type, $need_to_find = null){
 function createWeatherText(array $params, $isDetailed){
     $text = "Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] .
     "\nОписание: " . $params["description"] .
-    "\nТемпература: " . $params["temperature_now"] . " C" .
+    "\nТемпература сейчас: " . $params["temperature_now"] .
+    "\nТемпература мин/макс: " . $params["temperature_min"] . "/" . $params["temperature_max"] .
     "\nОсадки: " . $params["precipitation"];
 
-    //if ($isDetailed)
-        //$text .= ""
+    if ($isDetailed)
+        $text .= "\nВлажность: " . $params["humidity"] .
+        "\nДавление: " . $params["pressure"] .
+        "\nСкорость и направление ветра: " . $params["wind_speed"] . ", " . $params["wind_direction"] .
+        "\nВосход солнца: " . $params["sun_rise"] .
+        "\nЗакат солнца: " . $params["sun_set"];
 
     return $text;
 }

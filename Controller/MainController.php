@@ -365,43 +365,38 @@ class MainController
             $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
 
             try {
-                if ($days > 1) {
-                    $weather = $owm->getDailyWeatherForecast($city, $units, $lang, "", $days);
-                    testFile($weather);
-                } else {
-                    $weather = $owm->getWeather($city, $units, $lang);
-                }
+                $weather = $owm->getDailyWeatherForecast($city, $units, $lang, "", $days);
             } catch(OWMException $e) {
                 printError('OpenWeatherMap exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
             } catch(\Exception $e) {
                 printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
             }
-
-            if ($days === 1) {
+            $globalText = "";
+            foreach ($weather as $day_weather) {
                 $params = array(
-                                    "date" => $weather->lastUpdate->format('d.m.Y'),
-                                    "city" => $weather->city->name,
-                                    "country" => $weather->city->country,
-                                    "description" => $weather->weather->description,
-                                    "temperature_now" => $weather->temperature->now,
-                                    "precipitation" => $weather->precipitation->getDescription(),
-                                );
-                $bot->sendMessage($user->getTelegramId(), createWeatherText($params, $details), "HTML");
-            } else {
-                $globalText = "";
-                foreach ($weather as $day_weather) {
-                    $params = array(
-                        "date" => $day_weather->time->day->format('d.m.Y'),
-                        "city" => $day_weather->city->name,
-                        "country" => $day_weather->city->country,
-                        "description" => $day_weather->weather->description,
-                        "temperature_now" => $day_weather->temperature->now->getValue(),
-                        "precipitation" => $day_weather->precipitation->getDescription(),
-                    );
-                    $globalText .= createWeatherText($params, $details);
+                    "date" => $day_weather->time->day->format('d.m.Y'),
+                    "city" => $day_weather->city->name,
+                    "country" => $day_weather->city->country,
+                    "description" => $day_weather->weather->description,
+                    "temperature_now" => $day_weather->temperature->now->getValue(),
+                    "temperature_min" => $day_weather->temperature->min->getValue(),
+                    "temperature_max" => $day_weather->temperature->max->getValue(),
+                    "precipitation" => $day_weather->precipitation->getDescription(),
+                    "humidity" => $day_weather->humidity->getFormatted(),
+                    "pressure" => $day_weather->pressure->getFormatted(),
+                    "wind_speed" => $day_weather->wind->speed->getFormatted(),
+                    "wind_direction" => $day_weather->wind->direction->getFormatted(),
+                    "sun_rise" => $day_weather->sun->rise->format("H:i:s"),
+                    "sun_set" => $day_weather->sun->set->format("H:i:s")
+                );
+
+                $globalText .= createWeatherText($params, $details);
+
+                if(next($weather)) {
+                    $globalText .= "\n";
                 }
-                $bot->sendMessage($user->getTelegramId(), $globalText, "HTML");
             }
+            $bot->sendMessage($user->getTelegramId(), $globalText, "HTML");
         };
     }
 
