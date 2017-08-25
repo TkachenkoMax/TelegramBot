@@ -376,6 +376,8 @@ class MainController
                 printError('General exception: ' . $e->getMessage() . ' (Code ' . $e->getCode() . ').');
             }
 
+            $bot->sendMessage($user->getTelegramId(), $city);
+
             if ($details) {
                 $bot->sendMessage($user->getTelegramId(), "Подробный прогноз погоды");
             } else{
