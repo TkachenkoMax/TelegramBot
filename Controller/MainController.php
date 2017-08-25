@@ -369,6 +369,7 @@ class MainController
             try {
                 if ($days > 1) {
                     $weather = $owm->getDailyWeatherForecast($city, $units, $lang, "", $days);
+                    testFile($weather);
                 } else {
                     $weather = $owm->getWeather($city, $units, $lang);
                 }
