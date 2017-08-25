@@ -345,14 +345,19 @@ class MainController
 
                 if (strpos($element, "город - ") == 0) {
                     $city = str_replace("город - ", "", $element);
+                    testFile($city);
                 } elseif (strpos($element, "дни - ") == 0) {
                     $days = str_replace("дни - ", "", $element);
                     if ($days > 16 && $days < 1) {
                         $bot->sendMessage($user->getTelegramId(), "Укажите дни в диапазоне от 1 до 16");
                         return;
                     }
+
+                    testFile($days);
                 } elseif (strpos($element, "подробно") == 0) {
                     $details = true;
+
+                    testFile($details);
                 }
             }
 
