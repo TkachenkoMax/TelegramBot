@@ -380,6 +380,7 @@ class MainController
                 $bot->sendMessage($user->getTelegramId(), "Подробный прогноз погоды");
             } else{
                 $bot->sendMessage($user->getTelegramId(), "Погода на сейчас: " . $weather->temperature->now .
+                    "\nГород: " . $weather->city->name.
                     "\nMin: " . $weather->temperature->min .
                     "\nMax: " . $weather->temperature->max .
                     "\nОсадки: " . $weather->precipitation->getDescription() .
