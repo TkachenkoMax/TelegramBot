@@ -343,10 +343,10 @@ class MainController
 
                 testFile($element);
 
-                if (strpos($element, "город - ") == 0) {
+                if (strpos($element, "город - ") === 0) {
                     $city = str_replace("город - ", "", $element);
                     $bot->sendMessage($user->getTelegramId(), $city);
-                } elseif (strpos($element, "дни - ") == 0) {
+                } elseif (strpos($element, "дни - ") === 0) {
                     $days = str_replace("дни - ", "", $element);
                     if ($days > 16 && $days < 1) {
                         $bot->sendMessage($user->getTelegramId(), "Укажите дни в диапазоне от 1 до 16");
@@ -354,7 +354,7 @@ class MainController
                     }
 
                     $bot->sendMessage($user->getTelegramId(), $days);
-                } elseif (strpos($element, "подробно") == 0) {
+                } elseif (strpos($element, "подробно") === 0) {
                     $details = true;
 
                     $bot->sendMessage($user->getTelegramId(), $details);
