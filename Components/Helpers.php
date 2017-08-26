@@ -104,7 +104,7 @@ function createWeatherText(array $params, $isDetailed){
     $text = "Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] .
     "\nОписание: " . $params["description"] .
     "\nТемпература сейчас: " . $params["temperature_now"] . " C" .
-    "\nТемпература мин/макс: " . $params["temperature_min"] . " C/" . $params["temperature_max"] . " C" .
+    "\nТемпература мин/макс: " . $params["temperature_min"] . " C / " . $params["temperature_max"] . " C" .
     "\nОсадки: " . $params["precipitation"];
 
     if ($isDetailed)

@@ -7,7 +7,7 @@
  */
 
 return array(
-  "token" => "401945532:AAFVmRlt47auHWM4modh_sFOGS4tEyslG-E",
+  "token" => "422707556:AAHV-o6jvywJiNBmw7d0__sO9oqjSyM2axU",
   "main_admin_id" => 382994855,
   "available_languages" => array([
                                     "database_name" => "русский",
