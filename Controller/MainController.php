@@ -374,6 +374,8 @@ class MainController
 
             date_default_timezone_set("UTC+3");
 
+            testFile($weather);
+
             foreach ($weather as $day_weather) {
                 $params = array(
                     "date" => $day_weather->time->day->format('d.m.Y'),
