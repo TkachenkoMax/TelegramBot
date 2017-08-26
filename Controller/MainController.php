@@ -52,7 +52,6 @@ class MainController
 <b>У Вас все получится:)</b>";
                 $bot->sendMessage($telegram_id, $answer, "HTML");
             } else {
-                $bot->sendMessage($user->getTelegramId(), $message->getText());
                 $bot->sendMessage($user->getTelegramId(), "Вы уже зарегистрированы!");
             }
         };

@@ -105,7 +105,7 @@ function createWeatherText(array $params, $isDetailed){
     "\nОписание: " . $params["description"] .
     "\nТемпература сейчас: " . $params["temperature_now"] . " C" .
     "\nТемпература мин/макс: " . $params["temperature_min"] . " C / " . $params["temperature_max"] . " C" .
-    "\nОсадки: " . $params["precipitation"];
+    "\nОсадки: " . ($params["precipitation"] == "" ? "нет" : $params["precipitation"]);
 
     if ($isDetailed)
         $text .= "\nВлажность: " . $params["humidity"] .
