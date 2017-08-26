@@ -372,7 +372,7 @@ class MainController
             }
             $globalText = "";
 
-            date_default_timezone_set("UTC");
+            date_default_timezone_set("UTC+3");
 
             foreach ($weather as $day_weather) {
                 $params = array(
