@@ -101,18 +101,18 @@ function getLanguageInfo($parameter, $info_type, $need_to_find = null){
  * @return string
  */
 function createWeatherText(array $params, $isDetailed){
-    $text = "Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] .
-    "\nОписание: " . $params["description"] .
-    "\nТемпература сейчас: " . $params["temperature_now"] . " C" .
-    "\nТемпература мин/макс: " . $params["temperature_min"] . " C / " . $params["temperature_max"] . " C" .
-    "\nОсадки: " . ($params["precipitation"] == "" ? "нет" : $params["precipitation"]);
+    $text = "<b>Погода в " . $params["city"] . " (" . $params["country"] . ") на " . $params["date"] . "</b>" .
+    "\n<b>Описание</b>: " . $params["description"] .
+    "\n<b>Температура сейчас</b>: " . $params["temperature_now"] . " C" .
+    "\n<b>Температура мин/макс</b>: " . $params["temperature_min"] . " C / " . $params["temperature_max"] . " C" .
+    "\n<b>Осадки</b>: " . ($params["precipitation"] == "" ? "нет" : $params["precipitation"]);
 
     if ($isDetailed)
-        $text .= "\nВлажность: " . $params["humidity"] .
-        "\nДавление: " . $params["pressure"] .
-        "\nСкорость и направление ветра: " . $params["wind_speed"] . ", " . $params["wind_direction"] .
-        "\nВосход солнца: " . $params["sun_rise"] .
-        "\nЗакат солнца: " . $params["sun_set"];
+        $text .= "\n<b>Влажность</b>: " . $params["humidity"] .
+        "\n<b>Давление</b>: " . $params["pressure"] .
+        "\n<b>Скорость и направление ветра</b>: " . $params["wind_speed"] . ", " . $params["wind_direction"] .
+        "\n<b>Восход солнца</b>: " . $params["sun_rise"] .
+        "\n<b>Закат солнца</b>: " . $params["sun_set"];
 
     return $text;
 }
