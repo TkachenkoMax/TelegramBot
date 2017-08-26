@@ -387,8 +387,8 @@ class MainController
                     "pressure" => $day_weather->pressure->getFormatted(),
                     "wind_speed" => $day_weather->wind->speed->getFormatted(),
                     "wind_direction" => $day_weather->wind->direction->getFormatted(),
-                    "sun_rise" => $day_weather->sun->rise->format("H:i:s", $time += $day_weather->sun->rise->getTimezone()),
-                    "sun_set" => $day_weather->sun->set->format("H:i:s", $time += $day_weather->sun->set->getTimezone())
+                    "sun_rise" => $day_weather->sun->rise->format("H:i:s", ($time += $day_weather->sun->rise->getTimezone())),
+                    "sun_set" => $day_weather->sun->set->format("H:i:s", ($time += $day_weather->sun->set->getTimezone()))
                 );
 
                 $globalText .= createWeatherText($params, $details);
