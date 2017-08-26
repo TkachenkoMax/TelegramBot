@@ -375,8 +375,6 @@ class MainController
             date_default_timezone_set("UTC+3");
 
             foreach ($weather as $day_weather) {
-                $test = $day_weather->sun->rise->setTimezone(new DateTimeZone("UTC+3"));
-
                 $params = array(
                     "date" => $day_weather->time->day->format('d.m.Y'),
                     "city" => $day_weather->city->name,
@@ -390,8 +388,8 @@ class MainController
                     "pressure" => $day_weather->pressure->getFormatted(),
                     "wind_speed" => $day_weather->wind->speed->getFormatted(),
                     "wind_direction" => $day_weather->wind->direction->getFormatted(),
-                    "sun_rise" => $test->format("c"),
-                    "sun_set" => $day_weather->sun->set->format("c"),
+                    "sun_rise" => $day_weather->sun->rise->format("H:i:s"),
+                    "sun_set" => $day_weather->sun->set->format("H:i:s"),
                 );
 
                 $globalText .= createWeatherText($params, $details);
