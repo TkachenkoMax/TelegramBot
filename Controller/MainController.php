@@ -408,10 +408,16 @@ class MainController
     public function instagramLogin($bot, User $user){
         return function ($message) use ($bot, $user) {
             $instagram_account = InstagramModel::getById(2);
-            $ig = new Instagram(true, false, $storageConfig = []);
+            $ig = new Instagram(true, false);
 
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
+
+            try {
+                $ig->timeline->uploadPhoto("test.jpg", ['caption' => "Upload test"]);
+            } catch (\Exception $e) {
+                $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
+            }
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
