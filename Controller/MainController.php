@@ -414,7 +414,7 @@ class MainController
             $ig->login();
 
             try {
-                $ig->timeline->uploadPhoto("http://apihelper-bot.herokuapp.com/test.jpg", ['caption' => "Upload test"]);
+                $ig->timeline->uploadPhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
             } catch (\Exception $e) {
                 $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
             }
