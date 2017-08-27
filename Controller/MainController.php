@@ -413,6 +413,8 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
+            testFile(scandir(__ROOT__));
+
             if (file_exists(__ROOT_ . "/public/test.jpg")) {
                 $file = file_get_contents(__ROOT_ . "/public/test.jpg");
 
