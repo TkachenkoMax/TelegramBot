@@ -421,7 +421,7 @@ class MainController
                 $bot->sendMessage($user->getTelegramId(), "Файл: $file");
 
                 try {
-                    $ig->timeline->uploadPhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
+                    $ig->uploadTimelinePhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
                 } catch (\Exception $e) {
                     $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
                 }
