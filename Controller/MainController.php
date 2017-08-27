@@ -413,7 +413,7 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
-            if (file_exists(__ROOT_ . "/test.jpg")) {
+            if (file_exists(__ROOT_ . "/public/test.jpg")) {
                 $file = file_get_contents(__ROOT_ . "/public/test.jpg");
 
                 $bot->sendMessage($user->getTelegramId(), "Файл: $file");
