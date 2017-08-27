@@ -415,7 +415,7 @@ class MainController
 
             testFile(scandir(__ROOT__ . "/public"));
 
-            if (file_exists(__ROOT_ . "/public/instagram_images/test.jpg") || file_exists(__ROOT_ . "/instagram_images/test.jpg")) {
+            if (file_exists(__ROOT_ . "/public/instagram_images/test.jpg") || file_exists(__ROOT_ . "/instagram_images/test.jpg") || file_exists("https://apihelper-bot.herokuapp.com/public/instagram_images/test.jpg")) {
                 $file = file_get_contents(__ROOT_ . "/public/test.jpg");
 
                 $bot->sendMessage($user->getTelegramId(), "Файл: $file");
