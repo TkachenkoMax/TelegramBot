@@ -412,6 +412,8 @@ class MainController
 
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
+
+            $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
     }
 

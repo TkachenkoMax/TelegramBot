@@ -66,7 +66,7 @@ class Application {
             $this->bot->on($controller->setDateOfBirth($this->bot, $this->user), $controller->returnTrue());
             $this->bot->on($controller->setCity($this->bot, $this->user), $controller->returnTrue());
             $this->bot->command('weather', $controller->weather($this->bot, $this->user));
-            $this->bot->command('instagram_credentials', $controller->setInstagramCredentials($this->bot, $this->user));
+            //$this->bot->command('instagram_credentials', $controller->setInstagramCredentials($this->bot, $this->user));
             $this->bot->command('instagram_login', $controller->instagramLogin($this->bot, $this->user));
         }
 
