@@ -413,24 +413,10 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
-            $followers = [];
+            $userId = $ig->getUsernameId('acc_for_testing_api');
+            $a = $ig->getUserInfoById($userId);
 
-            // Starting at "null" means starting at the first page.
-            $maxId = null;
-            do {
-                // Request the page corresponding to maxId.
-                $response = $ig->getSelfUserFollowers($maxId);
-
-                // In this example we're merging the response array, but we can do anything.
-                $followers = array_merge($followers, $response->getUsers());
-
-                // Now we must update the maxId variable to the "next page".
-                // This will be a null value again when we've reached the last page!
-                // And we will stop looping through pages as soon as maxId becomes null.
-                $maxId = $response->getNextMaxId();
-            } while ($maxId !== null); // Must use "!==" for comparison instead of "!=".
-
-            testFile($followers);
+            $bot->sendMessage($user->getTelegramId(), "Username: " . $a->getUsername() . ", full name: " . $a->getFullName());
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
