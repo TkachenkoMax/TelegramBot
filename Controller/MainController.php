@@ -416,6 +416,25 @@ class MainController
             $userId = $ig->getUsernameId('acc_for_testing_api');
             $a = $ig->getUserInfoById($userId);
 
+            $users = $ig->getAutoCompleteUserList();
+            testFile($users);
+            
+            $timeline = $ig->getTimelineFeed();
+            testFile($timeline);          
+            
+            $activity = $ig->getRecentActivity();
+            testFile($activity);
+            
+            $info = $ig->getUserInfoByName("kurshakova_katerina");
+            testFile($info);
+            
+            $followings = $ig->getUserFollowings($ig->getUsernameId("kurshakova_katerina"));
+            testFile($followings);
+            
+            $followers = $ig->getUserFollowers($ig->getUsernameId("kurshakova_katerina"));
+            testFile($followers);
+            
+            
             $username = $a->getUser()->getUsername();
             $full_name = $a->user->getFullName();
 
