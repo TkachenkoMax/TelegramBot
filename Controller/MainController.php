@@ -416,7 +416,7 @@ class MainController
             $userId = $ig->getUsernameId('acc_for_testing_api');
             $a = $ig->getUserInfoById($userId);
 
-            $bot->sendMessage($user->getTelegramId(), "Username: " . $a->getUsername() . ", full name: " . $a->getFullName());
+            $bot->sendMessage($user->getTelegramId(), "Username: " . ($a->getUsername()) . ", full name: " . ($a->getFullName()));
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
