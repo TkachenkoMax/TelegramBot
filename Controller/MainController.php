@@ -413,14 +413,18 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
-            $file = file_get_contents(__ROOT_ . "/test.jpg");
+            if (file_exists(__ROOT_ . "/test.jpg")) {
+                $file = file_get_contents(__ROOT_ . "/test.jpg");
 
-            $bot->sendMessage($user->getTelegramId(), "$file");
+                $bot->sendMessage($user->getTelegramId(), "Файл: $file");
 
-            try {
-                $ig->timeline->uploadPhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
-            } catch (\Exception $e) {
-                $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
+                try {
+                    $ig->timeline->uploadPhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
+                } catch (\Exception $e) {
+                    $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
+                }
+            } else {
+                $bot->sendMessage($user->getTelegramId(), "Файл не найден!");
             }
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
