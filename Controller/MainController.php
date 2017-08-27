@@ -413,6 +413,10 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
+            $file = file_get_contents(__ROOT_ . "/test.jpg");
+
+            $bot->sendMessage($user->getTelegramId(), "$file");
+
             try {
                 $ig->timeline->uploadPhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
             } catch (\Exception $e) {
