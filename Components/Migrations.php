@@ -59,6 +59,17 @@ class Migrations{
                                             on delete set null
                                         ) ENGINE=INNODB
                                         CHARACTER SET utf8 COLLATE utf8_general_ci");
+
+        $connection->query("CREATE TABLE IF NOT EXISTS instagram_accounts (
+                                            id INT(11) NOT NULL AUTO_INCREMENT,
+                                            id_user INT (11),
+                                            login VARCHAR(255),
+                                            password VARCHAR (255),
+                                            PRIMARY KEY (id), 
+                                            FOREIGN KEY (id_user) REFERENCES users(id) 
+                                            ON DELETE SET NULL
+                                        ) ENGINE=INNODB
+                                        CHARACTER SET utf8 COLLATE utf8_general_ci");
     }
 
     /**

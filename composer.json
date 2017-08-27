@@ -3,7 +3,8 @@
         "telegram-bot/api": "^2.3",
 	"menarasolutions/geographer": "~0.3",
 	"yandex/geo": "1.1.3",
-        "cmfcmf/openweathermap-php-api": "^2.2"
+        "cmfcmf/openweathermap-php-api": "^2.2",
+        "mgp25/instagram-php": "^2.0"
     },
 
     "autoload": {

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Yandex\\Geo' => array($vendorDir . '/yandex/geo/source'),
+    'JsonMapper' => array($vendorDir . '/netresearch/jsonmapper/src'),
 );

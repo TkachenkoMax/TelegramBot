@@ -7,7 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'TelegramBot\\Api\\' => array($vendorDir . '/telegram-bot/api/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'MenaraSolutions\\Geographer\\Helpers\\' => array($vendorDir . '/menarasolutions/geographer-data/helpers'),
     'MenaraSolutions\\Geographer\\' => array($vendorDir . '/menarasolutions/geographer/src'),
+    'InstagramAPI\\' => array($vendorDir . '/mgp25/instagram-php/src'),
+    'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
+    'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Cmfcmf\\' => array($vendorDir . '/cmfcmf/openweathermap-php-api/Cmfcmf'),
 );

@@ -10,6 +10,7 @@
 use \Yandex\Geo\Api;
 use Cmfcmf\OpenWeatherMap;
 use Cmfcmf\OpenWeatherMap\Exception as OWMException;
+use \InstagramAPI\Instagram;
 
 class MainController
 {
@@ -401,6 +402,16 @@ class MainController
                 }
             }
             $bot->sendMessage($user->getTelegramId(), $globalText, "HTML");
+        };
+    }
+
+    public function instagramLogin($bot, User $user){
+        return function ($message) use ($bot, $user) {
+            $instagram_account = InstagramModel::getById(2);
+            $ig = new Instagram(true, false, $storageConfig = []);
+
+            $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
+            $ig->login();
         };
     }
 
