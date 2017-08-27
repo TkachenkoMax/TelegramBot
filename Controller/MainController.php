@@ -416,10 +416,12 @@ class MainController
             $userId = $ig->getUsernameId('acc_for_testing_api');
             $a = $ig->getUserInfoById($userId);
 
-            $username = $a->getUsername();
+            testFile($a);
+
+            /*$username = $a->getUsername();
             $full_name = $a->getFullName();
 
-            $bot->sendMessage($user->getTelegramId(), "Username: " . $username . ", full name: " . $full_name);
+            $bot->sendMessage($user->getTelegramId(), "Username: " . $username . ", full name: " . $full_name);*/
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
