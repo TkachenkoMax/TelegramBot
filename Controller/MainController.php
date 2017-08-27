@@ -413,7 +413,7 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
-            testFile(file_get_contents("http://is4.mzstatic.com/image/thumb/Purple128/v4/c2/4f/09/c24f0910-3436-5879-bb30-d3e59393449d/source/1200x630bb.jpg"));
+            testFile(file_get_contents(urldecode("http://is4.mzstatic.com/image/thumb/Purple128/v4/c2/4f/09/c24f0910-3436-5879-bb30-d3e59393449d/source/1200x630bb.jpg")));
 
             if (file_exists(__ROOT_ . "/public/instagram_images/test.jpg") || file_exists(__ROOT_ . "/instagram_images/test.jpg") || file_exists("https://apihelper-bot.herokuapp.com/public/instagram_images/test.jpg")) {
                 $file = file_get_contents(__ROOT_ . "/public/test.jpg");
