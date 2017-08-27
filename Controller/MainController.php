@@ -415,8 +415,8 @@ class MainController
 
             include __ROOT__ . "public/instagram_images";
 
-            if (file_exists(__ROOT_ . "/public/instagram_images/test.jpg") || file_exists(__ROOT_ . "/instagram_images/test.jpg") || file_exists("https://apihelper-bot.herokuapp.com/public/instagram_images/test.jpg")) {
-                $file = file_get_contents(__ROOT_ . "/public/test.jpg");
+            if (file_exists(__ROOT__ . "/registered.trigger")) {
+               /* $file = file_get_contents(__ROOT_ . "/public/test.jpg");
 
                 $bot->sendMessage($user->getTelegramId(), "Файл: $file");
 
@@ -424,7 +424,7 @@ class MainController
                     $ig->uploadTimelinePhoto(__ROOT_ . "/test.jpg", ['caption' => "Upload test"]);
                 } catch (\Exception $e) {
                     $bot->sendMessage($user->getTelegramId(), "Something went wrong: {$e->getMessage()}!");
-                }
+                }*/
             } else {
                 $bot->sendMessage($user->getTelegramId(), "Файл не найден!");
             }
