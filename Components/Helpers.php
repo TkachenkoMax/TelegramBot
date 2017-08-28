@@ -33,7 +33,7 @@ function printError($message) {
         fwrite($fp, "Created file!\n\n");
         fclose($fp);
     }
-    file_put_contents('test.txt', print_r($message, 1));
+    file_put_contents('errors.txt', print_r($message, 1));
 }
 
 /**

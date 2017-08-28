@@ -250,6 +250,8 @@ class UserModel extends Model
         } catch (PDOException $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
+        
+        testFile($users);
 
         testFile($date);
 
