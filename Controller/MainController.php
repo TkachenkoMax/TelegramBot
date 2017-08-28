@@ -444,6 +444,14 @@ class MainController
         };
     }
 
+    public function congratsToUsers($bot){
+
+
+        UserModel::getUsersWithBirthdatToday();
+
+        $this->bot->sendMessage(382994855, "тест планировщика");
+    }
+
     /**
      * Function that we need to use "on" function of the library
      *

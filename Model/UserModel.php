@@ -221,4 +221,24 @@ class UserModel extends Model
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
+
+    /**
+     * Set user's date of birth
+     * 
+     * @param $telegram_id
+     * @param $date
+     * @throws Exception
+     */
+    public static function setUserDateOfBirth($telegram_id, $date){
+        $connection = Database::connect();
+
+        try{
+            $stmt = $connection->prepare("UPDATE users SET date_of_birth = ? WHERE telegram_id = ?");
+            $stmt->bindParam(1, $date);
+            $stmt->bindParam(2, $telegram_id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
 }

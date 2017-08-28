@@ -22,6 +22,7 @@ class Scheduler
     }
     
     public function runTask(){
-        $this->bot->sendMessage(382994855, "тест планировщика");
+        $controller = new MainController();
+        $controller->congratsToUsers($this->bot);
     }
 }
