@@ -6,7 +6,7 @@
  * Time: 12:25
  */
 
-define('__ROOT__', require_once('../rootpath.php'));
+define('__ROOT__', require_once('rootpath.php'));
 error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
 
 /**
