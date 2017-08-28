@@ -445,11 +445,13 @@ class MainController
     }
 
     public function congratsToUsers($bot){
+        $today = new DateTime("now");
 
+        $birthday_users = UserModel::getUsersWithBirthdayToday($today);
 
-        UserModel::getUsersWithBirthdatToday();
-
-        $this->bot->sendMessage(382994855, "тест планировщика");
+        foreach ($birthday_users as $user) {
+            $this->bot->sendMessage($user->getTelegramId(), "Поздравляю тебя с днем рождения!");
+        }
     }
 
     /**

@@ -241,4 +241,20 @@ class UserModel extends Model
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
+    
+    public static function getUsersWithBirthdayToday(DateTime $date){
+        $connection = Database::connect();
+        
+        try {
+            $users = self::all();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        foreach ($users as $user) {
+            if ($date->format("m-d") == $user->getDateOfBirth()) array_push($birthday_users, $user);
+        }
+        
+        return $birthday_users;
+    } 
 }
