@@ -449,8 +449,12 @@ class MainController
 
         $birthday_users = UserModel::getUsersWithBirthdayToday($today);
 
-        foreach ($birthday_users as $user) {
-            $this->bot->sendMessage($user->getTelegramId(), "Поздравляю тебя с днем рождения!");
+        if ($birthday_users === null) {
+            $this->bot->sendMessage(382994855, "Некого поздравлять");
+        } else {
+            foreach ($birthday_users as $user) {
+                $this->bot->sendMessage($user->getTelegramId(), "Поздравляю тебя с днем рождения!");
+            }
         }
     }
 
