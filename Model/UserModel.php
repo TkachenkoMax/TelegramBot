@@ -257,6 +257,8 @@ class UserModel extends Model
 
         foreach ($users as $user) {
             testFile($user->getDateOfBirth());
+
+            $birthday_users = array();
             if ($date->format("m-d") == $user->getDateOfBirth()->format("m-d")) array_push($birthday_users, $user);
         }
         
