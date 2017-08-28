@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * This class runs every day to find users, which bot must to congrats with theirs birthdays
+ * 
  * Created by PhpStorm.
  * User: max
  * Date: 28.08.17

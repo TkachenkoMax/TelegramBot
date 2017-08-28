@@ -444,6 +444,12 @@ class MainController
         };
     }
 
+    /**
+     * Send congratulations about birthdays to users
+     * 
+     * @param $bot
+     * @throws Exception
+     */
     public function congratsToUsers($bot){
         $today = new DateTime("now");
 
