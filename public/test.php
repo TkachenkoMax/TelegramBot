@@ -6,7 +6,7 @@
  * Time: 12:25
  */
 
-include_once __ROOT__ . "/Components/Scheduler.php";
+include_once "../Components/Scheduler.php";
 
 $scheduler = new Scheduler();
 $scheduler->runTask();
