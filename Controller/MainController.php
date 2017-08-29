@@ -473,16 +473,10 @@ class MainController
         return function () use ($bot, $user) {
             $message = "<b>Информация о Вас:</b>" .
             "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() .
-            "\n<b>Дата рождения</b>: " . ( $user->getDateOfBirth() !== null ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
-            "\n<b>Город</b>: " . ( $user->getCity() !== null
-                    ? "test" : "не установлен" ) .
-            "\n<b>Язык</b>: " . ( $user->getTelegramLanguage() !== null ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
-            "\n<b>Псевдоним</b>: " . ( $user->getAlias() !== "" ? $user->getAlias() : "не установлен" );
-
-            $bot->sendMessage($user->getTelegramId(), gettype($user->getDateOfBirth()));
-            $bot->sendMessage($user->getTelegramId(), gettype($user->getCity()));
-            $bot->sendMessage($user->getTelegramId(), gettype($user->getTelegramLanguage()));
-            $bot->sendMessage($user->getTelegramId(), gettype($user->getAlias()));
+            "\n<b>Дата рождения</b>: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
+            "\n<b>Город</b>: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
+            "\n<b>Язык</b>: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
+            "\n<b>Псевдоним</b>: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
             $bot->sendMessage($user->getTelegramId(), $message, "HTML");
         };
