@@ -16,7 +16,7 @@ class UserModel extends Model
      */
     public static function init($data = array())
     {
-        $language = LanguageModel::getById($data['telegram_language']);
+        $language = is_null($data['telegram_language']) ? null : LanguageModel::getById($data['telegram_language']);
         
         $is_admin = false;
 
