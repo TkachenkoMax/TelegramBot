@@ -277,7 +277,8 @@ class MainController
                 $api = new Api();
                 $api->setPoint($long, $lat);
 
-                $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "yandex_geocoding");
+                if ($user->getTelegramLanguage() != null)
+                    $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "yandex_geocoding");
                 $lang = ($lang==null) ? $lang = "en-US" : $lang;
                 
                 $api
