@@ -470,6 +470,8 @@ class MainController
             "\n<b>Город</b>: " . $user->getCity()->getCity() .
             "\n<b>Язык</b>: " . $user->getTelegramLanguage()->getLanguageName() .
             "\n<b>Псевдоним</b>: " . $user->getAlias();
+
+            $bot->sendMessage($user->getTelegramId(), $message);
         };
     }
 
