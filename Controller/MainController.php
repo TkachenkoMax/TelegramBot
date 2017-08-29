@@ -462,6 +462,17 @@ class MainController
         }
     }
 
+    public function aboutMe($bot, User $user) {
+        return function () use ($bot, $user) {
+            $message = "<b>Информация о Вас:</b>" .
+            "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() . ($user->getIsAdmin() ? "(администратор)" : "") .
+            "\n<b>Дата рождения</b>: " . $user->getDateOfBirth()->format("d-m-Y") .
+            "\n<b>Город</b>: " . $user->getCity()->getCity() .
+            "\n<b>Язык</b>: " . $user->getTelegramLanguage()->getLanguageName() .
+            "\n<b>Псевдоним</b>: " . $user->getAlias();
+        };
+    }
+
     /**
      * Function that we need to use "on" function of the library
      *
