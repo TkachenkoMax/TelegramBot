@@ -472,11 +472,11 @@ class MainController
     public function aboutMe($bot, User $user) {
         return function () use ($bot, $user) {
             $message = "<b>Информация о Вас:</b>" .
-            "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() . ($user->getIsAdmin() ? "(администратор)" : "") .
-            "\n<b>Дата рождения</b>: " . $user->getDateOfBirth()->format("d-m-Y") .
-            "\n<b>Город</b>: " . $user->getCity()->getCity() .
-            "\n<b>Язык</b>: " . $user->getTelegramLanguage()->getLanguageName() .
-            "\n<b>Псевдоним</b>: " . $user->getAlias();
+            "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() .
+            "\n<b>Дата рождения</b>: " . ( $user->getDateOfBirth() !== null ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
+            "\n<b>Город</b>: " . ( $user->getCity() !== null ? $user->getCity()->getCity() : "не установлен" ) .
+            "\n<b>Язык</b>: " . ( $user->getTelegramLanguage() !== null ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
+            "\n<b>Псевдоним</b>: " . ( $user->getAlias() !== "" ? $user->getAlias() : "не установлен" );
 
             $bot->sendMessage($user->getTelegramId(), $message, "HTML");
         };
