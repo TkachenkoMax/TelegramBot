@@ -474,7 +474,8 @@ class MainController
             $message = "<b>Информация о Вас:</b>" .
             "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() .
             "\n<b>Дата рождения</b>: " . ( $user->getDateOfBirth() !== null ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
-            "\n<b>Город</b>: " . ( $user->getCity() !== null ? $user->getCity()->getCity() : "не установлен" ) .
+            "\n<b>Город</b>: " . ( $user->getCity() !== null
+                    ? $user->getCity()->getCity() : "не установлен" ) .
             "\n<b>Язык</b>: " . ( $user->getTelegramLanguage() !== null ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
             "\n<b>Псевдоним</b>: " . ( $user->getAlias() !== "" ? $user->getAlias() : "не установлен" );
 
