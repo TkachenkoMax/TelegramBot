@@ -34,7 +34,7 @@ class UserModel extends Model
             $language,
             $is_admin,
             $data['created_at'],
-            new DateTime($data['date_of_birth']),
+            (is_null($data['date_of_birth']) ? null : new DateTime($data['date_of_birth'])),
             $data['alias'],
             $city
         );

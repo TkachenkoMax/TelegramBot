@@ -471,7 +471,7 @@ class MainController
      */
     public function aboutMe($bot, User $user) {
         return function () use ($bot, $user) {
-            $message = "<b>Информация о Вас:</b>" .
+            $message = "<b>Информация о Вас</b>" .
             "\n<b>Имя и фамилия</b> : " . $user->getFirstName() . " " . $user->getLastName() .
             "\n<b>Дата рождения</b>: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
             "\n<b>Город</b>: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
