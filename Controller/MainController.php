@@ -360,7 +360,9 @@ class MainController
                 return;
             }
 
-            $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
+            $lang = "en";
+            if ($user->getTelegramLanguage() != null) 
+                $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
             $units = 'metric';
 
             $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
