@@ -462,6 +462,13 @@ class MainController
         }
     }
 
+    /**
+     * Sent to user message with information about him
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function aboutMe($bot, User $user) {
         return function () use ($bot, $user) {
             $message = "<b>Информация о Вас:</b>" .
@@ -471,7 +478,7 @@ class MainController
             "\n<b>Язык</b>: " . $user->getTelegramLanguage()->getLanguageName() .
             "\n<b>Псевдоним</b>: " . $user->getAlias();
 
-            $bot->sendMessage($user->getTelegramId(), $message);
+            $bot->sendMessage($user->getTelegramId(), $message, "HTML");
         };
     }
 
