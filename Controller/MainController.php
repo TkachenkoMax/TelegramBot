@@ -478,8 +478,6 @@ class MainController
             "\n<b>Язык</b>: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
             "\n<b>Псевдоним</b>: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
-
-            $bot->sendMessage($user->getTelegramId(), gettype($user->getTelegramLanguage()));
             $bot->sendMessage($user->getTelegramId(), $message, "HTML");
         };
     }
