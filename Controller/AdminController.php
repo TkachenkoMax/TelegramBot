@@ -41,7 +41,7 @@ class AdminController extends MainController
     public function sendListOfUsers($bot){
         return function ($message) use ($bot) {
             $users = UserModel::all();
-            $file = "/public/files/users.txt";
+            $file = "/files/users.txt";
 
             if (file_exists($file))
                 unlink($file);
@@ -57,7 +57,7 @@ class AdminController extends MainController
                     "\nЯзык: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
                     "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
-                file_put_contents("/public/files/users.txt", $user_info, FILE_APPEND);
+                file_put_contents($file, $user_info, FILE_APPEND);
             }
 
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $file);
