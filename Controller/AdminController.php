@@ -38,7 +38,7 @@ class AdminController extends MainController
         };
     }
 
-    public function sendListOfUsers($bot){
+    public function sendInformation($bot){
         return function ($message) use ($bot) {
             $users = UserModel::all();
             $file = "files/users.txt";
@@ -58,6 +58,10 @@ class AdminController extends MainController
                     "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
                 file_put_contents($file, $user_info, FILE_APPEND);
+                
+                if(next($weather)) {
+                    file_put_contents($file, "\n\n", FILE_APPEND);
+                }
             }
 
             $zip = new ZipArchive();
@@ -70,10 +74,7 @@ class AdminController extends MainController
             $zip->addFile($file, "users.txt");
             $zip->close();
 
-            $bot->sendMessage($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
-
-
-            $bot->sendDocument($message->getChat()->getId(), "http://apihelper-bot.herokuapp.com/public/files/info.zip");
+            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
         };
     }
 }
