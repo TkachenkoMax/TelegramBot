@@ -46,6 +46,7 @@ class AdminController extends MainController
             if (file_exists($file))
                 unlink($file);
 
+            fopen($file, "rw");
             file_put_contents($file, "Список пользователей:\n");
 
             foreach ($users as $user) {
