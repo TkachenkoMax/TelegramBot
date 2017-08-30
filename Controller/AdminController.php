@@ -43,8 +43,8 @@ class AdminController extends MainController
             $users = UserModel::all();
             $file = "/files/users.txt";
 
-            if (file_exists($file))
-                unlink($file);
+            /*if (file_exists($file))
+                unlink($file);*/
 
             $fp = fopen($file, "rw");
             fwrite($fp, "Список пользователей:\n\n");
