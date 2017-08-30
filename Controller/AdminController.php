@@ -41,7 +41,7 @@ class AdminController extends MainController
     public function sendInformation($bot){
         return function ($message) use ($bot) {
             $users = UserModel::all();
-            $file = "files/users.txt";
+            $file = "files/users" . time() . ".txt";
 
             if (file_exists($file))
                 unlink($file);
@@ -69,7 +69,7 @@ class AdminController extends MainController
                 exit("Невозможно открыть <$archive_path>\n");
             }
 
-            $zip->addFile($file);
+            $zip->addFile($file, "users.txt");
             $zip->close();
 
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
