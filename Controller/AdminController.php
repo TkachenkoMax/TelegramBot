@@ -53,11 +53,11 @@ class AdminController extends MainController
                     "\nДата рождения: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
                     "\nГород: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
                     "\nЯзык: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
-                    "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" ) . "\n\n";
+                    "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
                 file_put_contents($file, $user_info, FILE_APPEND);
 
-                if(next($weather)) {
+                if(next($users)) {
                     file_put_contents($file, "\n\n", FILE_APPEND);
                 }
             }
