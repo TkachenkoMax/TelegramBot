@@ -40,8 +40,6 @@ class AdminController extends MainController
 
     public function sendListOfUsers($bot){
         return function ($message) use ($bot) {
-            $bot->sendMessage($message->getChat()->getId(), "Allow fopen(): " . ini_get('allow_url_fopen'));
-
             $users = UserModel::all();
             $file = "files/users.txt";
 
@@ -62,7 +60,17 @@ class AdminController extends MainController
                 file_put_contents($file, $user_info, FILE_APPEND);
             }
 
-            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $file);
+            $zip = new ZipArchive();
+            $archive_path = "files/info.zip";
+
+            if ($zip->open($archive_path, ZipArchive::CREATE)!==TRUE) {
+                exit("Невозможно открыть <$archive_path>\n");
+            }
+
+            $zip->addFile($file);
+            $zip->close();
+
+            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $archive_path);
         };
     }
 }
