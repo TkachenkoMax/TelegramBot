@@ -46,19 +46,17 @@ class AdminController extends MainController
             if (file_exists($file))
                 unlink($file);
 
-            $fp = fopen($file, "rw");
-            fwrite($fp, "Список пользователей:\n\n");
-            fclose($fp);
+            file_put_contents($file, "Список пользователей:\n");
 
             foreach ($users as $user) {
                 $user_info = "Имя и фамилия: " . $user->getFirstName() . " " . $user->getLastName() .
                     "\nДата рождения: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
                     "\nГород: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
                     "\nЯзык: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
-                    "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
+                    "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" ) . "\n\n";
 
                 file_put_contents($file, $user_info, FILE_APPEND);
-                
+
                 if(next($weather)) {
                     file_put_contents($file, "\n\n", FILE_APPEND);
                 }
@@ -71,7 +69,7 @@ class AdminController extends MainController
                 exit("Невозможно открыть <$archive_path>\n");
             }
 
-            $zip->addFile($file, "users.txt");
+            $zip->addFile($file);
             $zip->close();
 
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
