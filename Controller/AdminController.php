@@ -51,13 +51,13 @@ class AdminController extends MainController
             fclose($fp);
 
             foreach ($users as $user) {
-                $message = "Имя и фамилия: " . $user->getFirstName() . " " . $user->getLastName() .
+                $user_info = "Имя и фамилия: " . $user->getFirstName() . " " . $user->getLastName() .
                     "\nДата рождения: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
                     "\nГород: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
                     "\nЯзык: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
                     "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
 
-                file_put_contents("/public/files/users.txt", $message, FILE_APPEND);
+                file_put_contents("/public/files/users.txt", $user_info, FILE_APPEND);
             }
 
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $file);
