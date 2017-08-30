@@ -70,7 +70,7 @@ class AdminController extends MainController
             $zip->addFile($file);
             $zip->close();
 
-            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $archive_path);
+            $bot->sendDocument($message->getChat()->getId(), "http://apihelper-bot.herokuapp.com/public/files/info.zip");
         };
     }
 }
