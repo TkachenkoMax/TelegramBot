@@ -63,7 +63,7 @@ class AdminController extends MainController
             }
 
             $zip = new ZipArchive();
-            $archive_path = "files/info.zip";
+            $archive_path = "files/info" . time() . ".zip";
 
             if ($zip->open($archive_path, ZipArchive::CREATE)!==TRUE) {
                 exit("Невозможно открыть <$archive_path>\n");
@@ -74,7 +74,7 @@ class AdminController extends MainController
 
             $bot->sendMessage($message->getChat()->getId(), $file);
 
-            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
+            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/" . $archive_path);
         };
     }
 }
