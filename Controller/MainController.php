@@ -412,7 +412,13 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $ig->login();
 
-            $userId = $ig->getUsernameId('acc_for_testing_api');
+            $metadata = [
+                'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
+            ];
+
+            $ig->uploadTimelinePhoto("files/photo.jpg", $metadata);
+
+            /*$userId = $ig->getUsernameId('acc_for_testing_api');
             $a = $ig->getUserInfoById($userId);
 
             $users = $ig->getAutoCompleteUserList();
@@ -437,7 +443,7 @@ class MainController
             $username = $a->getUser()->getUsername();
             $full_name = $a->user->getFullName();
 
-            $bot->sendMessage($user->getTelegramId(), "Username: " . $username . ", full name: " . $full_name);
+            $bot->sendMessage($user->getTelegramId(), "Username: " . $username . ", full name: " . $full_name);*/
 
             $bot->sendMessage($user->getTelegramId(), "Успех!");
         };
