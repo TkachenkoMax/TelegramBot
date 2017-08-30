@@ -43,7 +43,7 @@ class AdminController extends MainController
             $bot->sendMessage($message->getChat()->getId(), "Allow fopen(): " . ini_get('allow_url_fopen'));
 
             $users = UserModel::all();
-            $file = "/files/users.txt";
+            $file = "files/users.txt";
 
             /*if (file_exists($file))
                 unlink($file);*/
