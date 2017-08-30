@@ -40,6 +40,8 @@ class AdminController extends MainController
 
     public function sendListOfUsers($bot){
         return function ($message) use ($bot) {
+            $bot->sendMessage($message->getChat()->getId(), "Allow fopen(): " . ini_get('allow_url_fopen'));
+
             $users = UserModel::all();
             $file = "/files/users.txt";
 
