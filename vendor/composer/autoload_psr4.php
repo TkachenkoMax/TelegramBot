@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'TelegramBot\\Api\\' => array($vendorDir . '/telegram-bot/api/src'),
+    'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'MenaraSolutions\\Geographer\\Helpers\\' => array($vendorDir . '/menarasolutions/geographer-data/helpers'),
     'MenaraSolutions\\Geographer\\' => array($vendorDir . '/menarasolutions/geographer/src'),

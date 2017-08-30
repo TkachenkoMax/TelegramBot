@@ -37,4 +37,30 @@ class AdminController extends MainController
             $bot->sendMessage($message->getChat()->getId(), "Successful seeding");
         };
     }
+
+    public function sendListOfUsers($bot){
+        return function ($message) use ($bot) {
+            $users = UserModel::all();
+            $file = "/public/files/users.txt";
+
+            if (file_exists($file))
+                unlink($file);
+
+            $fp = fopen($file, "rw");
+            fwrite($fp, "Список пользователей:\n\n");
+            fclose($fp);
+
+            foreach ($users as $user) {
+                $message = "Имя и фамилия: " . $user->getFirstName() . " " . $user->getLastName() .
+                    "\nДата рождения: " . ( is_object($user->getDateOfBirth()) ? $user->getDateOfBirth()->format("d-m-Y") : "не установлена" ) .
+                    "\nГород: " . ( is_object($user->getCity()) ? $user->getCity()->getCity() : "не установлен" ) .
+                    "\nЯзык: " . ( is_object($user->getTelegramLanguage()) ? $user->getTelegramLanguage()->getLanguageName() : "не установлен" ) .
+                    "\nПсевдоним: " . ( $user->getAlias() !== null ? $user->getAlias() : "не установлен" );
+
+                file_put_contents("/public/files/users.txt", $message, FILE_APPEND);
+            }
+
+            $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . $file);
+        };
+    }
 }

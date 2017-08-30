@@ -18,6 +18,10 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
         array (
             'TelegramBot\\Api\\' => 16,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\EventDispatcher\\' => 34,
+        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
@@ -47,6 +51,10 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
         'TelegramBot\\Api\\' => 
         array (
             0 => __DIR__ . '/..' . '/telegram-bot/api/src',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -95,6 +103,24 @@ class ComposerStaticInit8f856caba64f36701f23c73f1c2f0d7b
             'JsonMapper' => 
             array (
                 0 => __DIR__ . '/..' . '/netresearch/jsonmapper/src',
+            ),
+        ),
+        'G' => 
+        array (
+            'Guzzle\\Tests' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/guzzle/tests',
+            ),
+            'Guzzle' => 
+            array (
+                0 => __DIR__ . '/..' . '/guzzle/guzzle/src',
+            ),
+        ),
+        'A' => 
+        array (
+            'Aws' => 
+            array (
+                0 => __DIR__ . '/..' . '/aws/aws-sdk-php/src',
             ),
         ),
     );

@@ -57,6 +57,7 @@ class Application {
             $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
             $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
             $this->bot->command('seed', $controller->seed($this->bot));
+            $this->bot->command('users', $controller->sendListOfUsers($this->bot));
         }
         else 
             $controller = new MainController();
@@ -72,7 +73,7 @@ class Application {
             $this->bot->on($controller->setCity($this->bot, $this->user), $controller->returnTrue());
             $this->bot->command('weather', $controller->weather($this->bot, $this->user));
             //$this->bot->command('instagram_credentials', $controller->setInstagramCredentials($this->bot, $this->user));
-            $this->bot->command('instagram_login', $controller->instagramLogin($this->bot, $this->user));
+            $this->bot->command('instagramLogin', $controller->instagramLogin($this->bot, $this->user));
         }
 
         $this->bot->handle($this->updates);
