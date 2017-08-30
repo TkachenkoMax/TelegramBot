@@ -67,8 +67,11 @@ class AdminController extends MainController
                 exit("Невозможно открыть <$archive_path>\n");
             }
 
-            $zip->addFile($file);
+            $zip->addFile($file, "users.txt");
             $zip->close();
+
+            $bot->sendMessage($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/files/info.zip");
+
 
             $bot->sendDocument($message->getChat()->getId(), "http://apihelper-bot.herokuapp.com/public/files/info.zip");
         };
