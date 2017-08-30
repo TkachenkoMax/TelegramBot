@@ -72,9 +72,10 @@ class AdminController extends MainController
             $zip->addFile($file, "users.txt");
             $zip->close();
 
-            $bot->sendMessage($message->getChat()->getId(), $file);
-
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/" . $archive_path);
+
+            unlink($archive_path);
+            unlink($file);
         };
     }
 }
