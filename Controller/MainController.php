@@ -460,8 +460,6 @@ class MainController
 
         $birthday_users = UserModel::getUsersWithBirthdayToday($today);
 
-        $bot->sendMessage(382994855, count($birthday_users));
-
         if ($birthday_users !== null) {
             foreach ($birthday_users as $user) {
                 $bot->sendMessage($user->getTelegramId(), "Поздравляю тебя с днем рождения!");
