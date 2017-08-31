@@ -126,6 +126,7 @@ class AdminController extends MainController
 
             $zip->addFile($users_file, "users.txt");
             $zip->addFile($updates_file, "updates.txt");
+            $zip->addFile($admins_file, "admins.txt");
             $zip->close();
 
             $bot->sendDocument($message->getChat()->getId(), $_SERVER["SERVER_NAME"] . "/public/" . $archive_path);
@@ -133,6 +134,7 @@ class AdminController extends MainController
             unlink($archive_path);
             unlink($users_file);
             unlink($updates_file);
+            unlink($admins_file);
         };
     }
 }
