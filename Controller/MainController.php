@@ -456,6 +456,8 @@ class MainController
      * @throws Exception
      */
     public function congratsToUsers($bot){
+        $bot->sendMessage(382994855, "Test");
+
         $today = new DateTime("now");
 
         $birthday_users = UserModel::getUsersWithBirthdayToday($today);
