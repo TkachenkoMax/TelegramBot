@@ -90,8 +90,9 @@ class AdminController extends MainController
 
             foreach ($updates as $update) {
                 $date = new DateTime($update['created_at']);
+                $date = $date->format('Y-m-d H:i:s');
                 $update_info = "Сообщение от " . $update['first_name'] . " " . $update['last_name'] . " (Telegram ID - " . $update['telegram_id'] . ")" .
-                    "\nОт " . $date->format('Y-m-d H:i:s') .
+                    "\nОт " . $date .
                     "\nНомер сообщения: " . $update['message_id'] .
                     "\nТекст сообщения: " . (is_null($update['text_of_message']) ? "пустое сообщение или файл" : $update['text_of_message']);
 
@@ -125,9 +126,12 @@ class AdminController extends MainController
 
             foreach ($admins as $admin){
                 $start = new DateTime($admin['created_at']);
+                $start = $start->format('Y-m-d');
                 $end = is_null($admin['deleted_at']) ? "..." : new DateTime($admin['deleted_at']);
+                if ($end instanceof DateTime)
+                    $end = $end->format('Y-m-d');
                 $admin_info = "Администратор " . $admin['first_name'] . " " . $admin['last_name'] . " (Telegram ID - " . $admin['telegram_id'] . ")" .
-                    "Период администрирования: " . $start->format('Y-m-d') . " - " . $end;
+                    "Период администрирования: " . $start . " - " . $end;
 
                 file_put_contents($admins_file, $admin_info, FILE_APPEND);
 
