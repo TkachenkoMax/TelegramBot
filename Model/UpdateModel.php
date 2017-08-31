@@ -116,13 +116,12 @@ class UpdateModel extends Model
         $connection = Database::connect();
 
         try {
-            $stmt = $connection->prepare("SELECT users.telegram_id, users.first_name, users.last_name, updates.message_id, updates.text_of_message, updates.created_at
+            $result = $connection->query("SELECT users.telegram_id, users.first_name, users.last_name, updates.message_id, updates.text_of_message, updates.created_at
                                             FROM updates INNER JOIN users ON users.id=updates.id_user ORDER BY updates.created_at DESC");
-            $result = $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
 
-        return $result;
+        return $result->fetchAll();
     }
 }
