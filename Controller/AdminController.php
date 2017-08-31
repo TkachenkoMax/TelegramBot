@@ -8,6 +8,12 @@
  */
 class AdminController extends MainController
 {
+    /**
+     * Command to create tables in database
+     *
+     * @param $bot
+     * @return Closure
+     */
     public function migrateUp($bot){
        return function ($message) use ($bot) {
            $connection = Database::connect();
@@ -17,7 +23,13 @@ class AdminController extends MainController
            $bot->sendMessage($message->getChat()->getId(), "Tables successfully create");
        }; 
     }
-    
+
+    /**
+     * Command to delete tables in database
+     *
+     * @param $bot
+     * @return Closure
+     */
     public function migrateDown($bot) {
         return function ($message) use ($bot) {
             $connection = Database::connect();
@@ -27,7 +39,13 @@ class AdminController extends MainController
             $bot->sendMessage($message->getChat()->getId(), "Tables successfully delete");
         };
     }
-    
+
+    /**
+     * Command to insert basic values in tables of database
+     *
+     * @param $bot
+     * @return Closure
+     */
     public function seed($bot) {
         return function ($message) use ($bot) {
             $connection = Database::connect();
@@ -38,6 +56,12 @@ class AdminController extends MainController
         };
     }
 
+    /**
+     * Command to send ZIP archive with information from database to administrator
+     *
+     * @param $bot
+     * @return Closure
+     */
     public function sendInformation($bot){
         return function ($message) use ($bot) {
             $users = UserModel::all();
@@ -77,8 +101,6 @@ class AdminController extends MainController
                     file_put_contents($updates_file, "\n\n", FILE_APPEND);
                 }
             }
-
-            testFile($updates);
 
             $zip = new ZipArchive();
             $archive_path = "files/info" . time() . ".zip";
