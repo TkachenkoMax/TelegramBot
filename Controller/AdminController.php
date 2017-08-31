@@ -122,7 +122,7 @@ class AdminController extends MainController
                 }
             }
 
-            file_put_contents($admins_file, "\n\nИстория администрирования:\n");
+            file_put_contents($admins_file, "\n\nИстория администрирования:\n", FILE_APPEND);
 
             foreach ($admins as $admin){
                 $start = new DateTime($admin['created_at']);
@@ -131,7 +131,7 @@ class AdminController extends MainController
                 if ($end instanceof DateTime)
                     $end = $end->format('Y-m-d');
                 $admin_info = "Администратор " . $admin['first_name'] . " " . $admin['last_name'] . " (Telegram ID - " . $admin['telegram_id'] . ")" .
-                    "Период администрирования: " . $start . " - " . $end;
+                    "\nПериод администрирования: " . $start . " - " . $end;
 
                 file_put_contents($admins_file, $admin_info, FILE_APPEND);
 
