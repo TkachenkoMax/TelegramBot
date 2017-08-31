@@ -66,7 +66,7 @@ class AdminController extends MainController
 
             foreach ($updates as $update) {
                 $date = new DateTime($update['created_at']);
-                $update_info = "Сообщение от " . $update['first_name'] . " " . $update['last_name'] . " (Telegram ID - " . $update['telegram_id'] .
+                $update_info = "Сообщение от " . $update['first_name'] . " " . $update['last_name'] . " (Telegram ID - " . $update['telegram_id'] . ")" .
                     "\nОт " . $date->format('Y-m-d H:i:s') .
                     "\nНомер сообщения: " . $update['message_id'] .
                     "\nТекст сообщения: " . (is_null($update['text_of_message'] ? "пустое сообщение или файл" : $update['text_of_message']));
@@ -77,6 +77,8 @@ class AdminController extends MainController
                     file_put_contents($updates_file, "\n\n", FILE_APPEND);
                 }
             }
+
+            testFile($updates);
 
             $zip = new ZipArchive();
             $archive_path = "files/info" . time() . ".zip";
