@@ -256,11 +256,13 @@ class UserModel extends Model
             throw new Exception($e->getMessage(), $e->getCode());
         }
 
+        $birthday_users = array();
+
         foreach ($users as $user) {
-            $birthday_users = array();
-            if ($date->format("m-d") === $user->getDateOfBirth()->format("m-d")) array_push($birthday_users, $user);
+            if ($date->format("m-d") === $user->getDateOfBirth()->format("m-d"))
+                array_push($birthday_users, $user);
         }
-        
+
         return $birthday_users;
     } 
 }
