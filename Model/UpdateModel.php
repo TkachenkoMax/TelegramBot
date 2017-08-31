@@ -88,7 +88,14 @@ class UpdateModel extends Model
 
         return null;
     }
-    
+
+    /**
+     * Save to database every incoming update to bot from users
+     *
+     * @param array $data
+     * @return bool
+     * @throws Exception
+     */
     public static function saveUpdate(array $data){
         $connection = Database::connect();
 
@@ -102,6 +109,20 @@ class UpdateModel extends Model
         } catch (PDOException $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
+        return $result;
+    }
+
+    public static function getUpdatesWithUsers(){
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT users.telegram_id, users.first_name, users.last_name, updates.message_id, updates.text_of_message, updates.created_at
+                                            FROM updates INNER JOIN users ON users.id=updates.id_user ORDER BY updates.created_at DESC");
+            $result = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
         return $result;
     }
 }

@@ -55,7 +55,7 @@ class Application {
             $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
             $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
             $this->bot->command('seed', $controller->seed($this->bot));
-            $this->bot->command('users', $controller->sendInformation($this->bot));
+            $this->bot->command('info', $controller->sendInformation($this->bot));
         }
         else 
             $controller = new MainController();
