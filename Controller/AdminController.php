@@ -102,6 +102,21 @@ class AdminController extends MainController
                 }
             }
 
+            $admins = AdminModel::getAdminsWithUsers();
+            $admins_file = "files/admins" . time() . ".txt";
+
+            file_put_contents($admins_file, "Список действующих администраторов:\n");
+
+            for($i = 0; $i<count($admins); $i++) {
+                $current_admin_info = ++$i . ") " . $admins[$i]['first_name'] . " " . $admins[$i]['last_name'] . " (Telegram ID - " . $admins[$i]['telegram_id'] . ")";
+
+                file_put_contents($admins_file, $current_admin_info, FILE_APPEND);
+
+                if($i < (count($admins) - 1)) {
+                    file_put_contents($admins_file, "\n", FILE_APPEND);
+                }
+            }
+
             $zip = new ZipArchive();
             $archive_path = "files/info" . time() . ".zip";
 

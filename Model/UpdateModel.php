@@ -112,6 +112,12 @@ class UpdateModel extends Model
         return $result;
     }
 
+    /**
+     * Get all updates with information about users
+     * 
+     * @return array
+     * @throws Exception
+     */
     public static function getUpdatesWithUsers(){
         $connection = Database::connect();
 

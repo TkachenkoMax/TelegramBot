@@ -110,4 +110,23 @@ class AdminModel extends Model
 
         return null;
     }
+
+    /**
+     * Get all admins with information about them
+     * 
+     * @return array
+     * @throws Exception
+     */
+    public static function getAdminsWithUsers(){
+        $connection = Database::connect();
+
+        try {
+            $result = $connection->query("SELECT users.telegram_id, users.first_name, users.last_name, admins.created_at, admins.deleted_at
+                                            FROM admins INNER JOIN users ON users.id=admins.id_user ORDER BY admins.created_at DESC");
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        return $result->fetchAll();
+    }
 }
