@@ -13,6 +13,7 @@ class Application {
     private $token;
     private $updates;
     private $user;
+    private $main_admin;
 
     /**
      * Application constructor. Creating bot instance
@@ -22,6 +23,7 @@ class Application {
         $bot_config = include(__ROOT__ . "/Config/bot.php");
         $this->token = $bot_config["token"];
         $this->bot = new Client($this->token);
+        $this->main_admin = $bot_config["main_admin_id"];
     }
     
     /**
@@ -50,11 +52,15 @@ class Application {
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
 
         if (!is_null($this->user) && $this->user->getIsAdmin()) {
-            $controller = new AdminController();
+            if ($this->user->getTelegramId() == $this->main_admin) {
+                $controller = new MainAdminController();
 
-            $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
-            $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
-            $this->bot->command('seed', $controller->seed($this->bot));
+                $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
+                $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
+                $this->bot->command('seed', $controller->seed($this->bot));
+            } else
+                $controller = new AdminController();
+
             $this->bot->command('info', $controller->sendInformation($this->bot));
         }
         else 
