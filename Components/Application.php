@@ -69,7 +69,7 @@ class Application {
             $this->bot->command('setLanguage', $controller->setLanguage($this->bot, $this->user));
             $this->bot->command('setAlias', $controller->setAlias($this->bot, $this->user));
             $this->bot->command('setDateOfBirth', $controller->setDateOfBirth($this->bot, $this->user));
-            $this->bot->command('setCity', $controller->setCity($this->bot, $this->user));
+            $this->bot->on($controller->setCity($this->bot, $this->user), $controller->returnTrue());
             $this->bot->command('weather', $controller->weather($this->bot, $this->user));
             $this->bot->command('instagramLogin', $controller->instagramLogin($this->bot, $this->user));
         }

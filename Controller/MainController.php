@@ -245,53 +245,49 @@ class MainController
      * @return Closure
      */
     public function setCity($bot, User $user){
-        return function ($message) use ($bot, $user) {
+        return function ($update) use ($bot, $user) {
+            $message = $update->getMessage();
             $text = trim($message->getText());
             $location = $message->getLocation();
             $telegram_id = $user->getTelegramId();
             $current_city = $user->getCity();
-
+            
             if (is_object($location)) {
                 $long = $location->getLongitude();
                 $lat = $location->getLatitude();
-
                 $api = new Api();
                 $api->setPoint($long, $lat);
-
                 if ($user->getTelegramLanguage() != null)
                     $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "yandex_geocoding");
                 $lang = ($lang==null) ? $lang = "en-US" : $lang;
-                
+
                 $api
                     ->setLimit(1)
                     ->setLang($lang)
                     ->load();
-
                 $response = $api->getResponse();
-
                 $collection = $response->getList();
-                
+
                 $new_city = new City($collection[0]->getLocalityName(), $collection[0]->getCountry(), $collection[0]->getLongitude(), $collection[0]->getLatitude());
-                
+
                 UserModel::setCity($telegram_id, $new_city);
-                
+
                 $bot->sendMessage($telegram_id, "Город установлен: " . $collection[0]->getLocalityName());
-                
-                return;
             }
-            
-            if (is_object($current_city)) {
-                $city_name = $current_city->getCity();
-                $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
-            } else {
-                $bot->sendMessage($telegram_id, "Город еще не был установлен");
+
+            $is_command = strpos($text,"/setCity");
+            if($is_command !== false && $is_command === 0){
+                if (is_object($current_city)) {
+                    $city_name = $current_city->getCity();
+                    $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
+                } else {
+                    $bot->sendMessage($telegram_id, "Город еще не был установлен");
+                }
+                $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
+                    ["text" => "Отправить местоположение", "request_location" => true],
+                ]], true, true);
+                $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
             }
-            
-            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                ["text" => "Отправить местоположение", "request_location" => true],
-            ]], true, true);
-            
-            $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
         };
     }
 
