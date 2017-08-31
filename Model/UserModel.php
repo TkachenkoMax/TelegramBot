@@ -249,7 +249,7 @@ class UserModel extends Model
      * @return array
      * @throws Exception
      */
-    public static function getUsersWithBirthdayToday(DateTime $date, $bot){
+    public static function getUsersWithBirthdayToday(DateTime $date){
         try {
             $users = self::all();
         } catch (PDOException $e) {
@@ -258,8 +258,7 @@ class UserModel extends Model
 
         foreach ($users as $user) {
             $birthday_users = array();
-            $bot->sendMessage(382994855, $user->getDateOfBirth()->format("m-d"));
-            if ($date->format("m-d") == $user->getDateOfBirth()->format("m-d")) array_push($birthday_users, $user);
+            if ($date->format("m-d") === $user->getDateOfBirth()->format("m-d")) array_push($birthday_users, $user);
         }
         
         return $birthday_users;
