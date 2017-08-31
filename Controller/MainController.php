@@ -148,43 +148,38 @@ class MainController
      * @return Closure
      */
     public function setLanguage($bot, User $user){
-        return function ($update) use ($bot, $user) {
-            $message = $update->getMessage();
+        return function ($message) use ($bot, $user) {
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
             $language = $user->getTelegramLanguage();
 
-            $is_command = strpos($text,"/setLanguage");
+            $params = trim(str_replace("/setLanguage", "", $text));
+            if (strlen($params) > 0) {
+                $parameter = strtolower(explode(" ", $params, 2)[0]);
 
-            if($is_command !== false && $is_command === 0){
-                $params = trim(str_replace("/setLanguage", "", $text));
-                if (strlen($params) > 0) {
-                    $parameter = strtolower(explode(" ", $params, 2)[0]);
-
-                    $lang_id = getLanguageInfo($parameter, "database_name", "database_id");
+                $lang_id = getLanguageInfo($parameter, "database_name", "database_id");
                     
-                    if($lang_id !== null){
-                        UserModel::setUserLanguage($telegram_id, $lang_id);
-                        $bot->sendMessage($telegram_id, "Язык $parameter установлен");
-                    } else {
-                        $bot->sendMessage($telegram_id, "Нельзя выбрать этот язык");
-                    }
+                if($lang_id !== null){
+                    UserModel::setUserLanguage($telegram_id, $lang_id);
+                    $bot->sendMessage($telegram_id, "Язык $parameter установлен");
+                } else {
+                    $bot->sendMessage($telegram_id, "Нельзя выбрать этот язык");
                 }
-                else {
-                    if (is_object($language)) {
-                        $language_name = $language->getLanguageName();
-                        $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language_name");
-                    } else {
-                        $bot->sendMessage($telegram_id, "Язык еще не был установлен");
-                    }
-
-                    $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                        ["text" => "/setLanguage русский"],
-                        ["text" => "/setLanguage english"]
-                    ]], true, true);
-
-                    $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
+            }
+            else {
+                if (is_object($language)) {
+                    $language_name = $language->getLanguageName();
+                    $bot->sendMessage($telegram_id, "У вас уже установлен язык - $language_name");
+                } else {
+                    $bot->sendMessage($telegram_id, "Язык еще не был установлен");
                 }
+
+                $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
+                    ["text" => "/setLanguage русский"],
+                    ["text" => "/setLanguage english"]
+                ]], true, true);
+
+                $bot->sendMessage($user->getTelegramId(), "Выберите язык:", false, null,null, $keyboard);
             }
         };
     }
@@ -197,24 +192,19 @@ class MainController
      * @return Closure
      */
     public function setAlias($bot, User $user){
-        return function ($update) use ($bot, $user) {
-            $message = $update->getMessage();
+        return function ($message) use ($bot, $user) {
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
+            
+            $params = trim(str_replace("/setAlias", "", $text));
+            if (strlen($params) > 0) {
+                $parameter = explode(" ", $params, 2)[0];
 
-            $is_command = strpos($text,"/setAlias");
+                UserModel::setUserAlias($telegram_id, $parameter);
 
-            if($is_command !== false && $is_command === 0){
-                $params = trim(str_replace("/setAlias", "", $text));
-                if (strlen($params) > 0) {
-                    $parameter = explode(" ", $params, 2)[0];
-
-                    UserModel::setUserAlias($telegram_id, $parameter);
-
-                    $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
-                } else {
-                    $bot->sendMessage($telegram_id, "Напиши какой надо установить псевдомним (/setAlias <псевдоним>)");
-                }
+                $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
+            } else {
+                $bot->sendMessage($telegram_id, "Напиши какой надо установить псевдомним (/setAlias <псевдоним>)");
             }
         };
     }
@@ -227,30 +217,24 @@ class MainController
      * @return Closure
      */
     public function setDateOfBirth($bot, User $user){
-        return function ($update) use ($bot, $user) {
-            $message = $update->getMessage();
+        return function ($message) use ($bot, $user) {
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
-
-            $is_command = strpos($text,"/setDateOfBirth");
-
-            if($is_command !== false && $is_command === 0){
-                $parameter = trim(str_replace("/setDateOfBirth", "", $text));
-                if (strlen($parameter) > 0) {
-
-                    if (isDateValid($parameter)) 
-                        $date = new DateTime($parameter);
-                    else {
-                        $bot->sendMessage($telegram_id, "Слишком сложно понять эту дату - $parameter");
-                        return;
-                    }
-
-                    UserModel::setUserDateOfBirth($telegram_id, $date->format("Y-m-d H:i:s"));
-
-                    $bot->sendMessage($telegram_id, "Дата рождения $parameter установлена!");
-                } else {
-                    $bot->sendMessage($telegram_id, "Не могу угадать твой день рождения, напиши его (/setDateOfBirth <дата>)");
+            
+            $parameter = trim(str_replace("/setDateOfBirth", "", $text));
+            if (strlen($parameter) > 0) {
+                if (isDateValid($parameter)) 
+                    $date = new DateTime($parameter);
+                else {
+                    $bot->sendMessage($telegram_id, "Слишком сложно понять эту дату - $parameter");
+                    return;
                 }
+
+                UserModel::setUserDateOfBirth($telegram_id, $date->format("Y-m-d H:i:s"));
+
+                $bot->sendMessage($telegram_id, "Дата рождения $parameter установлена!");
+            } else {
+                $bot->sendMessage($telegram_id, "Не могу угадать твой день рождения, напиши его (/setDateOfBirth <дата>)");
             }
         };
     }
@@ -263,8 +247,7 @@ class MainController
      * @return Closure
      */
     public function setCity($bot, User $user){
-        return function ($update) use ($bot, $user) {
-            $message = $update->getMessage();
+        return function ($message) use ($bot, $user) {
             $text = trim($message->getText());
             $location = $message->getLocation();
             $telegram_id = $user->getTelegramId();
@@ -295,30 +278,22 @@ class MainController
                 UserModel::setCity($telegram_id, $new_city);
                 
                 $bot->sendMessage($telegram_id, "Город установлен: " . $collection[0]->getLocalityName());
+                
+                return;
             }
-
-            $is_command = strpos($text,"/setCity");
-
-            if($is_command !== false && $is_command === 0){
-                $params = trim(str_replace("/setCity", "", $text));
-                if (strlen($params) > 0) {
-                    //TODO in future
-                }
-                else {
-                    if (is_object($current_city)) {
-                        $city_name = $current_city->getCity();
-                        $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
-                    } else {
-                        $bot->sendMessage($telegram_id, "Город еще не был установлен");
-                    }
-
-                    $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
-                        ["text" => "Отправить местоположение", "request_location" => true],
-                    ]], true, true);
-
-                    $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
-                }
+            
+            if (is_object($current_city)) {
+                $city_name = $current_city->getCity();
+                $bot->sendMessage($telegram_id, "У вас уже установлен город - $city_name");
+            } else {
+                $bot->sendMessage($telegram_id, "Город еще не был установлен");
             }
+            
+            $keyboard = new \TelegramBot\Api\Types\ReplyKeyboardMarkup([[
+                ["text" => "Отправить местоположение", "request_location" => true],
+            ]], true, true);
+            
+            $bot->sendMessage($user->getTelegramId(), "Нажмите на кнопку для определения города и разрешите отправку местоположения", false, null,null, $keyboard);
         };
     }
 
@@ -331,7 +306,6 @@ class MainController
      */
     public function weather($bot, User $user){
         return function ($message) use ($bot, $user){
-
             $city = $user->getCity()->getCity();;
             $days = 1;
             $details = false;
