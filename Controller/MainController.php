@@ -462,7 +462,9 @@ class MainController
 
         $birthday_users = UserModel::getUsersWithBirthdayToday($today);
 
-        testFile($birthday_users);
+        $bot->sendMessage(382994855, $today->format("m-d"));
+        $test_date = new DateTime("1997-08-31 00:00:00");
+        $bot->sendMessage(382994855, $test_date->format("m-d"));
 
         if ($birthday_users !== null) {
             foreach ($birthday_users as $user) {

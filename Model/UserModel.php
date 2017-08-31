@@ -241,7 +241,14 @@ class UserModel extends Model
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
-    
+
+    /**
+     * Return array of users with birthday = $date
+     * 
+     * @param DateTime $date
+     * @return array
+     * @throws Exception
+     */
     public static function getUsersWithBirthdayToday(DateTime $date){
         try {
             $users = self::all();
