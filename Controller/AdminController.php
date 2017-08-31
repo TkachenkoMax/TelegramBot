@@ -107,13 +107,15 @@ class AdminController extends MainController
 
             file_put_contents($admins_file, "Список действующих администраторов:\n");
 
-            for($i = 0; $i<count($admins); $i++) {
-                $current_admin_info = ++$i . ") " . $admins[$i]['first_name'] . " " . $admins[$i]['last_name'] . " (Telegram ID - " . $admins[$i]['telegram_id'] . ")";
+            for($i = 0, $counter = 1; $i<count($admins); $i++, $counter++) {
+                if (!is_null($admins[$i]['deleted_at'])) {
+                    $current_admin_info = $counter . ") " . $admins[$i]['first_name'] . " " . $admins[$i]['last_name'] . " (Telegram ID - " . $admins[$i]['telegram_id'] . ")";
 
-                file_put_contents($admins_file, $current_admin_info, FILE_APPEND);
+                    file_put_contents($admins_file, $current_admin_info, FILE_APPEND);
 
-                if($i < (count($admins) - 1)) {
-                    file_put_contents($admins_file, "\n", FILE_APPEND);
+                    if ($i < (count($admins) - 1)) {
+                        file_put_contents($admins_file, "\n", FILE_APPEND);
+                    }
                 }
             }
 
