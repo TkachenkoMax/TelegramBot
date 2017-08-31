@@ -69,7 +69,7 @@ class AdminController extends MainController
                 $update_info = "Сообщение от " . $update['first_name'] . " " . $update['last_name'] . " (Telegram ID - " . $update['telegram_id'] . ")" .
                     "\nОт " . $date->format('Y-m-d H:i:s') .
                     "\nНомер сообщения: " . $update['message_id'] .
-                    "\nТекст сообщения: " . (is_null($update['text_of_message'] ? "пустое сообщение или файл" : $update['text_of_message']));
+                    "\nТекст сообщения: " . (is_null($update['text_of_message']) ? "пустое сообщение или файл" : $update['text_of_message']);
 
                 file_put_contents($updates_file, $update_info, FILE_APPEND);
 
