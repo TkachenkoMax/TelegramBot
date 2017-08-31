@@ -458,7 +458,7 @@ class MainController
     public function congratsToUsers($bot){
         $today = new DateTime("now");
 
-        $birthday_users = UserModel::getUsersWithBirthdayToday($today);
+        $birthday_users = UserModel::getUsersWithBirthdayToday($today, $bot);
 
         if ($birthday_users !== null) {
             foreach ($birthday_users as $user) {
