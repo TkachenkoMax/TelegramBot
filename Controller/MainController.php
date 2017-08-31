@@ -196,10 +196,8 @@ class MainController
             $text = trim($message->getText());
             $telegram_id = $user->getTelegramId();
             
-            $params = trim(str_replace("/setAlias", "", $text));
-            if (strlen($params) > 0) {
-                $parameter = explode(" ", $params, 2)[0];
-
+            $parameter = trim(str_replace("/setAlias", "", $text));
+            if (strlen($parameter) > 0) {
                 UserModel::setUserAlias($telegram_id, $parameter);
 
                 $bot->sendMessage($telegram_id, "Псевдоним '$parameter' установлен!");
