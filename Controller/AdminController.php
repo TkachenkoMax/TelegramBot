@@ -121,6 +121,21 @@ class AdminController extends MainController
                 }
             }
 
+            file_put_contents($admins_file, "\n\nИстория администрирования:\n");
+
+            foreach ($admins as $admin){
+                $start = new DateTime($admin['created_at']);
+                $end = is_null($admin['deleted_at']) ? "..." : new DateTime($admin['deleted_at']);
+                $admin_info = "Администратор " . $admin['first_name'] . " " . $admin['last_name'] . " (Telegram ID - " . $admin['telegram_id'] . ")" .
+                    "Период администрирования: " . $start->format('Y-m-d') . " - " . $end;
+
+                file_put_contents($admins_file, $admin_info, FILE_APPEND);
+
+                if(next($admins)) {
+                    file_put_contents($admins_file, "\n\n", FILE_APPEND);
+                }
+            }
+
             $zip = new ZipArchive();
             $archive_path = "files/info" . time() . ".zip";
 
