@@ -53,7 +53,7 @@ class MainAdminController extends AdminController
     public function deleteAdmin($bot){
         return function ($message) use ($bot) {
             $text = trim($message->getText());
-            $parameters = explode(" ", str_replace("/setAlias", "", $text), 2);
+            $parameters = explode(" ", trim(str_replace("/setAlias", "", $text)), 2);
 
             $deleted_id = $parameters[0];
 
