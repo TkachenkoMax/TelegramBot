@@ -84,9 +84,11 @@ class Migrations{
                                       DROP FOREIGN KEY admins_ibfk_1");
         $connection->query("ALTER TABLE updates
                                       DROP FOREIGN KEY updates_ibfk_1");
+        $connection->query("SET FOREIGN_KEY_CHECKS = 0");
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS updates");
         $connection->query("DROP TABLE IF EXISTS admins");
+        $connection->query("SET FOREIGN_KEY_CHECKS = 1");
     }
 }
