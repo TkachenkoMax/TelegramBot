@@ -139,7 +139,7 @@ class AdminModel extends Model
      */
     public static function getNotDeletedAdminById($telegram_id) {
         $connection = Database::connect();
-
+        
         try {
             $result = $connection->prepare("SELECT admins.id, admins.deleted_at FROM admins INNER JOIN users ON users.id = admins.id_user 
                                             WHERE users.telegram_id=? AND isnull(admins.deleted_at)");

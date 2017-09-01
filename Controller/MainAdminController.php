@@ -51,6 +51,12 @@ class MainAdminController extends AdminController
                 return;
             }
 
+            $admin_exists = AdminModel::getNotDeletedAdminById($new_admin_id);
+            if (count($admin_exists) != 0) {
+                $bot->sendMessage($message->getChat()->getId(), "Пользователь с таким TelegramID уже является админом");
+                return;
+            }
+
             $admin = AdminModel::getDeletedAdminById($new_admin_id);
 
             if (count($admin) != 0) {
