@@ -18,5 +18,13 @@ class Seeds
                                         ('Русский'),
                                         ('English')
                                        ");
+
+        $connection->query("INSERT IGNORE INTO users (telegram_id, first_name, last_name) VALUES 
+                                        (382994855, 'Max', 'Tkachenko')
+                                       ");
+
+        $connection->query("INSERT IGNORE INTO admins (id_user) VALUES 
+                                        (2)
+                                       ");
     }
 }

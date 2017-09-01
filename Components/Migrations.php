@@ -30,7 +30,6 @@ class Migrations{
                                             alias VARCHAR(100),
                                             city BLOB,
                                             created_at TIMESTAMP,
-                                            soft_delete bool,
                                             PRIMARY KEY (id),
                                             FOREIGN KEY (telegram_language) REFERENCES languages(id) 
                                             ON DELETE SET NULL 
