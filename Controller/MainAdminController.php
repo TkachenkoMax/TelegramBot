@@ -31,4 +31,41 @@ class MainAdminController extends AdminController
             $bot->sendMessage($message->getChat()->getId(), "Successful seeding");
         };
     }
+
+    /**
+     * Create new admin in application
+     *
+     * @param $bot
+     * @return Closure
+     */
+    public function createAdmin($bot){
+        return function ($message) use ($bot) {
+            
+        };        
+    }
+
+    /**
+     * Delete existing admin from application
+     *
+     * @param $bot
+     * @return Closure
+     */
+    public function deleteAdmin($bot){
+        return function ($message) use ($bot) {
+            $text = trim($message->getText());
+            $parameters = explode(" ", str_replace("/setAlias", "", $text), 2);
+
+            $deleted_id = (int) $parameters[0];
+
+            $admin = AdminModel::getNotDeletedAdminById($deleted_id);
+            if (count($admin) != 0) {
+                AdminModel::deleteAdmin($admin[0]['id']);
+
+                $bot->sendMessage($message->getChat()->getId(), "Админ успешно удален");
+                $bot->sendMessage($deleted_id, "Вы лишены должности админа");
+            } else {
+                $bot->sendMessage($message->getChat()->getId(), "Пользователь с таким TelegramID не является админом");
+            }
+        };
+    }
 }

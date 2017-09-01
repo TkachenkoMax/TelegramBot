@@ -56,6 +56,8 @@ class Application {
                 $controller = new MainAdminController();
 
                 $this->bot->command('rebuild', $controller->rebuildDatabase($this->bot));
+                $this->bot->command('createAdmin', $controller->createAdmin($this->bot));
+                $this->bot->command('deleteAdmin', $controller->deleteAdmin($this->bot));
             } else
                 $controller = new AdminController();
 

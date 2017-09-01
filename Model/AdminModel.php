@@ -129,4 +129,44 @@ class AdminModel extends Model
 
         return $result->fetchAll();
     }
+
+    /**
+     * Get id of admin by telegram_id if he isn't deleted
+     *
+     * @param $telegram_id
+     * @return array
+     * @throws Exception
+     */
+    public static function getNotDeletedAdminById($telegram_id) {
+        $connection = Database::connect();
+
+        try {
+            $result = $connection->prepare("SELECT admins.id, admins.deleted_at FROM admins INNER JOIN users ON users.id = admins.id_user 
+                                            WHERE users.telegram_id=? AND isnull(admins.deleted_at)");
+            $result->bindParam(1, $telegram_id);
+            $result->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        return $result->fetchAll();
+    }
+
+    /**
+     * Delete admin
+     *
+     * @param $id
+     * @throws Exception
+     */
+    public static function deleteAdmin($id){
+        $connection = Database::connect();
+
+        try {
+            $result = $connection->prepare("UPDATE admins SET deleted_at = current_timestamp() WHERE id = ?");
+            $result->bindParam(1, $id);
+            $result->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
 }
