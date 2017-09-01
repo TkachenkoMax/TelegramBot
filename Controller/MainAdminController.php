@@ -53,9 +53,10 @@ class MainAdminController extends AdminController
     public function deleteAdmin($bot){
         return function ($message) use ($bot) {
             $text = trim($message->getText());
-            $parameters = explode(" ", trim(str_replace("/setAlias", "", $text)), 2);
 
-            $deleted_id = $parameters[0];
+            $parameters = explode(" ", trim(str_replace("/deleteAdmin", "", $text)), 2);
+
+            $deleted_id = (int) $parameters[0];
 
             if ($deleted_id == $message->getChat()->getId()) {
                 $bot->sendMessage($deleted_id, "Вы не можете лишить себя прав админа");
