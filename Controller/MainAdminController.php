@@ -63,11 +63,8 @@ class MainAdminController extends AdminController
                 return;
             }
 
-            $bot->sendMessage($message->getChat()->getId(), "ID: " . $deleted_id);
-
             $admin = AdminModel::getNotDeletedAdminById($deleted_id);
 
-            testFile($admin);
             if (count($admin) != 0) {
                 AdminModel::deleteAdmin($admin[0]['id']);
 
