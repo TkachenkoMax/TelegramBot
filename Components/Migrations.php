@@ -78,13 +78,13 @@ class Migrations{
      */
     public static function down(PDO $connection)
     {
+        $connection->query("SET FOREIGN_KEY_CHECKS = 0");
         $connection->query("ALTER TABLE users
                                       DROP FOREIGN KEY users_ibfk_1");
         $connection->query("ALTER TABLE admins
                                       DROP FOREIGN KEY admins_ibfk_1");
         $connection->query("ALTER TABLE updates
                                       DROP FOREIGN KEY updates_ibfk_1");
-        $connection->query("SET FOREIGN_KEY_CHECKS = 0");
         $connection->query("DROP TABLE IF EXISTS users");
         $connection->query("DROP TABLE IF EXISTS languages");
         $connection->query("DROP TABLE IF EXISTS updates");
