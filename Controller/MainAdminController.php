@@ -57,7 +57,16 @@ class MainAdminController extends AdminController
 
             $deleted_id = (int) $parameters[0];
 
+            if ($deleted_id == $message->getChat()->getId()) {
+                $bot->sendMessage($deleted_id, "Вы не можете лишить себя прав админа");
+                return;
+            }
+
+            $bot->sendMessage($message->getChat()->getId(), "ID: " . $deleted_id);
+
             $admin = AdminModel::getNotDeletedAdminById($deleted_id);
+
+            testFile($admin);
             if (count($admin) != 0) {
                 AdminModel::deleteAdmin($admin[0]['id']);
 
