@@ -55,9 +55,7 @@ class Application {
             if ($this->user->getTelegramId() == $this->main_admin) {
                 $controller = new MainAdminController();
 
-                $this->bot->command('migrate_up', $controller->migrateUp($this->bot));
-                $this->bot->command('migrate_down', $controller->migrateDown($this->bot));
-                $this->bot->command('seed', $controller->seed($this->bot));
+                $this->bot->command('rebuild', $controller->rebuildDatabase($this->bot));
             } else
                 $controller = new AdminController();
 
