@@ -40,7 +40,27 @@ class MainAdminController extends AdminController
      */
     public function createAdmin($bot){
         return function ($message) use ($bot) {
-            
+            $text = trim($message->getText());
+
+            $parameters = explode(" ", trim(str_replace("/createAdmin", "", $text)), 2);
+
+            $new_admin_id = (int) $parameters[0];
+
+            if ($new_admin_id == $message->getChat()->getId()) {
+                $bot->sendMessage($new_admin_id, "Вы не можете назначить себя админом");
+                return;
+            }
+
+            $admin = AdminModel::getDeletedAdminById($new_admin_id);
+
+            if (count($admin) != 0) {
+                AdminModel::createAdmin($admin[0]['id']);
+
+                $bot->sendMessage($message->getChat()->getId(), "Админ успешно создан");
+                $bot->sendMessage($new_admin_id, "Вы назначены админом этого бота, проверьте какие команды стали Вам доступны написав в чат '/help'");
+            } else {
+                $bot->sendMessage($message->getChat()->getId(), "Нельзя назначить пользователя с таким TelegramID админом");
+            }
         };        
     }
 
