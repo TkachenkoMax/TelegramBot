@@ -55,7 +55,7 @@ class MainAdminController extends AdminController
             $text = trim($message->getText());
             $parameters = explode(" ", trim(str_replace("/setAlias", "", $text)), 2);
 
-            $deleted_id = (int) $parameters[0];
+            $deleted_id = $parameters[0];
 
             if ($deleted_id == $message->getChat()->getId()) {
                 $bot->sendMessage($deleted_id, "Вы не можете лишить себя прав админа");
