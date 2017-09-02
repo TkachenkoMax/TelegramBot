@@ -56,6 +56,36 @@ class InstagramModel extends Model
     }
 
     /**
+     * Find instagram account by user id
+     *
+     * @param $id_user
+     * @throws Exception
+     * @return mixed|null
+     */
+    public static function getByUserId($id_user)
+    {
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT * FROM instagram_accounts WHERE id_user = ?");
+            $stmt->bindParam(1, $id_user);
+
+            $result = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        if ($result) {
+            $data = $stmt->fetch();
+            $instagram_account = self::init($data);
+
+            return $instagram_account;
+        }
+
+        return null;
+    }
+
+    /**
      * Get all entities from database
      * 
      * @return array|null

@@ -416,19 +416,36 @@ class MainController
         };
     }
 
+    private function instagramLogin($bot, User $user) {
+        $ig = new Instagram();
+        $instagram_account = InstagramModel::getByUserId($user->getId());
+
+        try {
+            $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
+            $loginResponse = $ig->login();
+
+            if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
+                /*$twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+                $verificationCode = trim(fgets(STDIN));
+                $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);*/
+                $bot->sendMessage($user->getTelegramId(), "Нужна двухфакторная авторизация");
+            }
+        } catch (\Exception $e) {
+            $bot->sendMessage($user->getTelegramId(), "Something went wrong: " . $e->getMessage());
+        }
+
+        return $ig;
+    }
+
     public function instagramPostPhoto($bot, User $user){
         return function ($message) use ($bot, $user) {
-            $instagram_account = InstagramModel::getById(2);
-            $ig = new Instagram(true, false);
+            $ig = $this->instagramLogin($bot, $user);
 
-            $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
-            $ig->login();
-
-            $metadata = [
+            /*$metadata = [
                 'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
             ];
 
-            $ig->uploadTimelinePhoto("files/photo.jpg", $metadata);
+            $ig->uploadTimelinePhoto("files/photo.jpg", $metadata);*/
 
             /*$userId = $ig->getUsernameId('acc_for_testing_api');
             $a = $ig->getUserInfoById($userId);
