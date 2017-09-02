@@ -424,6 +424,8 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $loginResponse = $ig->login();
 
+            testFile($loginResponse);
+
             if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
                 /*$twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
                 $verificationCode = trim(fgets(STDIN));
