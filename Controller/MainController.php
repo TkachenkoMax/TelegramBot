@@ -376,9 +376,14 @@ class MainController
         return function ($message) use ($bot, $user) {
             $parameter = str_replace("/instagramLogin ", "", $message->getText());
 
+            if (trim($parameter) == "") {
+                $bot->sendMessage($user->getTelegramId(), "Вы не ввели логин");
+                return;
+            }
+
             InstagramModel::setLogin($parameter, $user->getId());
 
-            $bot->sendMessage($user->getTelegramId(), "Логин Instagram $parameter успешно установлен! ");
+            $bot->sendMessage($user->getTelegramId(), "Логин Instagram $parameter успешно установлен!");
         };
     }
 
@@ -386,9 +391,18 @@ class MainController
         return function ($message) use ($bot, $user) {
             $parameter = str_replace("/instagramPassword ", "", $message->getText());
 
-            InstagramModel::setPassword($parameter, $user->getId());
+            if (trim($parameter) == "") {
+                $bot->sendMessage($user->getTelegramId(), "Вы не ввели пароль");
+                return;
+            }
 
-            $bot->sendMessage($user->getTelegramId(), "Пароль Instagram успешно установлен! ");
+            $hashed_password = password_hash($parameter, PASSWORD_DEFAULT);
+
+            InstagramModel::setPassword($hashed_password, $user->getId());
+
+            $test_pass = password_get_info($hashed_password);
+
+            $bot->sendMessage($user->getTelegramId(), "Пароль Instagram $test_pass успешно установлен!");
         };
     }
 
