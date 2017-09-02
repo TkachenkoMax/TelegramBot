@@ -381,9 +381,9 @@ class MainController
      */
     public function instagramSetLogin($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $parameter = str_replace("/instagramLogin", "", $message->getText());
+            $parameter = trim(str_replace("/instagramLogin", "", $message->getText()));
 
-            if (trim($parameter) == "") {
+            if ($parameter == "") {
                 $bot->sendMessage($user->getTelegramId(), "Вы не ввели логин");
                 return;
             }
@@ -442,7 +442,7 @@ class MainController
 
         return function ($message) use ($bot, $user, $ig) {
             $timeline = $ig->getTimelineFeed();
-            testFile($timeline);
+            //testFile($timeline);
 
             /*$metadata = [
                 'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
