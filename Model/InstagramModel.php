@@ -113,7 +113,7 @@ class InstagramModel extends Model
                 $stmt->execute();
             }
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            //throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 
@@ -144,7 +144,7 @@ class InstagramModel extends Model
                 $stmt->execute();
             }
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            //throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 }
