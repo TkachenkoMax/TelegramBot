@@ -376,7 +376,7 @@ class MainController
         return function ($message) use ($bot, $user) {
             $parameter = str_replace("/instagramLogin ", "", $message->getText());
 
-            $bot->sendMessage($user->getTelegramId(), "Параметр: $parameter");
+            $bot->sendMessage($user->getTelegramId(), "Параметр: $parameter , длина строки: " . strlen($message->getText()));
 
             if (trim($parameter) == "") {
                 $bot->sendMessage($user->getTelegramId(), "Вы не ввели логин");
