@@ -438,8 +438,10 @@ class MainController
     }
 
     public function instagramPostPhoto($bot, User $user){
-        return function ($message) use ($bot, $user) {
-            $ig = $this->instagramLogin($bot, $user);
+        $ig = $this->instagramLogin($bot, $user);
+
+        return function ($message) use ($bot, $user, $ig) {
+
 
             /*$metadata = [
                 'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
