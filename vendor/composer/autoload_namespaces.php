@@ -8,7 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'Yandex\\Geo' => array($vendorDir . '/yandex/geo/source'),
     'JsonMapper' => array($vendorDir . '/netresearch/jsonmapper/src'),
-    'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
-    'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
 );

@@ -828,15 +828,23 @@ class BotApi
      * @param int $cacheTime
      * @param bool $isPersonal
      * @param string $nextOffset
+     * @param string $switchPmText
+     * @param string $switchPmParameter
      *
      * @return mixed
      * @throws Exception
      */
-    public function answerInlineQuery($inlineQueryId, $results, $cacheTime = 300, $isPersonal = false, $nextOffset = '')
-    {
+    public function answerInlineQuery(
+        $inlineQueryId,
+        $results,
+        $cacheTime = 300,
+        $isPersonal = false,
+        $nextOffset = '',
+        $switchPmText = null,
+        $switchPmParameter = null
+    ) {
         $results = array_map(function ($item) {
             /* @var AbstractInlineQueryResult $item */
-
             return json_decode($item->toJson(), true);
         }, $results);
 
@@ -846,6 +854,8 @@ class BotApi
             'cache_time' => $cacheTime,
             'is_personal' => $isPersonal,
             'next_offset' => $nextOffset,
+            'switch_pm_text' => $switchPmText,
+            'switch_pm_parameter' => $switchPmParameter,
         ]);
     }
 
@@ -995,6 +1005,27 @@ class BotApi
             'inline_message_id' => $inlineMessageId,
             'reply_markup' => is_null($replyMarkup) ? $replyMarkup : $replyMarkup->toJson(),
         ]));
+    }
+
+    /**
+     * Use this method to delete a message, including service messages, with the following limitations:
+     *  - A message can only be deleted if it was sent less than 48 hours ago.
+     *  - Bots can delete outgoing messages in groups and supergroups.
+     *  - Bots granted can_post_messages permissions can delete outgoing messages in channels.
+     *  - If the bot is an administrator of a group, it can delete any message there.
+     *  - If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.
+     *
+     * @param int|string $chatId
+     * @param int $messageId
+     *
+     * @return bool
+     */
+    public function deleteMessage($chatId, $messageId)
+    {
+        return $this->call('deleteMessage', [
+            'chat_id' => $chatId,
+            'message_id' => $messageId,
+        ]);
     }
 
     /**

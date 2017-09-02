@@ -85,4 +85,66 @@ class InstagramModel extends Model
 
         return null;
     }
+
+    /**
+     * Set Instagram account login
+     * 
+     * @param $login
+     * @param $id
+     * @throws Exception
+     */
+    public static function setLogin($login, $id) {
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT * FROM instagram_accounts WHERE id_user = ?");
+            $stmt->bindParam(1, $id);
+            $stmt->execute();
+            
+            if(count($stmt->fetchAll()) == 0) {
+                $stmt = $connection->prepare("INSERT INTO instagram_accounts (id_user, login) VALUES (?, ?)");
+                $stmt->bindParam(1, $id);
+                $stmt->bindParam(1, $login);
+                $stmt->execute();
+            } else {
+                $stmt = $connection->prepare("UPDATE instagram_accounts SET login = ? WHERE id_user = ?");
+                $stmt->bindParam(1, $login);
+                $stmt->bindParam(2, $id);
+                $stmt->execute();
+            }
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    /**
+     * Set Instagram account password
+     *
+     * @param $password
+     * @param $id
+     * @throws Exception
+     */
+    public static function setPassword($password, $id) {
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT * FROM instagram_accounts WHERE id_user = ?");
+            $stmt->bindParam(1, $id);
+            $stmt->execute();
+
+            if(count($stmt->fetchAll()) == 0) {
+                $stmt = $connection->prepare("INSERT INTO instagram_accounts (id_user, password) VALUES (?, ?)");
+                $stmt->bindParam(1, $id);
+                $stmt->bindParam(1, $password);
+                $stmt->execute();
+            } else {
+                $stmt = $connection->prepare("UPDATE instagram_accounts SET password = ? WHERE id_user = ?");
+                $stmt->bindParam(1, $password);
+                $stmt->bindParam(2, $id);
+                $stmt->execute();
+            }
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
 }

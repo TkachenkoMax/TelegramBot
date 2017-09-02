@@ -132,7 +132,7 @@ class Client
     public function run()
     {
         if ($data = BotApi::jsonValidate($this->getRawBody(), true)) {
-            return [Update::fromResponse($data)];
+            $this->handle([Update::fromResponse($data)]);
         }
     }
 

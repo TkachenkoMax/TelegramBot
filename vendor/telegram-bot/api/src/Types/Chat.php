@@ -30,13 +30,14 @@ class Chat extends BaseType implements TypeInterface
         'all_members_are_administrators' => true,
         'photo' => ChatPhoto::class,
         'description' => true,
-        'invite_link' => true
+        'invite_link' => true,
+        'pinned_message' => Message::class
     ];
 
     /**
      * Unique identifier for this chat, not exceeding 1e13 by absolute value
      *
-     * @var int
+     * @var int|string
      */
     protected $id;
 
@@ -99,7 +100,14 @@ class Chat extends BaseType implements TypeInterface
     protected $inviteLink;
 
     /**
-     * @return int
+     * Optional. Pinned message, for supergroups. Returned only in getChat.
+     *
+     * @var Message
+     */
+    protected $pinnedMessage;
+
+    /**
+     * @return int|string
      */
     public function getId()
     {
@@ -107,13 +115,13 @@ class Chat extends BaseType implements TypeInterface
     }
 
     /**
-     * @param int $id
+     * @param int|string $id
      *
      * @throws InvalidArgumentException
      */
     public function setId($id)
     {
-        if (is_integer($id) || is_float($id)) {
+        if (is_integer($id) || is_float($id) || is_string($id)) {
             $this->id = $id;
         } else {
             throw new InvalidArgumentException();
@@ -262,5 +270,21 @@ class Chat extends BaseType implements TypeInterface
     public function setInviteLink($inviteLink)
     {
         $this->inviteLink = $inviteLink;
+    }
+
+    /**
+     * @return Message
+     */
+    public function getPinnedMessage()
+    {
+        return $this->pinnedMessage;
+    }
+
+    /**
+     * @param Message $pinnedMessage
+     */
+    public function setPinnedMessage($pinnedMessage)
+    {
+        $this->pinnedMessage = $pinnedMessage;
     }
 }

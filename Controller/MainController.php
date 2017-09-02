@@ -372,7 +372,27 @@ class MainController
         };
     }
 
-    public function instagramLogin($bot, User $user){
+    public function instagramSetLogin($bot, User $user) {
+        return function ($message) use ($bot, $user) {
+            $parameter = str_replace("/instagramSetLogin ", "", $message->getText());
+
+            InstagramModel::setLogin($parameter, $user->getId());
+
+            $bot->sendMessage($user->getTelegramId(), "Логин Instagram $parameter успешно установлен! ");
+        };
+    }
+
+    public function instagramSetPassword($bot, User $user) {
+        return function ($message) use ($bot, $user) {
+            $parameter = str_replace("/instagramSetPassword ", "", $message->getText());
+
+            InstagramModel::setPassword($parameter, $user->getId());
+
+            $bot->sendMessage($user->getTelegramId(), "Пароль Instagram успешно установлен! ");
+        };
+    }
+
+    public function instagramPostPhoto($bot, User $user){
         return function ($message) use ($bot, $user) {
             $instagram_account = InstagramModel::getById(2);
             $ig = new Instagram(true, false);
