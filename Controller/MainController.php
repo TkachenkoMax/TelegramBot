@@ -374,7 +374,7 @@ class MainController
 
     public function instagramSetLogin($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $parameter = str_replace("/instagramLogin ", "", $message->getText());
+            $parameter = str_replace("/instagramLogin", "", $message->getText());
 
             $bot->sendMessage($user->getTelegramId(), "Параметр: $parameter , длина строки: " . strlen($message->getText()));
 
@@ -391,7 +391,7 @@ class MainController
 
     public function instagramSetPassword($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $parameter = str_replace("/instagramPassword ", "", $message->getText());
+            $parameter = str_replace("/instagramPassword", "", $message->getText());
 
             if (trim($parameter) == "") {
                 $bot->sendMessage($user->getTelegramId(), "Вы не ввели пароль");
