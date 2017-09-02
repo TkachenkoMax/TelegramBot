@@ -100,6 +100,18 @@ class InstagramModel extends Model
             $stmt = $connection->prepare("SELECT * FROM instagram_accounts WHERE id_user = ?");
             $stmt->bindParam(1, $id);
             $stmt->execute();
+
+            if(count($stmt->fetchAll()) == 0) {
+                $query = $connection->prepare("INSERT INTO instagram_accounts (id_user, login) VALUES (?, ?)");
+                $query->bindParam(1, $id);
+                $query->bindParam(1, $login);
+                $query->execute();
+            } else {
+                $query = $connection->prepare("UPDATE instagram_accounts SET login = ? WHERE id_user = ?");
+                $query->bindParam(1, $login);
+                $query->bindParam(2, $id);
+                $query->execute();
+            }
         } catch (PDOException $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
