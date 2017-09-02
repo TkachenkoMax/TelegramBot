@@ -374,7 +374,7 @@ class MainController
 
     public function instagramSetLogin($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $parameter = str_replace("/instagramSetLogin ", "", $message->getText());
+            $parameter = str_replace("/instagramLogin ", "", $message->getText());
 
             InstagramModel::setLogin($parameter, $user->getId());
 
@@ -384,7 +384,7 @@ class MainController
 
     public function instagramSetPassword($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $parameter = str_replace("/instagramSetPassword ", "", $message->getText());
+            $parameter = str_replace("/instagramPassword ", "", $message->getText());
 
             InstagramModel::setPassword($parameter, $user->getId());
 
