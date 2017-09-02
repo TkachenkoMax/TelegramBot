@@ -424,8 +424,6 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $loginResponse = $ig->login();
 
-            testFile($loginResponse);
-
             if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
                 /*$twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
                 $verificationCode = trim(fgets(STDIN));
@@ -443,7 +441,8 @@ class MainController
         $ig = $this->instagramLogin($bot, $user);
 
         return function ($message) use ($bot, $user, $ig) {
-
+            $timeline = $ig->getTimelineFeed();
+            testFile($timeline);
 
             /*$metadata = [
                 'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
