@@ -372,11 +372,16 @@ class MainController
         };
     }
 
+    /**
+     * Set Instagram account login
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function instagramSetLogin($bot, User $user) {
         return function ($message) use ($bot, $user) {
             $parameter = str_replace("/instagramLogin", "", $message->getText());
-
-            $bot->sendMessage($user->getTelegramId(), "Параметр: $parameter , длина строки: " . strlen($message->getText()));
 
             if (trim($parameter) == "") {
                 $bot->sendMessage($user->getTelegramId(), "Вы не ввели логин");
@@ -389,6 +394,13 @@ class MainController
         };
     }
 
+    /**
+     * Set Instagram account password
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function instagramSetPassword($bot, User $user) {
         return function ($message) use ($bot, $user) {
             $parameter = str_replace("/instagramPassword", "", $message->getText());
