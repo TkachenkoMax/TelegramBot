@@ -76,7 +76,7 @@ class InstagramModel extends Model
 
             $instagram_accounts = array();
 
-            foreach ($instagram_accounts as $instagram_account) {
+            foreach ($data as $instagram_account) {
                 array_push($instagram_accounts, self::init($instagram_account));
             }
 
@@ -102,18 +102,18 @@ class InstagramModel extends Model
             $stmt->execute();
             
             if(count($stmt->fetchAll()) == 0) {
-                $stmt = $connection->prepare("INSERT INTO instagram_accounts (id_user, login) VALUES (?, ?)");
-                $stmt->bindParam(1, $id);
-                $stmt->bindParam(1, $login);
-                $stmt->execute();
+                $query = $connection->prepare("INSERT INTO instagram_accounts (id_user, login) VALUES (?, ?)");
+                $query->bindParam(1, $id);
+                $query->bindParam(1, $login);
+                $query->execute();
             } else {
-                $stmt = $connection->prepare("UPDATE instagram_accounts SET login = ? WHERE id_user = ?");
-                $stmt->bindParam(1, $login);
-                $stmt->bindParam(2, $id);
-                $stmt->execute();
+                $query = $connection->prepare("UPDATE instagram_accounts SET login = ? WHERE id_user = ?");
+                $query->bindParam(1, $login);
+                $query->bindParam(2, $id);
+                $query->execute();
             }
         } catch (PDOException $e) {
-            //throw new Exception($e->getMessage(), $e->getCode());
+            throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 
@@ -133,18 +133,18 @@ class InstagramModel extends Model
             $stmt->execute();
 
             if(count($stmt->fetchAll()) == 0) {
-                $stmt = $connection->prepare("INSERT INTO instagram_accounts (id_user, password) VALUES (?, ?)");
-                $stmt->bindParam(1, $id);
-                $stmt->bindParam(1, $password);
-                $stmt->execute();
+                $query = $connection->prepare("INSERT INTO instagram_accounts (id_user, password) VALUES (?, ?)");
+                $query->bindParam(1, $id);
+                $query->bindParam(1, $password);
+                $query->execute();
             } else {
-                $stmt = $connection->prepare("UPDATE instagram_accounts SET password = ? WHERE id_user = ?");
-                $stmt->bindParam(1, $password);
-                $stmt->bindParam(2, $id);
-                $stmt->execute();
+                $query = $connection->prepare("UPDATE instagram_accounts SET password = ? WHERE id_user = ?");
+                $query->bindParam(1, $password);
+                $query->bindParam(2, $id);
+                $query->execute();
             }
         } catch (PDOException $e) {
-            //throw new Exception($e->getMessage(), $e->getCode());
+            throw new Exception($e->getMessage(), $e->getCode());
         }
     }
 }
