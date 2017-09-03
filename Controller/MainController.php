@@ -458,6 +458,8 @@ class MainController
 
             unset($feed[2]);
 
+            testFile($feed);
+
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($feed[$i] != null) {
                     if ($i == count($feed)) {
