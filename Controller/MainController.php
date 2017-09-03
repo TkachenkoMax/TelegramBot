@@ -449,7 +449,7 @@ class MainController
 
             $timeline = $ig->getTimelineFeed();
 
-            foreach ()
+            //foreach ()
             testFile($timeline);
         };
     }
