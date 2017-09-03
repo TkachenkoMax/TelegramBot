@@ -454,6 +454,13 @@ class MainController
 
             $feed = $timeline->getFeedItems();
 
+            $testArray = array("numresults" => $timeline->getNumResults(),
+                               "number of photos" => $number_of_photos,
+                               "feed" => $feed
+                );
+
+            testFile($testArray);
+
             for ($i = 0; $i < $number_of_photos; $i++) {
                 switch ($feed[$i]->getMediaType()) {
                     case 1:
