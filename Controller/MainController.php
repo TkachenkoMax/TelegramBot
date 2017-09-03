@@ -470,7 +470,7 @@ class MainController
                         $video_url = $video[0]->url;
 
                         $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
-                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);*/
+                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
                         break;
                     default:
                         $i--;
