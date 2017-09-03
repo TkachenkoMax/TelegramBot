@@ -448,6 +448,8 @@ class MainController
             }
 
             $timeline = $ig->getTimelineFeed();
+
+            foreach ()
             testFile($timeline);
         };
     }
