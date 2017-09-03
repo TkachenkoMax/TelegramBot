@@ -458,7 +458,8 @@ class MainController
 
             unset($feed[2]);
 
-            testFile($feed);
+            $testArray = array();
+            $testArray[1] = $feed;
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($feed[$i] != null) {
@@ -468,6 +469,7 @@ class MainController
                         unset($feed[2]);
                         $number_of_photos -= $i;
                         $i = 0;
+                        $testArray[2] = $feed;
                     }
 
                     $caption = "Описание: " . $feed[$i]->getCaption()->text .
@@ -510,6 +512,8 @@ class MainController
                 } else
                     $number_of_photos++;
             }
+
+            testFile($testArray);
         };
     }
 
