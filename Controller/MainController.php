@@ -454,12 +454,7 @@ class MainController
 
             $feed = $timeline->getFeedItems();
 
-            $testArray = array("numresults" => $timeline->getNumResults(),
-                               "number of photos" => $number_of_photos,
-                               "feed" => $feed
-                );
-
-            testFile($testArray);
+            unset($feed[2]);
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 switch ($feed[$i]->getMediaType()) {
@@ -475,15 +470,12 @@ class MainController
                         $video_url = $video[0]->url;
 
                         $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);*/
                         break;
                     default:
                         $i--;
-                        continue;
                         break;
                 }
-
-                /*if ($feed[$i]->getCode() != "")
-                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);*/
             }
         };
     }
