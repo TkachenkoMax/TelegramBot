@@ -84,6 +84,7 @@ class Application {
             $this->bot->command('instagramLogin', $controller->instagramSetLogin($this->bot, $this->user));
             $this->bot->command('instagramPassword', $controller->instagramSetPassword($this->bot, $this->user));
             $this->bot->command('instagramPostPhoto', $controller->instagramPostPhoto($this->bot, $this->user));
+            $this->bot->command('instagramTimeline', $controller->instagramTimeline($this->bot, $this->user));
         }
 
         $this->bot->handle($this->updates);

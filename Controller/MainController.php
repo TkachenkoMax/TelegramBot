@@ -424,17 +424,32 @@ class MainController
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $loginResponse = $ig->login();
 
-            if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
-                /*$twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
+            /*if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
+                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
                 $verificationCode = trim(fgets(STDIN));
-                $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);*/
+                $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);
                 $bot->sendMessage($user->getTelegramId(), "Нужна двухфакторная авторизация");
-            }
+            }*/
         } catch (\Exception $e) {
             $bot->sendMessage($user->getTelegramId(), "Something went wrong: " . $e->getMessage());
         }
 
         return $ig;
+    }
+
+    public function instagramTimeline($bot, User $user) {
+        $ig = $this->instagramLogin($bot, $user);
+
+        return function ($message) use ($bot, $user, $ig) {
+            $number_of_photos = $message->getText();
+            if (!is_numeric($number_of_photos) || $number_of_photos < 1 || $number_of_photos > 10) {
+                $bot->sendMessage($user->getTelegramId(), "Введите число в пределах от 1 до 10");
+                return;
+            }
+
+            $timeline = $ig->getTimelineFeed();
+            testFile($timeline);
+        };
     }
 
     public function instagramPostPhoto($bot, User $user){
