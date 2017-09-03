@@ -475,8 +475,8 @@ class MainController
                         break;
                 }
 
-                if ($feed[$i]->getCode() != "")
-                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                /*if ($feed[$i]->getCode() != "")
+                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);*/
             }
         };
     }
