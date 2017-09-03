@@ -478,13 +478,13 @@ class MainController
                         case 8:
                             $carousel_media = $feed[$i]->getCarouselMedia();
                             foreach ($carousel_media as $media) {
-                                switch ($media->getMediaType()) {
+                                switch ($media->media_type) {
                                     case 1:
-                                        $photo_url = $media->getImageVersions2()->candidates[0]->url;
+                                        $photo_url = $media->image_versions2->candidates[0]->url;
                                         $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
                                         break;
                                     case 2:
-                                        $video_url = $media->getVideoVersions()->url;
+                                        $video_url = $media->video_version->url;
                                         $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
                                         break;
                                 }
