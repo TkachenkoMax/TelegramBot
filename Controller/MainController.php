@@ -493,7 +493,7 @@ class MainController
                             break;
                     }
                 } else
-                    $i--;
+                    $number_of_photos++;
             }
         };
     }
