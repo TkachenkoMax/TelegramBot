@@ -456,6 +456,8 @@ class MainController
 
             unset($feed[2]);
 
+            testFile($feed);
+
             for ($i = 0; $i < $number_of_photos; $i++) {
                 switch ($feed[$i]->getMediaType()) {
                     case 1:
