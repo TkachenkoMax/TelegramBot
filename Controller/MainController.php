@@ -459,40 +459,42 @@ class MainController
             testFile($feed);
 
             for ($i = 0; $i < $number_of_photos; $i++) {
-                switch ($feed[$i]->getMediaType()) {
-                    case 1:
-                        $photo = $feed[$i]->getImageVersions2();
-                        $photo_url = $photo->candidates[0]->url;
+                if ($feed[$i] != null) {
+                    switch ($feed[$i]->getMediaType()) {
+                        case 1:
+                            $photo = $feed[$i]->getImageVersions2();
+                            $photo_url = $photo->candidates[0]->url;
 
-                        $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
-                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
-                        break;
-                    case 2:
-                        $video = $feed[$i]->getVideoVersions();
-                        $video_url = $video[0]->url;
+                            $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+                            $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                            break;
+                        case 2:
+                            $video = $feed[$i]->getVideoVersions();
+                            $video_url = $video[0]->url;
 
-                        $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
-                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
-                        break;
-                    case 8:
-                        $carousel_media = $feed[$i]->getCarouselMedia();
-                        foreach ($carousel_media as $media) {
-                            switch ($media->getMediaType()) {
-                                case 1:
-                                    $photo_url = $media->getImageVersions2()->candidates[0]->url;
-                                    $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
-                                    break;
-                                case 2:
-                                    $video_url = $media->getVideoVersions()->url;
-                                    $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
-                                    break;
+                            $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                            $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                            break;
+                        case 8:
+                            $carousel_media = $feed[$i]->getCarouselMedia();
+                            foreach ($carousel_media as $media) {
+                                switch ($media->getMediaType()) {
+                                    case 1:
+                                        $photo_url = $media->getImageVersions2()->candidates[0]->url;
+                                        $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+                                        break;
+                                    case 2:
+                                        $video_url = $media->getVideoVersions()->url;
+                                        $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                                        break;
+                                }
                             }
-                        }
-                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
-                        break;
-                    default:
-                        $i--;
-                        break;
+                            $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                            break;
+                        default:
+                            $i--;
+                            break;
+                    }
                 }
             }
         };
