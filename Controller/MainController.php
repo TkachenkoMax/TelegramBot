@@ -441,7 +441,7 @@ class MainController
         $ig = $this->instagramLogin($bot, $user);
 
         return function ($message) use ($bot, $user, $ig) {
-            $number_of_photos = $message->getText();
+            $number_of_photos = trim($message->getText());
             if (!is_numeric($number_of_photos) || $number_of_photos < 1 || $number_of_photos > 10) {
                 $bot->sendMessage($user->getTelegramId(), "Введите число в пределах от 1 до 10");
                 return;
