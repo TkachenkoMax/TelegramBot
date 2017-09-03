@@ -449,17 +449,24 @@ class MainController
 
             $timeline = $ig->getTimelineFeed();
 
-            if ($number_of_photos > $timeline->getNumResults())
-                $number_of_photos = $timeline->getNumResults();
+            $num_results = $timeline->getNumResults();
+
+            if ($number_of_photos > $num_results)
+                $number_of_photos = $num_results;
 
             $feed = $timeline->getFeedItems();
 
             unset($feed[2]);
 
-            testFile($feed);
-
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($feed[$i] != null) {
+                    if ($i == count($feed)) {
+                        $timeline = $ig->getTimelineFeed($timeline->getNextMaxId());
+                        $feed = $timeline->getFeedItems();
+                        unset($feed[2]);
+                        $number_of_photos -= $i;
+                        $i = 0;
+                    }
                     switch ($feed[$i]->getMediaType()) {
                         case 1:
                             $photo = $feed[$i]->getImageVersions2();
