@@ -463,7 +463,7 @@ class MainController
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($feed[$i] != null) {
-                    if ($i == count($feed)) {
+                    if ($i == count($feed)+1) {
                         $timeline = $ig->getTimelineFeed($timeline->getNextMaxId());
                         $feed = $timeline->getFeedItems();
                         unset($feed[2]);
@@ -473,8 +473,8 @@ class MainController
                     }
 
                     $caption = "Описание: " . $feed[$i]->getCaption()->text .
-                        "\nПользователь: " . $feed[$i]->getUser()->username . " (" . $feed[$i]->getUser()->full_name . ")" .
-                        "\nID поста: " . $feed[$i] ->getId();
+                        "\n\nПользователь: " . $feed[$i]->getUser()->username . " (" . $feed[$i]->getUser()->full_name . ")" .
+                        "\n\nID поста: " . $feed[$i] ->getId();
 
                     switch ($feed[$i]->getMediaType()) {
                         case 1:
