@@ -491,11 +491,9 @@ class MainController
                             }
                             $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
                             break;
-                        default:
-                            $i--;
-                            break;
                     }
-                }
+                } else
+                    $i--;
             }
         };
     }
