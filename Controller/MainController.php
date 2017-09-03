@@ -449,8 +449,20 @@ class MainController
 
             $timeline = $ig->getTimelineFeed();
 
-            //foreach ()
-            testFile($timeline);
+            if ($number_of_photos > $timeline->getNumResults())
+                $number_of_photos = $timeline->getNumResults();
+
+            $feed = $timeline->getFeedItems();
+
+            for ($i = 0; $i < $number_of_photos; $i++) {
+                if ($feed[$i]->getMediaType() == 1) {
+                    $photo = $feed[$i]->getImageVersions2()->getCandidates();
+                    $photo_url = $photo[0]->getUrl();
+
+                    $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                }
+            }
         };
     }
 
