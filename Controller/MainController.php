@@ -458,11 +458,7 @@ class MainController
 
             unset($feed[2]);
 
-            $globalText = "";
-
             for ($i = 0; $i < $number_of_photos; $i++) {
-                $globalText .= "i: $i , number_of_photos $number_of_photos ";
-
                 if ($feed[$i] != null) {
                     if ($i == count($feed)+1) {
                         $timeline = $ig->getTimelineFeed($timeline->getNextMaxId());
@@ -470,8 +466,6 @@ class MainController
                         unset($feed[2]);
                         $number_of_photos -= $i;
                         $i = 0;
-
-                        $globalText .= " Зашло в подгрузку";
                     }
 
                     $caption = "Описание: " . $feed[$i]->getCaption()->text .
@@ -514,7 +508,6 @@ class MainController
                 } else
                     $number_of_photos++;
             }
-            testFile($globalText);
         };
     }
 
