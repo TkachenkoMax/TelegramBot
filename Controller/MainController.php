@@ -447,6 +447,8 @@ class MainController
                 return;
             }
 
+            $bot->sendMessage($user->getTelegramId(), "Начинаю загрузку ленты, подожди немного!");
+
             $timeline = $ig->getTimelineFeed();
 
             $num_results = $timeline->getNumResults();
@@ -501,6 +503,9 @@ class MainController
                                 }
                             }
                             $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                            break;
+                        default:
+                            $number_of_photos++;
                             break;
                     }
                 } else
