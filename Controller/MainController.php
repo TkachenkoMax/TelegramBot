@@ -456,8 +456,8 @@ class MainController
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($feed[$i]->getMediaType() == 1) {
-                    $photo = $feed[$i]->getImageVersions2()->getCandidates();
-                    $photo_url = $photo[0]->getUrl();
+                    $photo = $feed[$i]->getImageVersions2();
+                    $photo_url = $photo['candidates'][0]['url'];
 
                     $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
                     $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
