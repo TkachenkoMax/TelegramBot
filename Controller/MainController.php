@@ -469,19 +469,24 @@ class MainController
                         $number_of_photos -= $i;
                         $i = 0;
                     }
+
+                    $caption = "Описание: " . $feed[$i]->getCaption()->text .
+                        "\nПользователь: " . $feed[$i]->getUser()->username . " (" . $feed[$i]->getUser()->full_name . ")" .
+                        "\nID поста: " . $feed[$i] ->getId();
+
                     switch ($feed[$i]->getMediaType()) {
                         case 1:
                             $photo = $feed[$i]->getImageVersions2();
                             $photo_url = $photo->candidates[0]->url;
-
-                            $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+                            
+                            $bot->sendPhoto($user->getTelegramId(), $photo_url, $caption);
                             $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
                             break;
                         case 2:
                             $video = $feed[$i]->getVideoVersions();
                             $video_url = $video[0]->url;
 
-                            $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                            $bot->sendVideo($user->getTelegramId(), $video_url, null, $caption);
                             $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
                             break;
                         case 8:
@@ -490,11 +495,12 @@ class MainController
                                 switch ($media->media_type) {
                                     case 1:
                                         $photo_url = $media->image_versions2->candidates[0]->url;
-                                        $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+
+                                        $bot->sendPhoto($user->getTelegramId(), $photo_url, $caption);
                                         break;
                                     case 2:
                                         $video_url = $media->video_version->url;
-                                        $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                                        $bot->sendVideo($user->getTelegramId(), $video_url, null, $caption);
                                         break;
                                 }
                             }
