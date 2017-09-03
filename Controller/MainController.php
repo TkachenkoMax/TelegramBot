@@ -455,13 +455,28 @@ class MainController
             $feed = $timeline->getFeedItems();
 
             for ($i = 0; $i < $number_of_photos; $i++) {
-                if ($feed[$i]->getMediaType() == 1) {
-                    $photo = $feed[$i]->getImageVersions2();
-                    $photo_url = $photo->candidates[0]->url;
+                switch ($feed[$i]->getMediaType()) {
+                    case 1:
+                        $photo = $feed[$i]->getImageVersions2();
+                        $photo_url = $photo->candidates[0]->url;
 
-                    $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
-                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                        $bot->sendPhoto($user->getTelegramId(), $photo_url, "Test caption");
+                        $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
+                        break;
+                    case 2:
+                        $video = $feed[$i]->getVideoVersions();
+                        $video_url = $video[0]->url;
+
+                        $bot->sendVideo($user->getTelegramId(), $video_url, null, "Test caption");
+                        break;
+                    default:
+                        $i--;
+                        continue;
+                        break;
                 }
+
+                if ($feed[$i]->getCode() != "")
+                    $bot->sendMessage($user->getTelegramId(), "Open in Instagram: " . $feed[$i]->getItemUrl(), null, true);
             }
         };
     }
