@@ -451,7 +451,7 @@ class MainController
 
             $num_results = $timeline->getNumResults();
 
-            if ($number_of_photos > $num_results)
+            if ($num_results < 7)
                 $number_of_photos = $num_results;
 
             $feed = $timeline->getFeedItems();
