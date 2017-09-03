@@ -459,15 +459,14 @@ class MainController
             unset($feed[2]);
 
             for ($i = 0; $i < $number_of_photos; $i++) {
+                if ($i == count($feed)+1) {
+                    $timeline = $ig->getTimelineFeed($timeline->getNextMaxId());
+                    $feed = $timeline->getFeedItems();
+                    unset($feed[2]);
+                    $number_of_photos -= $i;
+                    $i = 0;
+                }
                 if ($feed[$i] != null) {
-                    if ($i == count($feed)+1) {
-                        $timeline = $ig->getTimelineFeed($timeline->getNextMaxId());
-                        $feed = $timeline->getFeedItems();
-                        unset($feed[2]);
-                        $number_of_photos -= $i;
-                        $i = 0;
-                    }
-
                     $caption = "Описание: " . $feed[$i]->getCaption()->text .
                         "\n\nПользователь: " . $feed[$i]->getUser()->username . " (" . $feed[$i]->getUser()->full_name . ")" .
                         "\n\nID поста: " . $feed[$i] ->getId();
