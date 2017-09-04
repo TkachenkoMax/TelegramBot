@@ -602,13 +602,13 @@ class MainController
     }
 
     public function instagramPostPhoto($bot, User $user, $token) {
-        return function ($message) use ($bot, $user, $token) {
+        return function ($update) use ($bot, $user, $token) {
             $lastUpdate = UpdateModel::getLastUpdateByUser($user->getId());
 
             $is_command_to_timeline = strpos($lastUpdate->getTextOfMessage(), "/instagramPostTimelinePhoto");
             $is_command_to_story = strpos($lastUpdate->getTextOfMessage(), "/instagramPostStoryPhoto");
 
-            $document = $message->getDocument();
+            $document = $update->getMessage()->getDocument();
 
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
