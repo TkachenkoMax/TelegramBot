@@ -595,47 +595,26 @@ class MainController
      * @param User $user
      * @return Closure
      */
-    public function instagramPostPhoto($bot, User $user){
+    public function instagramPostTimelinePhoto($bot, User $user){
         $ig = $this->instagramLogin($bot, $user);
 
-        return function ($message) use ($bot, $user, $ig) {
-            $timeline = $ig->getTimelineFeed();
-            //testFile($timeline);
+        return function () use ($bot, $user, $ig) {
+            $bot->sendMessage($user->getTelegramId(), "А теперь отправь фотографию");
+        };
+    }
 
-            /*$metadata = [
-                'caption' => 'My awesome photo uploaded with telegram bot, fuck yeah',
-            ];
+    /**
+     * Download photo to Instagram timeline
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
+    public function instagramPostStoryPhoto($bot, User $user){
+        $ig = $this->instagramLogin($bot, $user);
 
-            $ig->uploadTimelinePhoto("files/photo.jpg", $metadata);*/
-
-            /*$userId = $ig->getUsernameId('acc_for_testing_api');
-            $a = $ig->getUserInfoById($userId);
-
-            $users = $ig->getAutoCompleteUserList();
-            testFile($users);
-            
-            $timeline = $ig->getTimelineFeed();
-            testFile($timeline);          
-            
-            $activity = $ig->getRecentActivity();
-            testFile($activity);
-            
-            $info = $ig->getUserInfoByName("kurshakova_katerina");
-            testFile($info);
-            
-            $followings = $ig->getUserFollowings($ig->getUsernameId("kurshakova_katerina"));
-            testFile($followings);
-            
-            $followers = $ig->getUserFollowers($ig->getUsernameId("kurshakova_katerina"));
-            testFile($followers);
-            
-            
-            $username = $a->getUser()->getUsername();
-            $full_name = $a->user->getFullName();
-
-            $bot->sendMessage($user->getTelegramId(), "Username: " . $username . ", full name: " . $full_name);*/
-
-            $bot->sendMessage($user->getTelegramId(), "Успех!");
+        return function () use ($bot, $user, $ig) {
+            $bot->sendMessage($user->getTelegramId(), "А теперь отправь фотографию");
         };
     }
 
