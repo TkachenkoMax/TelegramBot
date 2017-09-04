@@ -616,6 +616,8 @@ class MainController
             if (!is_null($photo))
                 $document = $photo[0];
 
+            testFile($document);
+
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
@@ -626,12 +628,12 @@ class MainController
 
                 if ($is_command_to_story !== false && $is_command_to_story === 0){
                     $caption = str_replace("/instagramPostStoryPhoto", "", $lastUpdate->getTextOfMessage());
-                    $ig->uploadStoryPhoto($path_on_server, ['caption' => $caption]);
+                    //$ig->uploadStoryPhoto($path_on_server, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в историю отправлено!");
                 } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
                     $caption = str_replace("/instagramPostTimelinePhoto", "", $lastUpdate->getTextOfMessage());
-                    $ig->uploadTimelinePhoto($path_on_server, ['caption' => $caption]);
+                    //$ig->uploadTimelinePhoto($path_on_server, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в ленту отправлено!");
                 } else {
