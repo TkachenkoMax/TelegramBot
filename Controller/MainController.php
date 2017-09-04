@@ -609,8 +609,10 @@ class MainController
             $is_command_to_story = strpos($lastUpdate->getTextOfMessage(), "/instagramPostStoryPhoto");
 
             $document = $update->getMessage()->getDocument();
+            $photo = $update->getMessage()->getPhoto();
 
-            testFile($document);
+            if (!is_null($photo))
+                $document = $photo[0];
 
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
@@ -620,8 +622,10 @@ class MainController
 
                 if ($is_command_to_story !== false && $is_command_to_story === 0){
 
+                    $bot->sendMessage($user->getTelegramId(), "Фото в историю отправлено!");
                 } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
 
+                    $bot->sendMessage($user->getTelegramId(), "Фото в ленту отправлено!");
                 } else {
                     $bot->sendMessage($user->getTelegramId(), "Прекрасное фото, друг мой!");
                 }
