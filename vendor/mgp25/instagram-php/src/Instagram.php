@@ -1878,7 +1878,7 @@ class Instagram
         $commentText)
     {
         return $this->request("media/{$mediaId}/comment/")
-        ->addPost('user_breadcrumb', Utils::generateUserBreadcrumb(mb_strlen($commentText)))
+        ->addPost('user_breadcrumb', Utils::generateUserBreadcrumb(strlen($commentText)))
         ->addPost('idempotence_token', Signatures::generateUUID(true))
         ->addPost('_uuid', $this->uuid)
         ->addPost('_uid', $this->account_id)
