@@ -614,7 +614,7 @@ class MainController
             $photo = $update->getMessage()->getPhoto();
 
             if (!is_null($photo))
-                $document = $photo[count($photo)-1];
+                $document = $photo[count($photo)-2];
 
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
