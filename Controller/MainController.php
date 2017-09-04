@@ -606,8 +606,6 @@ class MainController
         
         return function ($update) use ($bot, $user, $token, $ig) {
             $lastUpdate = UpdateModel::getLastUpdateByUser($user->getId());
-            
-            testFile($lastUpdate);
 
             $is_command_to_timeline = strpos($lastUpdate->getTextOfMessage(), "/instagramPostTimelinePhoto");
             $is_command_to_story = strpos($lastUpdate->getTextOfMessage(), "/instagramPostStoryPhoto");
@@ -622,12 +620,14 @@ class MainController
                 $file = $bot->getFile($document->getFileId());
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
 
-                $bot->sendMessage($user->getTelegramId(), "$file_path");
-
                 if ($is_command_to_story !== false && $is_command_to_story === 0){
+                    $caption = str_replace("/instagramPostStoryPhoto", "", $lastUpdate->getTextOfMessage());
+                    $ig->uploadStoryPhoto($file_path, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в историю отправлено!");
                 } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
+                    $caption = str_replace("/instagramPostTimelinePhoto", "", $lastUpdate->getTextOfMessage());
+                    $ig->uploadTimelinePhoto($file_path, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в ленту отправлено!");
                 } else {
