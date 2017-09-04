@@ -416,6 +416,14 @@ class MainController
         };
     }
 
+    /**
+     * Log into Instagram account using login and password
+     *
+     * @param $bot
+     * @param User $user
+     * @return Instagram
+     * @throws Exception
+     */
     private function instagramLogin($bot, User $user) {
         $ig = new Instagram();
         $instagram_account = InstagramModel::getByUserId($user->getId());
@@ -437,6 +445,13 @@ class MainController
         return $ig;
     }
 
+    /**
+     * Download and send to chat Instagram timeline
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function instagramTimeline($bot, User $user) {
         $ig = $this->instagramLogin($bot, $user);
 
@@ -514,6 +529,40 @@ class MainController
         };
     }
 
+    /**
+     * Like photo on Instagram by id
+     * 
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
+    public function instagramLikePost($bot, User $user){
+        $ig = $this->instagramLogin($bot, $user);
+
+        return function ($message) use ($bot, $user, $ig) {
+            $post_id = trim(str_replace("/instagramLikePost", "", $message->getText()));
+            if ($post_id == "") {
+                $bot->sendMessage($user->getTelegramId(), "Введите id поста, которому надо поставить like");
+                return;
+            }
+
+            try {
+                $ig->like($post_id);
+            } catch (Exception $e) {
+                $bot->sendMessage($user->getTelegramId(), "Ошибка при попытке поставить like");
+            }
+            
+            $bot->sendMessage($user->getTelegramId(), "Like поставлен!");
+        };
+    }
+
+    /**
+     * Download photo to Instagram timeline
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function instagramPostPhoto($bot, User $user){
         $ig = $this->instagramLogin($bot, $user);
 
