@@ -530,7 +530,7 @@ class MainController
     }
 
     /**
-     * Like photo on Instagram by id
+     * Like post on Instagram by id
      * 
      * @param $bot
      * @param User $user
@@ -550,9 +550,41 @@ class MainController
                 $ig->like($post_id);
             } catch (Exception $e) {
                 $bot->sendMessage($user->getTelegramId(), "Ошибка при попытке поставить like");
+                return;
             }
             
             $bot->sendMessage($user->getTelegramId(), "Like поставлен!");
+        };
+    }
+
+    /**
+     * Leave a comment to post on Instagram by id
+     *
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
+    public function instagramCommentPost($bot, User $user){
+        $ig = $this->instagramLogin($bot, $user);
+
+        return function ($message) use ($bot, $user, $ig) {
+            $params = trim(str_replace("/instagramCommentPost", "", $message->getText()));
+            
+            $params_array = explode(" ", $params, 2);
+            
+            if ($params == "" || count($params_array) < 2) {
+                $bot->sendMessage($user->getTelegramId(), "Введите id поста, к которому надо оставить комментарий, и текст этого комментария");
+                return;
+            }
+
+            try {
+                $ig->comment($params_array[0] , $params_array[1]);
+            } catch (Exception $e) {
+                $bot->sendMessage($user->getTelegramId(), "Ошибка при попытке оставить комментарий");
+                return;
+            }
+
+            $bot->sendMessage($user->getTelegramId(), "Комментрий оставлен!");
         };
     }
 
