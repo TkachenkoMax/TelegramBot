@@ -613,11 +613,9 @@ class MainController
             $document = $update->getMessage()->getDocument();
             $photo = $update->getMessage()->getPhoto();
 
-            testFile($photo);
-
             if (!is_null($photo))
-                $document = $photo[0];
-            
+                $document = $photo[count($photo)-1];
+
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
 
@@ -629,12 +627,12 @@ class MainController
 
                 if ($is_command_to_story !== false && $is_command_to_story === 0){
                     $caption = str_replace("/instagramPostStoryPhoto", "", $lastUpdate->getTextOfMessage());
-                    //$ig->uploadStoryPhoto($path_on_server, ['caption' => $caption]);
+                    $ig->uploadStoryPhoto($path_on_server, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в историю отправлено!");
                 } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
                     $caption = str_replace("/instagramPostTimelinePhoto", "", $lastUpdate->getTextOfMessage());
-                    //$ig->uploadTimelinePhoto($path_on_server, ['caption' => $caption]);
+                    $ig->uploadTimelinePhoto($path_on_server, ['caption' => $caption]);
 
                     $bot->sendMessage($user->getTelegramId(), "Фото в ленту отправлено!");
                 } else {
