@@ -137,6 +137,6 @@ function downloadFile($url) {
         }
         fclose($read_file);
 
-        return $_SERVER["SERVER_NAME"] . "/public/files/images/2/instagram.jpg";
+        return "/public/files/images/2/instagram.jpg";
     }
 }
