@@ -116,3 +116,25 @@ function createWeatherText(array $params, $isDetailed){
 
     return $text;
 }
+
+/**
+ * Download file from internal server to this server by file url
+ *
+ * @param $url
+ * @param $path
+ */
+function downloadFile($url) {
+    $path = "public/files/images/";
+
+    $read_file = fopen($url, "rb");
+    if ($read_file) {
+        $write_file = fopen ($path, "wb");
+        if ($write_file){
+            while(!feof($read_file)) {
+                fwrite($write_file, fread($read_file, 4096));
+            }
+            fclose($write_file);
+        }
+        fclose($read_file);
+    }
+}
