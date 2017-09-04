@@ -589,32 +589,39 @@ class MainController
     }
 
     /**
-     * Download photo to Instagram timeline
+     * Prepare photo to photo into Instagram
      *
      * @param $bot
      * @param User $user
      * @return Closure
      */
-    public function instagramPostTimelinePhoto($bot, User $user){
-        $ig = $this->instagramLogin($bot, $user);
-
-        return function () use ($bot, $user, $ig) {
+    public function instagramPreparePhotoToPost($bot, User $user){
+        return function () use ($bot, $user) {
             $bot->sendMessage($user->getTelegramId(), "А теперь отправь фотографию");
         };
     }
 
-    /**
-     * Download photo to Instagram timeline
-     *
-     * @param $bot
-     * @param User $user
-     * @return Closure
-     */
-    public function instagramPostStoryPhoto($bot, User $user){
-        $ig = $this->instagramLogin($bot, $user);
+    public function instagramPostPhoto($bot, User $user, $token) {
+        return function ($message) use ($bot, $user, $token) {
+            $lastUpdate = UpdateModel::getLastUpdateByUser($user->getId());
 
-        return function () use ($bot, $user, $ig) {
-            $bot->sendMessage($user->getTelegramId(), "А теперь отправь фотографию");
+            $is_command_to_timeline = strpos($lastUpdate->getTextOfMessage(), "/instagramPostTimelinePhoto");
+            $is_command_to_story = strpos($lastUpdate->getTextOfMessage(), "/instagramPostStoryPhoto");
+
+            $document = $message->getDocument();
+
+            if (!is_null($document)) {
+                $file = $bot->getFile($document->getFileId());
+                $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
+
+                $bot->sendMessage($user->getTelegramId(), "$file_path");
+
+                if ($is_command_to_story !== false && $is_command_to_story === 0){
+
+                } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
+
+                }
+            }
         };
     }
 

@@ -130,4 +130,33 @@ class UpdateModel extends Model
 
         return $result->fetchAll();
     }
+
+    /**
+     * Get last user's update
+     * 
+     * @param $id
+     * @return mixed|null
+     * @throws Exception
+     */
+    public static function getLastUpdateByUser($id) {
+        $connection = Database::connect();
+
+        try {
+            $stmt = $connection->prepare("SELECT * FROM updates WHERE id_user = ?");
+            $stmt->bindParam(1, $id);
+            
+            $result = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
+        if ($result) {
+            $data = $stmt->fetch();
+            $update = self::init($data);
+
+            return $update;
+        }
+
+        return null;
+    }
 }

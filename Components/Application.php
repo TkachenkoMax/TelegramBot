@@ -83,11 +83,12 @@ class Application {
             
             $this->bot->command('instagramLogin', $controller->instagramSetLogin($this->bot, $this->user));
             $this->bot->command('instagramPassword', $controller->instagramSetPassword($this->bot, $this->user));
-            $this->bot->command('instagramPostTimelinePhoto', $controller->instagramPostTimelinePhoto($this->bot, $this->user));
-            $this->bot->command('instagramPostStoryPhoto', $controller->instagramPostStoryPhoto($this->bot, $this->user));
+            $this->bot->command('instagramPostTimelinePhoto', $controller->instagramPreparePhotoToPost($this->bot, $this->user));
+            $this->bot->command('instagramPostStoryPhoto', $controller->instagramPreparePhotoToPost($this->bot, $this->user));
             $this->bot->command('instagramTimeline', $controller->instagramTimeline($this->bot, $this->user));
             $this->bot->command('instagramLikePost', $controller->instagramLikePost($this->bot, $this->user));
             $this->bot->command('instagramCommentPost', $controller->instagramCommentPost($this->bot, $this->user));
+            $this->bot->on($controller->instagramPostPhoto($this->bot, $this->user, $this->token), $controller->returnTrue());
         }
 
         $this->bot->handle($this->updates);
