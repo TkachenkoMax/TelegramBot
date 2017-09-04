@@ -616,9 +616,10 @@ class MainController
             if (!is_null($photo))
                 $document = $photo[0];
 
+            testFile($document);
+
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
-                testFile($file);
 
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
 
