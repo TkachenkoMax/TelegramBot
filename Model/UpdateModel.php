@@ -142,7 +142,7 @@ class UpdateModel extends Model
         $connection = Database::connect();
 
         try {
-            $stmt = $connection->prepare("SELECT * FROM updates WHERE id_user = ?");
+            $stmt = $connection->prepare("SELECT * FROM updates WHERE id_user = ? ORDER BY created_at DESC LIMIT 1");
             $stmt->bindParam(1, $id);
             
             $result = $stmt->execute();
