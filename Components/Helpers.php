@@ -124,7 +124,7 @@ function createWeatherText(array $params, $isDetailed){
  * @param $path
  */
 function downloadFile($url) {
-    $path = "public/files/images/2/instagram.jpg";
+    $path = __ROOT__ . "public/files/images/2/instagram.jpg";
 
     $read_file = fopen($url, "rb");
     if ($read_file) {
