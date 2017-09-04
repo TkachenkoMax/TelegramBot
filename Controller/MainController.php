@@ -601,6 +601,14 @@ class MainController
         };
     }
 
+    /**
+     * Post photo to Instagram timeline or story
+     *
+     * @param $bot
+     * @param User $user
+     * @param $token
+     * @return Closure
+     */
     public function instagramPostPhoto($bot, User $user, $token) {
         $ig = $this->instagramLogin($bot, $user);
         
@@ -621,7 +629,7 @@ class MainController
 
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
 
-                $path_on_server = downloadFile($file_path);
+                $path_on_server = downloadFile($file_path, $user->getId());
 
                 if ($is_command_to_story !== false && $is_command_to_story === 0){
                     $caption = str_replace("/instagramPostStoryPhoto", "", $lastUpdate->getTextOfMessage());
