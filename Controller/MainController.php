@@ -613,11 +613,11 @@ class MainController
             $document = $update->getMessage()->getDocument();
             $photo = $update->getMessage()->getPhoto();
 
+            testFile($photo);
+
             if (!is_null($photo))
                 $document = $photo[0];
-
-            testFile($document);
-
+            
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
 
