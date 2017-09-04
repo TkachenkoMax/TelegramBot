@@ -610,6 +610,8 @@ class MainController
 
             $document = $update->getMessage()->getDocument();
 
+            testFile($document);
+
             if (!is_null($document)) {
                 $file = $bot->getFile($document->getFileId());
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
@@ -620,6 +622,8 @@ class MainController
 
                 } elseif ($is_command_to_timeline !== false && $is_command_to_timeline === 0) {
 
+                } else {
+                    $bot->sendMessage($user->getTelegramId(), "Прекрасное фото, друг мой!");
                 }
             }
         };
