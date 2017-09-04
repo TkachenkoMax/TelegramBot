@@ -46,7 +46,9 @@ class Application {
     public function handle() 
     {
         $this->updates = $this->bot->run();
-        
+
+        testFile($this->updates);
+
         if ($this->updates[0]->getMessage() === null) return;
 
         $this->user = UserModel::getBy("telegram_id", $this->updates[0]->getMessage()->getFrom()->getId())[0];
