@@ -621,8 +621,6 @@ class MainController
 
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
 
-                $bot->sendMessage($user->getTelegramId(), "$file_path");
-
                 $path_on_server = downloadFile($file_path);
 
                 if ($is_command_to_story !== false && $is_command_to_story === 0){

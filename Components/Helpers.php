@@ -121,7 +121,7 @@ function createWeatherText(array $params, $isDetailed){
  * Download file from internal server to this server by file url
  *
  * @param $url
- * @param $path
+ * @return string
  */
 function downloadFile($url) {
     $path = __ROOT__ . "/public/files/images/2/instagram.jpg";
@@ -137,6 +137,6 @@ function downloadFile($url) {
         }
         fclose($read_file);
 
-        return "/public/files/images/2/instagram.jpg";
+        return "files/images/2/instagram.jpg";
     }
 }
