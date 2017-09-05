@@ -444,7 +444,8 @@ class MainController
                 $bot->sendMessage($user->getTelegramId(), "Нужна двухфакторная авторизация");
             }*/
         } catch (\Exception $e) {
-            $bot->sendMessage($user->getTelegramId(), "Something went wrong: " . $e->getMessage());
+            $bot->sendMessage($user->getTelegramId(), "Ошибка входа! Возможно, введены неверные данные учетной записи?");
+            return null;
         }
 
         return $ig;
