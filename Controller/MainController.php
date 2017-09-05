@@ -459,7 +459,7 @@ class MainController
      */
     public function instagramTimeline($bot, User $user) {
         return function ($message) use ($bot, $user) {
-            $ig = static::instagramLogin($bot, $user);
+            $ig = MainController::instagramLogin($bot, $user);
 
             if (is_null($ig))
                 return;
@@ -546,7 +546,7 @@ class MainController
      */
     public function instagramLikePost($bot, User $user){
         return function ($message) use ($bot, $user) {
-            $ig = static::instagramLogin($bot, $user);
+            $ig = MainController::instagramLogin($bot, $user);
 
             if (is_null($ig))
                 return;
@@ -577,7 +577,7 @@ class MainController
      */
     public function instagramCommentPost($bot, User $user){
         return function ($message) use ($bot, $user) {
-            $ig = static::instagramLogin($bot, $user);
+            $ig = MainController::instagramLogin($bot, $user);
 
             if (is_null($ig))
                 return;
@@ -637,7 +637,7 @@ class MainController
                 $document = $photo[count($photo)-2];
 
             if (!is_null($document)) {
-                $ig = static::instagramLogin($bot, $user);
+                $ig = MainController::instagramLogin($bot, $user);
 
                 if (is_null($ig))
                     return;
