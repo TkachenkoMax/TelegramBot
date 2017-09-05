@@ -458,9 +458,9 @@ class MainController
      * @return Closure
      */
     public function instagramTimeline($bot, User $user) {
-        $ig = $this->instagramLogin($bot, $user);
+        return function ($message) use ($bot, $user) {
+            $ig = $this->instagramLogin($bot, $user);
 
-        return function ($message) use ($bot, $user, $ig) {
             if (is_null($ig))
                 return;
 
@@ -545,9 +545,9 @@ class MainController
      * @return Closure
      */
     public function instagramLikePost($bot, User $user){
-        $ig = $this->instagramLogin($bot, $user);
+        return function ($message) use ($bot, $user) {
+            $ig = $this->instagramLogin($bot, $user);
 
-        return function ($message) use ($bot, $user, $ig) {
             if (is_null($ig))
                 return;
 
@@ -576,10 +576,9 @@ class MainController
      * @return Closure
      */
     public function instagramCommentPost($bot, User $user){
+        return function ($message) use ($bot, $user) {
+            $ig = $this->instagramLogin($bot, $user);
 
-        $ig = $this->instagramLogin($bot, $user);
-
-        return function ($message) use ($bot, $user, $ig) {
             if (is_null($ig))
                 return;
 
@@ -625,9 +624,7 @@ class MainController
      * @return Closure
      */
     public function instagramPostPhoto($bot, User $user, $token) {
-        $ig = $this->instagramLogin($bot, $user);
-        
-        return function ($update) use ($bot, $user, $token, $ig) {
+        return function ($update) use ($bot, $user, $token) {
             $lastUpdate = UpdateModel::getLastUpdateByUser($user->getId());
 
             $is_command_to_timeline = strpos($lastUpdate->getTextOfMessage(), "/instagramPostTimelinePhoto");
@@ -640,6 +637,8 @@ class MainController
                 $document = $photo[count($photo)-2];
 
             if (!is_null($document)) {
+                $ig = $this->instagramLogin($bot, $user);
+
                 if (is_null($ig))
                     return;
 
