@@ -428,6 +428,11 @@ class MainController
         $ig = new Instagram();
         $instagram_account = InstagramModel::getByUserId($user->getId());
 
+        if (is_null($instagram_account->getLogin()) || is_null($instagram_account->getPassword())) {
+            $bot->sendMessage($user->getTelegramId(), "Не все данные учетной записи Instagram введены");
+            return null;
+        }
+        
         try {
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
             $loginResponse = $ig->login();
@@ -456,6 +461,9 @@ class MainController
         $ig = $this->instagramLogin($bot, $user);
 
         return function ($message) use ($bot, $user, $ig) {
+            if (is_null($ig))
+                return;
+
             $number_of_photos = trim(str_replace("/instagramTimeline", "", $message->getText()));
             if (!is_numeric($number_of_photos) || $number_of_photos < 1 || $number_of_photos > 10) {
                 $bot->sendMessage($user->getTelegramId(), "Введите число в пределах от 1 до 10");
@@ -540,6 +548,9 @@ class MainController
         $ig = $this->instagramLogin($bot, $user);
 
         return function ($message) use ($bot, $user, $ig) {
+            if (is_null($ig))
+                return;
+
             $post_id = trim(str_replace("/instagramLikePost", "", $message->getText()));
             if ($post_id == "") {
                 $bot->sendMessage($user->getTelegramId(), "Введите id поста, которому надо поставить like");
@@ -565,9 +576,13 @@ class MainController
      * @return Closure
      */
     public function instagramCommentPost($bot, User $user){
+
         $ig = $this->instagramLogin($bot, $user);
 
         return function ($message) use ($bot, $user, $ig) {
+            if (is_null($ig))
+                return;
+
             $params = trim(str_replace("/instagramCommentPost", "", $message->getText()));
             
             $params_array = explode(" ", $params, 2);
@@ -625,6 +640,9 @@ class MainController
                 $document = $photo[count($photo)-2];
 
             if (!is_null($document)) {
+                if (is_null($ig))
+                    return;
+
                 $file = $bot->getFile($document->getFileId());
 
                 $file_path = "https://api.telegram.org/file/bot{$token}/{$file->getFilePath()}";
