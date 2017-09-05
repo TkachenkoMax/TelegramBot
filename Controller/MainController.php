@@ -38,9 +38,6 @@ class MainController
 
                 $user = UserModel::getBy("telegram_id", $telegram_id)[0];
 
-                mkdir("/public/files/images/{$user->getId()}/", 0777, true);
-                fopen("/public/files/images/{$user->getId()}/instagram.jpg", "rw");
-
                 $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
 Меня зовут Катарина, я ваш умный помощник в Телеграме.
 Чтобы увидеть список доступных команд и возможностей, напишите <i>/help</i>.
