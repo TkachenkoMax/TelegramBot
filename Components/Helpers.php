@@ -162,6 +162,8 @@ function getValueFromConfig($value) {
  */
 function translateMessage($message, $user, $parameters){
     $language = getUserLanguage($user);
+
+    testFile($language);
     $username = getUserUsername($user);
     $needed_dictionary = explode(".", $message);
 
@@ -197,8 +199,6 @@ function getUserLanguage($user) {
     $user_language = $user->getTelegramLanguage()->getLanguageName();
 
     $available_languages = getValueFromConfig("available_languages");
-
-    testFile($available_languages);
 
     foreach ($available_languages as $item) {
         if ($item["database_name"] == $user_language);
