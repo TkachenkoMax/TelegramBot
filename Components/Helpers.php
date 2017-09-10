@@ -168,7 +168,7 @@ function translateMessage($message, $user, $parameters){
     $dictionary_name = $needed_dictionary[0];
     $dictionary_message = $needed_dictionary[1];
 
-    $dictionary = include(__ROOT__ . "{$language}/{$dictionary_name}.php");
+    $dictionary = include(__ROOT__ . "/Components/Lang/{$language}/{$dictionary_name}.php");
 
     $answer_with_placeholders = $dictionary["$dictionary_message"];
 
