@@ -213,7 +213,7 @@ function getUserUsername($user) {
     if ($user->getAlias() != "")
         return $user->getAlias();
 
-    return $user->getFilrstName() . " " . $user->getLastName();
+    return $user->getFirstName() . " " . $user->getLastName();
 }
 
 /**
