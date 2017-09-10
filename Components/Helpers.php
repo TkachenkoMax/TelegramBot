@@ -198,10 +198,10 @@ function getUserLanguage($user) {
 
     $available_languages = getValueFromConfig("available_languages");
 
-    /*foreach ($available_languages as $item) {
-        if ($item["database_name"] == $user_language);
+    foreach ($available_languages as $item) {
+        if (strcasecmp($item["database_name"], $user_language) === 0)
             return $item["translator"];
-    }*/
+    }
 
     return "en";
 }
