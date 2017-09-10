@@ -195,6 +195,9 @@ function getUserLanguage($user) {
         return "en";
 
     $user_language = $user->getTelegramLanguage()->getLanguageName();
+
+    testFile($user_language);
+
     $available_languages = getValueFromConfig("available_languages");
 
     foreach ($available_languages as $item) {
