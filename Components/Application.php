@@ -87,6 +87,7 @@ class Application {
             $this->bot->command('instagramLikePost', $controller->instagramLikePost($this->bot, $this->user));
             $this->bot->command('instagramCommentPost', $controller->instagramCommentPost($this->bot, $this->user));
             $this->bot->on($controller->instagramPostPhoto($this->bot, $this->user, $this->token), $controller->returnTrue());
+            $this->bot->command('instagramInfo', $controller->instagramInfo($this->bot, $this->user));
         }
 
         $this->bot->handle($this->updates);

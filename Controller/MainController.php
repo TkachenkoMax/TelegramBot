@@ -302,7 +302,9 @@ class MainController
      */
     public function weather($bot, User $user){
         return function ($message) use ($bot, $user){
-            $city = $user->getCity()->getCity();;
+            $city = null;
+            if ($user->getCity() != null)
+                $city = $user->getCity()->getCity();
             $days = 1;
             $details = false;
 
@@ -484,7 +486,7 @@ class MainController
 
             $feed = $timeline->getFeedItems();
 
-            unset($feed[2]);
+            //unset($feed[2]);
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($i == count($feed)+1) {
@@ -665,6 +667,20 @@ class MainController
                     $bot->sendMessage($user->getTelegramId(), "Прекрасное фото, друг мой!");
                 }
             }
+        };
+    }
+
+    public function instagramInfo($bot, User $user) {
+        return function () use ($bot, $user) {
+            $ig = MainController::instagramLogin($bot, $user);
+
+            if (is_null($ig))
+                return;
+
+            $info = $ig->getSelfUserInfo();
+            testFile($info);
+
+            $bot->sendMessage($user->getTelegramId(), "Success");
         };
     }
 
