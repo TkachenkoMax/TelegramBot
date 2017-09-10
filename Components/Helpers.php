@@ -140,3 +140,14 @@ function downloadFile($url, $id) {
         return "files/images/instagram.jpg";
     }
 }
+
+/**
+ * Returns value from config file 'Config/bot.php'
+ * 
+ * @param $value
+ * @return mixed
+ */
+function getValueFromConfig($value) {
+    $config = include(__ROOT__ . "/Config/bot.php");
+    return $config[$value];
+}

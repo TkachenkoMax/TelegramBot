@@ -337,7 +337,7 @@ class MainController
                 $lang = getLanguageInfo($user->getTelegramLanguage()->getId(), "database_id", "forecast");
             $units = 'metric';
 
-            $owm = new OpenWeatherMap('89f361866c196cada5b38c69e5d96a9e');
+            $owm = new OpenWeatherMap(getValueFromConfig("weather_token"));
 
             try {
                 $weather = $owm->getDailyWeatherForecast($city, $units, $lang, "", $days);
@@ -439,14 +439,7 @@ class MainController
         
         try {
             $ig->setUser($instagram_account->getLogin(), $instagram_account->getPassword());
-            $loginResponse = $ig->login();
-
-            /*if (!is_null($loginResponse) && $loginResponse->getTwoFactorRequired()) {
-                $twoFactorIdentifier = $loginResponse->getTwoFactorInfo()->getTwoFactorIdentifier();
-                $verificationCode = trim(fgets(STDIN));
-                $ig->twoFactorLogin($verificationCode, $twoFactorIdentifier);
-                $bot->sendMessage($user->getTelegramId(), "Нужна двухфакторная авторизация");
-            }*/
+            $ig->login();
         } catch (\Exception $e) {
             $bot->sendMessage($user->getTelegramId(), "Ошибка входа! Возможно, введены неверные данные учетной записи?");
             return null;
@@ -485,8 +478,6 @@ class MainController
                 $number_of_photos = $num_results;
 
             $feed = $timeline->getFeedItems();
-
-            //unset($feed[2]);
 
             for ($i = 0; $i < $number_of_photos; $i++) {
                 if ($i == count($feed)+1) {
