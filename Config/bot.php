@@ -13,13 +13,15 @@ return array(
                                     "database_name" => "русский",
                                     "database_id" => 2,
                                     "yandex_geocoding" => "ru-RU",
-                                    "forecast" => "ru"
+                                    "forecast" => "ru",
+                                    "translator" => "ru"
                                  ], 
                                  [
                                     "database_name" => "english",
                                     "database_id" => 12,
                                     "yandex_geocoding" => "en-US",
-                                    "forecast" => "en"
+                                    "forecast" => "en",
+                                     "translator" => "en"
                                  ]
   ),
   "weather_token" => "89f361866c196cada5b38c69e5d96a9e",  

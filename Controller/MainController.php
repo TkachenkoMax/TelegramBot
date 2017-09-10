@@ -36,26 +36,12 @@ class MainController
                     }
                 }
 
-                $user = UserModel::getBy("telegram_id", $telegram_id)[0];
-
-                $answer = "Добро пожаловать, <b>$first_name $last_name</b>!
-Меня зовут Катарина, я ваш умный помощник в Телеграме.
-Чтобы увидеть список доступных команд и возможностей, напишите <i>/help</i>.
-
-Но сперва лучше сообщите мне о себе немного информации:
-
-1) <i>/setDateOfBirth &ltдата рождения&gt</i> - указать Вашу дату рождения чтобы я никогда не забыла поздравить Вас
-
-2) <i>/setCity &ltгород&gt</i> - указать Ваш город проживания, что поможет мне в некоторых запросах
-
-3) <i>/setAlias &ltпсевдоним&gt</i> - указать Ваш псевдоним, именно так я к Вам и буду обращаться вместо $first_name $last_name
-
-4) <i>/setLanguage</i> - указать язык, на котором я буду Вам писать. На данный момент доступен только русский
-
-<b>У Вас все получится:)</b>";
+                $answer = translateMessage("answers.register_new", $user, null);
                 $bot->sendMessage($telegram_id, $answer, "HTML");
             } else {
-                $bot->sendMessage($user->getTelegramId(), "Вы уже зарегистрированы!");
+                $answer = translateMessage("answers.register_old", $user, null);
+                
+                $bot->sendMessage($user->getTelegramId(), $answer);
             }
         };
     }

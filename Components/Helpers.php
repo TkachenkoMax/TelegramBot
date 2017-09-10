@@ -151,3 +151,83 @@ function getValueFromConfig($value) {
     $config = include(__ROOT__ . "/Config/bot.php");
     return $config[$value];
 }
+
+/**
+ * Get needed message in needed translation
+ *
+ * @param $message
+ * @param $user
+ * @param $parameters
+ * @return string
+ */
+function translateMessage($message, $user, $parameters){
+    $language = getUserLanguage($user);
+    $username = getUserUsername($user);
+    $needed_dictionary = explode(".", $message);
+
+    $dictionary_name = $needed_dictionary[0];
+    $dictionary_message = $needed_dictionary[1];
+
+    $dictionary = include(__ROOT__ . "{$language}/{$dictionary_name}.php");
+
+    $answer_with_placeholders = $dictionary["$dictionary_message"];
+
+    if (is_array($answer_with_placeholders)) {
+        $number_of_message = rand(0, count($answer_with_placeholders));
+        $answer_with_placeholders = $answer_with_placeholders[$number_of_message];
+    }
+
+    $parameters["username"] = $username;
+
+    $answer = fillPlaceholdersInMessage($answer_with_placeholders, $parameters);
+    
+    return $answer;
+}
+
+/**
+ * Get user language for translations
+ *
+ * @param $user
+ * @return string
+ */
+function getUserLanguage($user) {
+    if ($user == null || $user->getTelegramLanguage() == null)
+        return "en";
+
+    $user_language = $user->getTelegramLanguage()->getLanguageName();
+    $available_languages = getValueFromConfig("available_languages");
+
+    foreach ($available_languages as $item) {
+        if ($item["database_name"] == $user_language);
+            return $item["translator"];
+    }
+
+    return "en";
+}
+
+/** Get user username (alias or first name and last name) for translations
+ * @param $user
+ * @return string
+ */
+function getUserUsername($user) {
+    if ($user->getAlias() != "")
+        return $user->getAlias();
+
+    return $user->getFilrstName() . " " . $user->getLastName();
+}
+
+/**
+ * Create final view of a message, replacing placeholders with different values
+ *
+ * @param $answer
+ * @param $parameters
+ * @return mixed
+ */
+function fillPlaceholdersInMessage($answer, array $parameters) {
+    foreach ($parameters as $key => $value){
+        $placeholder = ":" . $key;
+        $answer = str_replace($placeholder, $value, $answer);
+    }
+
+    return $answer;
+}
