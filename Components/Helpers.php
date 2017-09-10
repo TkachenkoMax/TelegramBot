@@ -162,8 +162,6 @@ function getValueFromConfig($value) {
  */
 function translateMessage($message, $user, $parameters){
     $language = getUserLanguage($user);
-
-    testFile($language);
     $username = getUserUsername($user);
     $needed_dictionary = explode(".", $message);
 
@@ -200,10 +198,10 @@ function getUserLanguage($user) {
 
     $available_languages = getValueFromConfig("available_languages");
 
-    foreach ($available_languages as $item) {
+    /*foreach ($available_languages as $item) {
         if ($item["database_name"] == $user_language);
             return $item["translator"];
-    }
+    }*/
 
     return "en";
 }
