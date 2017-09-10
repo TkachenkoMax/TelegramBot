@@ -670,6 +670,13 @@ class MainController
         };
     }
 
+    /**
+     * Send to user information about his Instagram account
+     * 
+     * @param $bot
+     * @param User $user
+     * @return Closure
+     */
     public function instagramInfo($bot, User $user) {
         return function () use ($bot, $user) {
             $ig = MainController::instagramLogin($bot, $user);
@@ -677,10 +684,24 @@ class MainController
             if (is_null($ig))
                 return;
 
-            $info = $ig->getSelfUserInfo();
-            testFile($info);
+            $user_info = $ig->getSelfUserInfo()->getUser();
+            $photo_url = $user_info->getHdProfilePicUrlInfo()->url;
+            $caption = $user_info->getUsername();
+            $caption .= ($user_info->getFullName() == "") ? "" : " (" . $user_info->getFullName() . ")";
 
-            $bot->sendMessage($user->getTelegramId(), "Success");
+            $profile_link = "https://www.instagram.com/{$user_info->getUsername()}/";
+            
+            $message = "<b>Информация об Instagram аккаунте</b>" .
+                "\n<b>Открыть в Instagram</b>: " . $profile_link .
+                "\n<b>Биография</b>: " . ($user_info->getBiography() != "" ? $user_info->getBiography() : "не установлена") .
+                "\n<b>Указанная ссылка</b>: " . ($user_info->getExternalUrl() != "" ? $user_info->getExternalUrl() : "не установлена") .
+                "\n\n<b>Количество подписок</b>: " . $user_info->getFollowingCount() .
+                "\n<b>Количество подписчиков</b>: " . $user_info->getFollowerCount() .
+                "\n<b>Количество публикаций</b>: " . $user_info->getMediaCount();
+
+
+            $bot->sendPhoto($user->getTelegramId(), $photo_url, $caption);
+            $bot->sendMessage($user->getTelegramId(), $message, "HTML", true);
         };
     }
 
