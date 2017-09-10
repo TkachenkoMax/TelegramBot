@@ -689,7 +689,7 @@ class MainController
             $caption = $user_info->getUsername();
             $caption .= ($user_info->getFullName() == "") ? "" : " (" . $user_info->getFullName() . ")";
 
-            $profile_link = "https://www.instagram.com/{$user_info->getUsername()}/";
+            $profile_link = "https://www.instagram.com/_u/{$user_info->getUsername()}/";
             
             $message = "<b>Информация об Instagram аккаунте</b>" .
                 "\n<b>Открыть в Instagram</b>: " . $profile_link .
