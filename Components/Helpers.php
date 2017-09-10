@@ -173,7 +173,7 @@ function translateMessage($message, $user, $parameters){
     $answer_with_placeholders = $dictionary["$dictionary_message"];
 
     if (is_array($answer_with_placeholders)) {
-        $number_of_message = rand(0, count($answer_with_placeholders));
+        $number_of_message = rand(0, count($answer_with_placeholders) - 1);
         $answer_with_placeholders = $answer_with_placeholders[$number_of_message];
     }
 
