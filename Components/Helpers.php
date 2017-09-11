@@ -137,7 +137,7 @@ function downloadFile($url, $id) {
         }
         fclose($read_file);
 
-        return "files/images/instagram.jpg";
+        return "files/instagram_images/instagram.jpg";
     }
 }
 
